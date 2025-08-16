@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Quiz Portal</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin:0; padding:0;
+      background:#f4f4f9;
+      display:flex;
+      height:100vh;
+      flex-direction: row;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width:250px;
+      background:#fff;
+      box-shadow:2px 0 8px rgba(0,0,0,0.1);
+      padding:20px;
+      display:none; /* hidden until login */
+      flex-direction:column;
+      justify-content:flex-start;
+      align-items:flex-start;
+      flex-shrink:0;
+      box-sizing: border-box;
+    }
+    .sidebar h3 {
+      margin-bottom:20px;
+      color:#0a0a0a;
+      text-align: left;
+      font-size: medium;
+    }
+    .sidebar p {
+      margin:8px 0;
+      font-size:14px;
+      color:#0d0d0d;
+      word-wrap: break-word;
+      text-align: left;
+    }
+
+    /* Main content */
+    .main {
+      flex:1;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      padding:15px;
+      width:100%;
+      box-sizing:border-box;
+    }
+
+    .card {
+      background:#fff;
+      padding:25px;
+      border-radius:10px;
+      box-shadow:0 4px 8px rgba(0,0,0,0.2);
+      width:100%;
+      max-width:450px;
+      text-align:center;
+      margin:auto;
+    }
+
+    input {
+      width:90%; padding:10px;
+      margin:10px 0;
+      border:1px solid #ccc;
+      border-radius:5px;
+      font-size:16px;
+    }
+    button {
+      padding:10px 20px;
+      background:#4a90e2;
+      color:#fff;
+      border:none;
+      border-radius:5px;
+      cursor:pointer;
+      font-size:16px;
+    }
+    button:hover {background:#357ab7;}
+    #error {color:red; margin-top:10px;}
+
+    .quiz-box, .result-box, .start-box {display:none;}
+    .question {font-size:18px; margin:20px 0;}
+    .options button {
+      display:inline-block;
+      width:45%;
+      margin:8px 2%;
+      background:#1e1e1e;
+      color:#fff;
+      border:1px solid #0e0b0b;
+      border-radius:5px;
+      padding:10px;
+      cursor:pointer;
+      font-size:15px;
+    }
+    .options button:hover {background:#444;}
+    #timer {
+      font-weight:bold;
+      font-size:20px;
+      margin:10px;
+    }
+    .timer-green {color:green;}
+    .red-blink {color:red; animation: blink 1s infinite;}
+    @keyframes blink {50% {opacity:0;}}
+
+    /* Loading spinner */
+    .spinner {
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #4a90e2;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      animation: spin 1s linear infinite;
+      margin: 10px auto;
+      display:none;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg);}
+      100% { transform: rotate(360deg);}
+    }
+
+    /* ========== RESPONSIVE DESIGN ========== */
+    @media (max-width: 900px) {
+      body {
+        flex-direction: column; /* Sidebar becomes top bar */
+      }
+      .sidebar {
+        width:100%;
+        flex-direction: row;
+        flex-wrap: wrap;          /* ✅ Allow items to wrap */
+        justify-content: space-around;
+        padding:15px;
+        text-align:center;
+        box-shadow: 0 2px 8px rgba(10, 10, 10, 0.1);
+      }
+      .sidebar h3 {
+        display:none; /* Hide heading on small screens */
+      }
+      .sidebar p {
+        margin:10px;
+        font-size:13px;
+        flex: 1 1 30%;   /* ✅ Distribute evenly */
+        text-align: center;
+      }
+      .main {
+        padding:10px;
+        width:100%;
+      }
+      .card {
+        width:100%;
+        max-width:100%;
+        padding:20px;
+        margin:auto;
+      }
+      .options button {
+        width:100%;
+        margin:8px 0;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .question {
+        font-size:16px;
+      }
+      #timer {
+        font-size:18px;
+      }
+      input, button {
+        font-size:14px;
+      }
+      .options button {
+        font-size:14px;
+        padding:8px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+  <h3>Student Info</h3>
+  <p><b>Reg ID:</b> <span id="sideReg"></span></p>
+  <p><b>Name:</b> <span id="sideName"></span></p>
+  <p><b>Dept:</b> <span id="sideDept"></span></p>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main">
+  <!-- LOGIN PAGE -->
+  <div class="center-box login-box">
+    <div class="card">
+      <h2>Login to Quiz</h2>
+      <input type="text" id="regId" placeholder="Register Number" required>
+      <input type="password" id="password" placeholder="Password" required>
+      <button onclick="login()">Login</button>
+      <div class="spinner" id="loginSpinner"></div>
+      <p id="error"></p>
+    </div>
+  </div>
+
+  <!-- START PAGE -->
+  <div class="center-box start-box">
+    <div class="card">
+      <h2>Welcome <span id="studentName"></span></h2>
+      <p>Click below to start your quiz.</p>
+      <button onclick="startQuiz()">Start Quiz</button>
+    </div>
+  </div>
+
+  <!-- QUIZ PAGE -->
+  <div class="center-box quiz-box">
+    <div class="card">
+      <div id="timer" class="timer-green">Time: 20s</div>
+      <div class="question" id="question"></div>
+      <div class="options" id="options"></div>
+    </div>
+  </div>
+
+  <!-- RESULT PAGE -->
+  <div class="center-box result-box">
+    <div class="card">
+      <h2>Quiz Completed</h2>
+      <p id="score"></p>
+    </div>
+  </div>
+</div>
+
+<script>
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxf3WL1bqlcBnIVSrQaUy60LpgKJFK1WpUxAQEjUqKitYdSmrWDH6H4IbvrJdob0IIP/exec"; // Replace with Apps Script URL
+
+  const quizData = [
+     { question: "What does HTML stand for?", options: ["Hyper Trainer Marking Language", "Hyper Text Markup Language", "Hyper Text Marketing Language", "Hyper Text Management Language"], answer: "Hyper Text Markup Language" },
+     { question: "Which HTML tag is used to define the largest heading?", options: ["<h6>", "<head>", "<h1>", "<heading>"], answer: "<h1>" },
+     { question: "Which attribute is used in HTML to define inline CSS?", options: ["style", "css", "font", "class"], answer: "style" },
+     { question: "Which property is used in CSS to change text color?", options: ["font-color", "text-color", "color", "background-color"], answer: "color" },
+     { question: "Which HTML tag is used to insert an image?", options: ["<img>", "<picture>", "<src>", "<image>"], answer: "<img>" },
+     { question: "In CSS, how do you make text bold?", options: ["font-weight: bold;", "style: bold;", "text:bold;", "font:bold;"], answer: "font-weight: bold;" },
+     { question: "Which tag is used to create a hyperlink in HTML?", options: ["<link>", "<a>", "<href>", "<url>"], answer: "<a>" },
+     { question: "Which property is used in CSS to change the background color?", options: ["bgcolor", "background-color", "color", "background"], answer: "background-color" },
+     { question: "Which HTML element is used to display a numbered list?", options: ["<ul>", "<ol>", "<li>", "<dl>"], answer: "<ol>" },
+     { question: "Which HTML tag is used to insert a line break?", options: ["<lb>", "<break>", "<br>", "<line>"], answer: "<br>" },
+     { question: "Which CSS property controls the size of text?", options: ["font-style", "font-size", "text-size", "text-style"], answer: "font-size" },
+     { question: "Which HTML tag is used to create a table row?", options: ["<td>", "<tr>", "<th>", "<row>"], answer: "<tr>" },
+     { question: "Which CSS property is used to center text?", options: ["text-align", "align", "center", "font-align"], answer: "text-align" },
+     { question: "What does the <title> tag in HTML define?", options: ["Main heading", "Document title", "Paragraph title", "Image caption"], answer: "Document title" },
+     { question: "Which HTML tag is used to define an unordered list?", options: ["<ul>", "<ol>", "<li>", "<dl>"], answer: "<ul>" },
+     { question: "Which CSS property is used to change the font of text?", options: ["font-family", "font-style", "font-weight", "text-family"], answer: "font-family" },
+     { question: "Which HTML attribute is used to provide alternative text for images?", options: ["alt", "title", "src", "caption"], answer: "alt" },
+     { question: "Which CSS property controls the spacing between lines of text?", options: ["spacing", "line-height", "letter-spacing", "word-spacing"], answer: "line-height" },
+     { question: "Which HTML element is used to define a paragraph?", options: ["<para>", "<p>", "<text>", "<paragraph>"], answer: "<p>" },
+     { question: "Which CSS property adds space inside the element border?", options: ["margin", "padding", "border", "spacing"], answer: "padding" }
+  ];
+
+  let currentQ = 0, score = 0, timer, timeLeft = 20;
+
+  // LOGIN FUNCTION
+  function login() {
+    let regId = document.getElementById("regId").value.trim();
+    let password = document.getElementById("password").value.trim();
+    document.getElementById("loginSpinner").style.display = "block";
+    document.getElementById("error").innerText = "";
+
+    fetch(SCRIPT_URL, {
+      method: "POST",
+      body: JSON.stringify({ action: "login", regId, password })
+    })
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById("loginSpinner").style.display = "none";
+      if (data.status === "success") {
+        localStorage.setItem("regId", regId);
+        localStorage.setItem("name", data.name);
+        localStorage.setItem("dept", data.dept);
+
+        document.querySelector(".login-box").style.display = "none";
+        document.getElementById("studentName").innerText = data.name + " (" + regId + ")";
+        document.querySelector(".start-box").style.display = "flex";
+
+        // Show sidebar
+        document.getElementById("sidebar").style.display = "flex";
+        document.getElementById("sideReg").innerText = regId;
+        document.getElementById("sideName").innerText = data.name;
+        document.getElementById("sideDept").innerText = data.dept;
+
+      } else if (data.status === "already") {
+        document.querySelector(".login-box .card").innerHTML = `<h2>You are already attended the quiz!</h2>`;
+      } else {
+        document.getElementById("error").innerText = "Invalid Register No or Password!";
+      }
+    })
+    .catch(() => {
+      document.getElementById("loginSpinner").style.display = "none";
+      document.getElementById("error").innerText = "Server Error!";
+    });
+  }
+
+  // START QUIZ
+  function startQuiz() {
+    document.querySelector(".start-box").style.display = "none";
+    document.querySelector(".quiz-box").style.display = "flex";
+    loadQuestion();
+  }
+
+  // LOAD QUESTION
+  function loadQuestion() {
+    if (currentQ >= quizData.length) {
+      showResult();
+      return;
+    }
+    document.getElementById("question").innerText = "Question " + (currentQ+1) + ": " + quizData[currentQ].question;
+    let optionsDiv = document.getElementById("options");
+    optionsDiv.innerHTML = "";
+
+    quizData[currentQ].options.forEach(opt => {
+      let btn = document.createElement("button");
+      btn.innerText = opt;
+      btn.onclick = () => checkAnswer(opt);
+      optionsDiv.appendChild(btn);
+    });
+
+    resetTimer();
+  }
+
+  // TIMER
+  function resetTimer() {
+    clearInterval(timer);
+    timeLeft = 20;
+    updateTimerDisplay();
+
+    timer = setInterval(() => {
+      timeLeft--;
+      updateTimerDisplay();
+
+      if (timeLeft <= 0) {
+        clearInterval(timer);
+        currentQ++;
+        loadQuestion();
+      }
+    }, 1000);
+  }
+
+  function updateTimerDisplay() {
+    let timerEl = document.getElementById("timer");
+    timerEl.innerText = "Time: " + timeLeft + "s";
+    timerEl.classList.remove("red-blink","timer-green");
+
+    if (timeLeft <= 8) {
+      timerEl.classList.add("red-blink");
+    } else {
+      timerEl.classList.add("timer-green");
+    }
+  }
+
+  // CHECK ANSWER
+  function checkAnswer(answer) {
+    if (answer === quizData[currentQ].answer) {
+      score++;
+    }
+    currentQ++;
+    clearInterval(timer);
+    loadQuestion();
+  }
+
+  // SHOW RESULT
+  function showResult() {
+    document.querySelector(".quiz-box").style.display = "none";
+    document.querySelector(".result-box").style.display = "flex";
+
+    let name = localStorage.getItem("name");
+    let regId = localStorage.getItem("regId");
+    let dept = localStorage.getItem("dept");
+
+    document.getElementById("score").innerText =
+      `Your Score: ${score}/${quizData.length}`;
+
+    fetch(SCRIPT_URL, {
+      method: "POST",
+      body: JSON.stringify({ action: "submitScore", regId, score })
+    });
+  }
+</script>
+
+</body>
+</html>

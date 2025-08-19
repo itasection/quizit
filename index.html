@@ -320,6 +320,9 @@
     loadQuestion();
   }
 
+  document.addEventListener("keydown", (e) => { if (e.key === "Enter") document.getElementById("loginBtn").click(); });
+
+
   // ====== Load Question ======
   function loadQuestion() {
     if (currentQ >= quizData.length) {
@@ -462,3 +465,4 @@
 
 </body>
 </html>
+

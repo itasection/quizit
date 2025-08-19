@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Quiz Portal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -37,6 +38,7 @@
       font-size:14px;
       color:#0d0d0d;
       word-wrap: break-word;
+      word-break: break-word; /* ✅ prevent overflow */
       text-align: left;
     }
 
@@ -116,64 +118,37 @@
       margin: 10px auto;
       display:none;
     }
-    @keyframes spin {
-      0% { transform: rotate(0deg);}
-      100% { transform: rotate(360deg);}
-    }
+    @keyframes spin { 0% { transform: rotate(0deg);} 100% { transform: rotate(360deg);} }
 
     /* ========== RESPONSIVE DESIGN ========== */
     @media (max-width: 900px) {
-      body {
-        flex-direction: column; /* Sidebar becomes top bar */
-      }
+      body { flex-direction: column; } /* Sidebar becomes top bar */
       .sidebar {
         width:100%;
         flex-direction: row;
-        flex-wrap: wrap;          /* ✅ Allow items to wrap */
+        flex-wrap: wrap;
         justify-content: space-around;
         padding:15px;
         text-align:center;
         box-shadow: 0 2px 8px rgba(10, 10, 10, 0.1);
       }
-      .sidebar h3 {
-        display:none; /* Hide heading on small screens */
-      }
+      .sidebar h3 { display:none; }
       .sidebar p {
         margin:10px;
         font-size:13px;
-        flex: 1 1 30%;   /* ✅ Distribute evenly */
+        flex: 1 1 30%;
         text-align: center;
       }
-      .main {
-        padding:10px;
-        width:100%;
-      }
-      .card {
-        width:100%;
-        max-width:100%;
-        padding:20px;
-        margin:auto;
-      }
-      .options button {
-        width:100%;
-        margin:8px 0;
-      }
+      .main { padding:10px; width:100%; }
+      .card { width:100%; max-width:100%; padding:20px; margin:auto; }
+      .options button { width:100%; margin:8px 0; }
     }
 
     @media (max-width: 480px) {
-      .question {
-        font-size:16px;
-      }
-      #timer {
-        font-size:18px;
-      }
-      input, button {
-        font-size:14px;
-      }
-      .options button {
-        font-size:14px;
-        padding:8px;
-      }
+      .question { font-size:16px; }
+      #timer { font-size:18px; }
+      input, button { font-size:14px; }
+      .options button { font-size:14px; padding:8px; }
     }
   </style>
 </head>
@@ -192,10 +167,11 @@
   <!-- LOGIN PAGE -->
   <div class="center-box login-box">
     <div class="card">
-      <h2>Login to Quiz</h2>
+      <h2>Welcome to the Quiz Portal.</h2>
+      <h3>ROUND 1</h3>
       <input type="text" id="regId" placeholder="Register Number" required>
       <input type="password" id="password" placeholder="Password" required>
-      <button onclick="login()">Login</button>
+      <button id="loginBtn" onclick="login()">Login</button>
       <div class="spinner" id="loginSpinner"></div>
       <p id="error"></p>
     </div>
@@ -206,7 +182,10 @@
     <div class="card">
       <h2>Welcome <span id="studentName"></span></h2>
       <p>Click below to start your quiz.</p>
-      <button onclick="startQuiz()">Start Quiz</button>
+      <button id="startBtn" onclick="startQuiz()">Start Quiz</button>
+      <p style="font-size:12px;color:#cf1e1e;margin-top:10px">
+        The quiz will run in fullscreen mode. Exiting fullscreen, switching tabs/apps, or minimizing will end the quiz with 0 marks. And You will <b>Eliminated</b> from the Round.
+      </p>
     </div>
   </div>
 
@@ -229,39 +208,59 @@
 </div>
 
 <script>
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxf3WL1bqlcBnIVSrQaUy60LpgKJFK1WpUxAQEjUqKitYdSmrWDH6H4IbvrJdob0IIP/exec"; // Replace with Apps Script URL
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxf3WL1bqlcBnIVSrQaUy60LpgKJFK1WpUxAQEjUqKitYdSmrWDH6H4IbvrJdob0IIP/exec"; // your Apps Script URL
 
+  // ====== Quiz Questions ======
   const quizData = [
-     { question: "What does HTML stand for?", options: ["Hyper Trainer Marking Language", "Hyper Text Markup Language", "Hyper Text Marketing Language", "Hyper Text Management Language"], answer: "Hyper Text Markup Language" },
-     { question: "Which HTML tag is used to define the largest heading?", options: ["<h6>", "<head>", "<h1>", "<heading>"], answer: "<h1>" },
-     { question: "Which attribute is used in HTML to define inline CSS?", options: ["style", "css", "font", "class"], answer: "style" },
-     { question: "Which property is used in CSS to change text color?", options: ["font-color", "text-color", "color", "background-color"], answer: "color" },
-     { question: "Which HTML tag is used to insert an image?", options: ["<img>", "<picture>", "<src>", "<image>"], answer: "<img>" },
-     { question: "In CSS, how do you make text bold?", options: ["font-weight: bold;", "style: bold;", "text:bold;", "font:bold;"], answer: "font-weight: bold;" },
-     { question: "Which tag is used to create a hyperlink in HTML?", options: ["<link>", "<a>", "<href>", "<url>"], answer: "<a>" },
-     { question: "Which property is used in CSS to change the background color?", options: ["bgcolor", "background-color", "color", "background"], answer: "background-color" },
-     { question: "Which HTML element is used to display a numbered list?", options: ["<ul>", "<ol>", "<li>", "<dl>"], answer: "<ol>" },
-     { question: "Which HTML tag is used to insert a line break?", options: ["<lb>", "<break>", "<br>", "<line>"], answer: "<br>" },
-     { question: "Which CSS property controls the size of text?", options: ["font-style", "font-size", "text-size", "text-style"], answer: "font-size" },
-     { question: "Which HTML tag is used to create a table row?", options: ["<td>", "<tr>", "<th>", "<row>"], answer: "<tr>" },
-     { question: "Which CSS property is used to center text?", options: ["text-align", "align", "center", "font-align"], answer: "text-align" },
-     { question: "What does the <title> tag in HTML define?", options: ["Main heading", "Document title", "Paragraph title", "Image caption"], answer: "Document title" },
-     { question: "Which HTML tag is used to define an unordered list?", options: ["<ul>", "<ol>", "<li>", "<dl>"], answer: "<ul>" },
-     { question: "Which CSS property is used to change the font of text?", options: ["font-family", "font-style", "font-weight", "text-family"], answer: "font-family" },
-     { question: "Which HTML attribute is used to provide alternative text for images?", options: ["alt", "title", "src", "caption"], answer: "alt" },
-     { question: "Which CSS property controls the spacing between lines of text?", options: ["spacing", "line-height", "letter-spacing", "word-spacing"], answer: "line-height" },
-     { question: "Which HTML element is used to define a paragraph?", options: ["<para>", "<p>", "<text>", "<paragraph>"], answer: "<p>" },
-     { question: "Which CSS property adds space inside the element border?", options: ["margin", "padding", "border", "spacing"], answer: "padding" }
+    { question: "What does HTML stand for?", options: ["Hyper Trainer Marking Language", "Hyper Text Markup Language", "Hyper Text Marketing Language", "Hyper Text Management Language"], answer: "Hyper Text Markup Language" },
+    { question: "Which HTML tag is used to define the largest heading?", options: ["<h6>", "<head>", "<h1>", "<heading>"], answer: "<h1>" },
+    { question: "Which attribute is used in HTML to define inline CSS?", options: ["style", "css", "font", "class"], answer: "style" },
+    { question: "Which property is used in CSS to change text color?", options: ["font-color", "text-color", "color", "background-color"], answer: "color" },
+    { question: "Which HTML tag is used to insert an image?", options: ["<img>", "<picture>", "<src>", "<image>"], answer: "<img>" },
+    { question: "In CSS, how do you make text bold?", options: ["font-weight: bold;", "style: bold;", "text:bold;", "font:bold;"], answer: "font-weight: bold;" },
+    { question: "Which tag is used to create a hyperlink in HTML?", options: ["<link>", "<a>", "<href>", "<url>"], answer: "<a>" },
+    { question: "Which property is used in CSS to change the background color?", options: ["bgcolor", "background-color", "color", "background"], answer: "background-color" },
+    { question: "Which HTML element is used to display a numbered list?", options: ["<ul>", "<ol>", "<li>", "<dl>"], answer: "<ol>" },
+    { question: "Which HTML tag is used to insert a line break?", options: ["<lb>", "<break>", "<br>", "<line>"], answer: "<br>" },
+    { question: "Which CSS property controls the size of text?", options: ["font-style", "font-size", "text-size", "text-style"], answer: "font-size" },
+    { question: "Which HTML tag is used to create a table row?", options: ["<td>", "<tr>", "<th>", "<row>"], answer: "<tr>" },
+    { question: "Which CSS property is used to center text?", options: ["text-align", "align", "center", "font-align"], answer: "text-align" },
+    { question: "What does the <title> tag in HTML define?", options: ["Main heading", "Document title", "Paragraph title", "Image caption"], answer: "Document title" },
+    { question: "Which HTML tag is used to define an unordered list?", options: ["<ul>", "<ol>", "<li>", "<dl>"], answer: "<ul>" },
+    { question: "Which CSS property is used to change the font of text?", options: ["font-family", "font-style", "font-weight", "text-family"], answer: "font-family" },
+    { question: "Which HTML attribute is used to provide alternative text for images?", options: ["alt", "title", "src", "caption"], answer: "alt" },
+    { question: "Which CSS property controls the spacing between lines of text?", options: ["spacing", "line-height", "letter-spacing", "word-spacing"], answer: "line-height" },
+    { question: "Which HTML element is used to define a paragraph?", options: ["<para>", "<p>", "<text>", "<paragraph>"], answer: "<p>" },
+    { question: "Which CSS property adds space inside the element border?", options: ["margin", "padding", "border", "spacing"], answer: "padding" }
   ];
 
+  // ====== State ======
   let currentQ = 0, score = 0, timer, timeLeft = 20;
+  let quizActive = false;
+  let hasSubmitted = false; // prevent duplicate submits
+  let sessionToken = null;  // from server at login
 
-  // LOGIN FUNCTION
+  // ====== Helpers: Fullscreen ======
+  function enterFullscreen() {
+    const el = document.documentElement;
+    if (el.requestFullscreen) el.requestFullscreen();
+    else if (el.mozRequestFullScreen) el.mozRequestFullScreen();
+    else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+    else if (el.msRequestFullscreen) el.msRequestFullscreen();
+  }
+  function isFullscreen() {
+    return document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement;
+  }
+
+  // ====== Login ======
   function login() {
-    let regId = document.getElementById("regId").value.trim();
-    let password = document.getElementById("password").value.trim();
-    document.getElementById("loginSpinner").style.display = "block";
-    document.getElementById("error").innerText = "";
+    const regId = document.getElementById("regId").value.trim();
+    const password = document.getElementById("password").value.trim();
+    const spinner = document.getElementById("loginSpinner");
+    const err = document.getElementById("error");
+    err.innerText = "";
+    spinner.style.display = "block";
+    document.getElementById("loginBtn").disabled = true;
 
     fetch(SCRIPT_URL, {
       method: "POST",
@@ -269,14 +268,19 @@
     })
     .then(res => res.json())
     .then(data => {
-      document.getElementById("loginSpinner").style.display = "none";
+      spinner.style.display = "none";
+      document.getElementById("loginBtn").disabled = false;
+
       if (data.status === "success") {
+        sessionToken = data.token; // ✅ token from server
         localStorage.setItem("regId", regId);
         localStorage.setItem("name", data.name);
         localStorage.setItem("dept", data.dept);
+        localStorage.setItem("token", sessionToken);
 
+        // Show start screen
         document.querySelector(".login-box").style.display = "none";
-        document.getElementById("studentName").innerText = data.name + " (" + regId + ")";
+        document.getElementById("studentName").innerText = `${data.name} (${regId})`;
         document.querySelector(".start-box").style.display = "flex";
 
         // Show sidebar
@@ -286,36 +290,50 @@
         document.getElementById("sideDept").innerText = data.dept;
 
       } else if (data.status === "already") {
-        document.querySelector(".login-box .card").innerHTML = `<h2>You are already attended the quiz!</h2>`;
+        // Already attempted → Block re-login
+        document.querySelector(".login-box .card").innerHTML =
+          `<h2>Attempt Recorded</h2><p>You have already completed this quiz.</p>`;
       } else {
-        document.getElementById("error").innerText = "Invalid Register No or Password!";
+        err.innerText = "Invalid Register No or Password!";
       }
     })
     .catch(() => {
-      document.getElementById("loginSpinner").style.display = "none";
-      document.getElementById("error").innerText = "Server Error!";
+      spinner.style.display = "none";
+      document.getElementById("loginBtn").disabled = false;
+      err.innerText = "Server Error!";
     });
   }
 
-  // START QUIZ
+  // ====== Start Quiz ======
   function startQuiz() {
+    // Move to quiz UI
     document.querySelector(".start-box").style.display = "none";
     document.querySelector(".quiz-box").style.display = "flex";
+    quizActive = true;
+    hasSubmitted = false;
+    score = 0;
+    currentQ = 0;
+
+    // Enter fullscreen (cannot hide OS buttons, but we enforce fail if exit)
+    enterFullscreen();
+
     loadQuestion();
   }
 
-  // LOAD QUESTION
+  // ====== Load Question ======
   function loadQuestion() {
     if (currentQ >= quizData.length) {
-      showResult();
+      showResult(false);
       return;
     }
-    document.getElementById("question").innerText = "Question " + (currentQ+1) + ": " + quizData[currentQ].question;
-    let optionsDiv = document.getElementById("options");
-    optionsDiv.innerHTML = "";
 
+    document.getElementById("question").innerText =
+      `Question ${currentQ+1}: ${quizData[currentQ].question}`;
+
+    const optionsDiv = document.getElementById("options");
+    optionsDiv.innerHTML = "";
     quizData[currentQ].options.forEach(opt => {
-      let btn = document.createElement("button");
+      const btn = document.createElement("button");
       btn.innerText = opt;
       btn.onclick = () => checkAnswer(opt);
       optionsDiv.appendChild(btn);
@@ -324,7 +342,7 @@
     resetTimer();
   }
 
-  // TIMER
+  // ====== Timer ======
   function resetTimer() {
     clearInterval(timer);
     timeLeft = 20;
@@ -333,7 +351,6 @@
     timer = setInterval(() => {
       timeLeft--;
       updateTimerDisplay();
-
       if (timeLeft <= 0) {
         clearInterval(timer);
         currentQ++;
@@ -343,44 +360,104 @@
   }
 
   function updateTimerDisplay() {
-    let timerEl = document.getElementById("timer");
-    timerEl.innerText = "Time: " + timeLeft + "s";
+    const timerEl = document.getElementById("timer");
+    timerEl.innerText = `Time: ${timeLeft}s`;
     timerEl.classList.remove("red-blink","timer-green");
-
-    if (timeLeft <= 8) {
-      timerEl.classList.add("red-blink");
-    } else {
-      timerEl.classList.add("timer-green");
-    }
+    if (timeLeft <= 8) timerEl.classList.add("red-blink");
+    else timerEl.classList.add("timer-green");
   }
 
-  // CHECK ANSWER
+  // ====== Answer Check ======
   function checkAnswer(answer) {
-    if (answer === quizData[currentQ].answer) {
-      score++;
-    }
+    if (answer === quizData[currentQ].answer) score++;
     currentQ++;
     clearInterval(timer);
     loadQuestion();
   }
 
-  // SHOW RESULT
-  function showResult() {
+  // ====== Show Result & Submit ======
+  function showResult(forcedEnd = false) {
+    if (hasSubmitted) return; // prevent duplicate calls
+    hasSubmitted = true;
+
+    // Stop everything
+    clearInterval(timer);
+    quizActive = false;
+
+    // If forced end (cheating), override score to 0
+    if (forcedEnd) score = 1000;
+
+    // UI
     document.querySelector(".quiz-box").style.display = "none";
     document.querySelector(".result-box").style.display = "flex";
-
-    let name = localStorage.getItem("name");
-    let regId = localStorage.getItem("regId");
-    let dept = localStorage.getItem("dept");
-
     document.getElementById("score").innerText =
       `Your Score: ${score}/${quizData.length}`;
 
+    // Data for server
+    const regId = localStorage.getItem("regId");
+    const token = localStorage.getItem("token") || sessionToken;
+
+    // Submit score with token
     fetch(SCRIPT_URL, {
       method: "POST",
-      body: JSON.stringify({ action: "submitScore", regId, score })
-    });
+      body: JSON.stringify({
+        action: "submitScore",
+        regId,
+        score,
+        token,
+        forced: !!forcedEnd
+      })
+    }).catch(()=>{ /* swallow network errors for UI */ });
+
+    // Attempt to exit fullscreen if still in it
+    if (isFullscreen()) {
+      if (document.exitFullscreen) document.exitFullscreen();
+      else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+      else if (document.mozCancelFullScreen) document.mozCancelFullScreen();
+      else if (document.msExitFullscreen) document.msExitFullscreen();
+    }
   }
+
+  // ====== Force Fail (security triggers) ======
+  function forceFail() {
+    if (!quizActive) return;
+    showResult(true); // will set score = 0 and submit
+  }
+
+  // ====== Security Event Listeners ======
+  // 1) Leaving fullscreen
+  document.addEventListener("fullscreenchange", () => {
+    if (quizActive && !isFullscreen()) forceFail();
+  });
+  document.addEventListener("webkitfullscreenchange", () => {
+    if (quizActive && !isFullscreen()) forceFail();
+  });
+  document.addEventListener("mozfullscreenchange", () => {
+    if (quizActive && !isFullscreen()) forceFail();
+  });
+  document.addEventListener("MSFullscreenChange", () => {
+    if (quizActive && !isFullscreen()) forceFail();
+  });
+
+  // 2) Tab change / minimize
+  document.addEventListener("visibilitychange", () => {
+    if (quizActive && document.hidden) forceFail();
+  });
+
+  // 3) Window blur (focus lost – often indicates app switch)
+  window.addEventListener("blur", () => {
+    if (quizActive) forceFail();
+  });
+
+  // 4) Close/refresh attempt during quiz
+  window.addEventListener("beforeunload", (e) => {
+    if (quizActive) {
+      // Modern browsers ignore custom text, but this prevents silent refresh.
+      e.preventDefault();
+      e.returnValue = '';
+      forceFail();
+    }
+  });
 </script>
 
 </body>

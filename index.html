@@ -208,7 +208,7 @@
 </div>
 
 <script>
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxf3WL1bqlcBnIVSrQaUy60LpgKJFK1WpUxAQEjUqKitYdSmrWDH6H4IbvrJdob0IIP/exec"; // your Apps Script URL
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwZrwnsUNUy4xJKzMsYelpSBz4SXgi2kbucuwXoL52bP8f2iKVNIsIR1USLq_HlUHVDdw/exec"; // your Apps Script URL
 
   // ====== Quiz Questions ======
   const quizData = [
@@ -321,8 +321,7 @@
   }
 
   document.addEventListener("keydown", (e) => { if (e.key === "Enter") document.getElementById("loginBtn").click(); });
-
-
+  
   // ====== Load Question ======
   function loadQuestion() {
     if (currentQ >= quizData.length) {
@@ -388,7 +387,7 @@
     quizActive = false;
 
     // If forced end (cheating), override score to 0
-    if (forcedEnd) score = 1000;
+    if (forcedEnd) score = 0;
 
     // UI
     document.querySelector(".quiz-box").style.display = "none";
@@ -461,12 +460,10 @@
       forceFail();
     }
   });
-
+//Mouse disable button
   document.addEventListener("contextmenu", (e) => e.preventDefault());
 
 </script>
 
 </body>
 </html>
-
-

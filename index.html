@@ -8,16 +8,18 @@
     body {
       font-family: Arial, sans-serif;
       margin:0; padding:0;
-      background:#f4f4f9;
+     background:linear-gradient(135deg,#162b34,#35819b,#2c5364); color:white; flex-direction:column; text-align:center; 
       display:flex;
       height:100vh;
       flex-direction: row;
     }
+      
+  section { display:none; height:100vh; display:flex; justify-content:center; align-items:center; }
 
     /* Sidebar */
     .sidebar {
       width:250px;
-      background:#fff;
+      background: linear-gradient(45deg,rgb(238, 246, 255),rgb(208, 246, 255),rgb(225, 246, 255),rgb(215, 246, 255),rgb(200, 246, 255),rgb(150, 246, 255));
       box-shadow:2px 0 8px rgba(0,0,0,0.1);
       padding:20px;
       display:none; /* hidden until login */
@@ -52,17 +54,9 @@
       width:100%;
       box-sizing:border-box;
     }
+    .login-box { background:rgba(255,255,255,0.1); padding:30px; border-radius:12px; width:400px; text-align:center; box-shadow:0 0 20px rgba(0,0,0,0.4); }
 
-    .card {
-      background:#fff;
-      padding:25px;
-      border-radius:10px;
-      box-shadow:0 4px 8px rgba(0,0,0,0.2);
-      width:100%;
-      max-width:450px;
-      text-align:center;
-      margin:auto;
-    }
+    
 
     input {
       width:90%; padding:10px;
@@ -71,6 +65,7 @@
       border-radius:5px;
       font-size:16px;
     }
+    #loginBtn{ width:40%; padding:12px; background:linear-gradient(90deg,#ff8c00,#ff0080); border:none; border-radius:8px; color:white; font-weight:bold; font-size:1rem; cursor:pointer; }
     button {
       padding:10px 20px;
       background:#4a90e2;
@@ -81,7 +76,8 @@
       font-size:16px;
     }
     button:hover {background:#357ab7;}
-    #error {color:red; margin-top:10px;}
+    #error {color:rgb(192, 41, 41); margin-top:10px;
+            }
 
     .quiz-box, .result-box, .start-box {display:none;}
     .question {font-size:18px; margin:20px 0;}
@@ -103,8 +99,10 @@
       font-size:20px;
       margin:10px;
     }
-    .timer-green {color:green;}
-    .red-blink {color:red; animation: blink 1s infinite;}
+    .timer-green {color:green;
+                  background-color: #dcd5d5;}
+    .red-blink {color:red; animation: blink 1s infinite;
+                background-color: #dcd5d5;}
     @keyframes blink {50% {opacity:0;}}
 
     /* Loading spinner */
@@ -124,6 +122,7 @@
     @media (max-width: 900px) {
       body { flex-direction: column; } /* Sidebar becomes top bar */
       .sidebar {
+        
         width:100%;
         flex-direction: row;
         flex-wrap: wrap;
@@ -183,8 +182,8 @@
       <h2>Welcome <span id="studentName"></span></h2>
       <p>Click below to start your quiz.</p>
       <button id="startBtn" onclick="startQuiz()">Start Quiz</button>
-      <p style="font-size:12px;color:#cf1e1e;margin-top:10px">
-        The quiz will run in fullscreen mode. Exiting fullscreen, switching tabs/apps, or minimizing will end the quiz with 0 marks. And You will <b>Eliminated</b> from the Round.
+      <p style="font-size:15px;color:#d3d01d;margin-top:10px">
+        <b>The quiz will run in fullscreen mode. Exiting fullscreen, switching tabs/apps, or minimizing will end the quiz with 0 marks. And You will <span  style="color: red;">Eliminated</span> from the Round.</b>
       </p>
     </div>
   </div>
@@ -467,3 +466,4 @@
 
 </body>
 </html>
+

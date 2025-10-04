@@ -158,7 +158,7 @@
   <h3>Student Info</h3>
   <p><b>Reg ID:</b> <span id="sideReg"></span></p>
   <p><b>Name:</b> <span id="sideName"></span></p>
-  <p><b>Dept:</b> <span id="sideDept"></span></p>
+  <p><b>College:</b> <span id="sideDept"></span></p>
 </div>
 
 <!-- MAIN CONTENT -->
@@ -166,7 +166,7 @@
   <!-- LOGIN PAGE -->
   <div class="center-box login-box">
     <div class="card">
-      <h2>Welcome to the Quiz Portal.</h2>
+      <h2>Welcome to  <strong>BRAIN BUZZ.</strong></h2>
       <h3>ROUND 1</h3>
       <input type="text" id="regId" placeholder="Register Number" required>
       <input type="password" id="password" placeholder="Password" required>
@@ -198,10 +198,11 @@
   </div>
 
   <!-- RESULT PAGE -->
-  <div class="center-box result-box">
+   <div class="center-box result-box">
     <div class="card">
       <h2>Quiz Completed</h2>
-      <p id="score"></p>
+      <p id="score"></p> <!-- Removed visible score text -->
+      <p style="color: yellow;">Your attempt has been submitted successfully.</p>
     </div>
   </div>
 </div>
@@ -211,26 +212,61 @@
 
   // ====== Quiz Questions ======
   const quizData = [
-    { question: "What does HTML stand for?", options: ["Hyper Trainer Marking Language", "Hyper Text Markup Language", "Hyper Text Marketing Language", "Hyper Text Management Language"], answer: "Hyper Text Markup Language" },
-    { question: "Which HTML tag is used to define the largest heading?", options: ["<h6>", "<head>", "<h1>", "<heading>"], answer: "<h1>" },
-    { question: "Which attribute is used in HTML to define inline CSS?", options: ["style", "css", "font", "class"], answer: "style" },
-    { question: "Which property is used in CSS to change text color?", options: ["font-color", "text-color", "color", "background-color"], answer: "color" },
-    { question: "Which HTML tag is used to insert an image?", options: ["<img>", "<picture>", "<src>", "<image>"], answer: "<img>" },
-    { question: "In CSS, how do you make text bold?", options: ["font-weight: bold;", "style: bold;", "text:bold;", "font:bold;"], answer: "font-weight: bold;" },
-    { question: "Which tag is used to create a hyperlink in HTML?", options: ["<link>", "<a>", "<href>", "<url>"], answer: "<a>" },
-    { question: "Which property is used in CSS to change the background color?", options: ["bgcolor", "background-color", "color", "background"], answer: "background-color" },
-    { question: "Which HTML element is used to display a numbered list?", options: ["<ul>", "<ol>", "<li>", "<dl>"], answer: "<ol>" },
-    { question: "Which HTML tag is used to insert a line break?", options: ["<lb>", "<break>", "<br>", "<line>"], answer: "<br>" },
-    { question: "Which CSS property controls the size of text?", options: ["font-style", "font-size", "text-size", "text-style"], answer: "font-size" },
-    { question: "Which HTML tag is used to create a table row?", options: ["<td>", "<tr>", "<th>", "<row>"], answer: "<tr>" },
-    { question: "Which CSS property is used to center text?", options: ["text-align", "align", "center", "font-align"], answer: "text-align" },
-    { question: "What does the <title> tag in HTML define?", options: ["Main heading", "Document title", "Paragraph title", "Image caption"], answer: "Document title" },
-    { question: "Which HTML tag is used to define an unordered list?", options: ["<ul>", "<ol>", "<li>", "<dl>"], answer: "<ul>" },
-    { question: "Which CSS property is used to change the font of text?", options: ["font-family", "font-style", "font-weight", "text-family"], answer: "font-family" },
-    { question: "Which HTML attribute is used to provide alternative text for images?", options: ["alt", "title", "src", "caption"], answer: "alt" },
-    { question: "Which CSS property controls the spacing between lines of text?", options: ["spacing", "line-height", "letter-spacing", "word-spacing"], answer: "line-height" },
-    { question: "Which HTML element is used to define a paragraph?", options: ["<para>", "<p>", "<text>", "<paragraph>"], answer: "<p>" },
-    { question: "Which CSS property adds space inside the element border?", options: ["margin", "padding", "border", "spacing"], answer: "padding" }
+     // ---------------- EASY (30 MCQs) ----------------
+  { question: "Which is the correct extension of a C program file?", options: [".cpp", ".c", ".java", ".py"], answer: ".c" },
+  { question: "C language was developed by:", options: ["Dennis Ritchie", "James Gosling", "Bjarne Stroustrup", "Guido van Rossum"], answer: "Dennis Ritchie" },
+  { question: "Which of the following is not a keyword in C?", options: ["int", "void", "main", "static"], answer: "main" },
+  { question: "Which function is used to print output in C?", options: ["output()", "print()", "printf()", "echo()"], answer: "printf()" },
+  { question: "Which symbol is used for address-of operator?", options: ["*", "&", "%", "#"], answer: "&" },
+  { question: "Which header file is required for scanf() function?", options: ["conio.h", "stdio.h", "stdlib.h", "string.h"], answer: "stdio.h" },
+  { question: "Which data type is used to store characters?", options: ["int", "char", "float", "double"], answer: "char" },
+  { question: "Which of the following denotes a constant value?", options: ["25", "a", "var", "printf"], answer: "25" },
+  { question: "What is the size of char in C (most compilers)?", options: ["2 bytes", "1 byte", "4 bytes", "Depends on OS"], answer: "1 byte" },
+  { question: "Which operator is used to find remainder?", options: ["/", "%", "*", "//"], answer: "%" },
+  { question: "Which loop is guaranteed to run at least once?", options: ["for", "while", "do-while", "none"], answer: "do-while" },
+  { question: "Which symbol is used to end a statement in C?", options: [".", ",", ";", ":"], answer: ";" },
+  { question: "The process of repeating statements is called:", options: ["Recursion", "Looping", "Jumping", "Iteration"], answer: "Looping" },
+  { question: "Which escape sequence is used for tab space?", options: ["\\n", "\\t", "\\r", "\\0"], answer: "\\t" },
+  { question: "The operator == is used for:", options: ["Assignment", "Comparison", "Address", "Increment"], answer: "Comparison" },
+  { question: "Which of these is a valid comment in C?", options: ["/* comment */", "// comment", "both A and B", "# comment"], answer: "both A and B" },
+  { question: "What is the output of printf('%d', 3+2*2);?", options: ["10", "7", "8", "9"], answer: "7" },
+  { question: "Which keyword is used to exit from a loop?", options: ["stop", "break", "exit", "continue"], answer: "break" },
+  { question: "Which operator increases value by 1?", options: ["++", "--", "+=", "**"], answer: "++" },
+  { question: "Which function reads a string from user?", options: ["gets()", "input()", "getchar()", "scanf()"], answer: "gets()" },
+  { question: "What will be the output of printf('%d', 5%2);?", options: ["2", "1", "0", "5"], answer: "1" },
+  { question: "Which function is used to find square root?", options: ["sqrt()", "sqr()", "pow()", "root()"], answer: "sqrt()" },
+  { question: "Which of these is not a relational operator?", options: ["<", ">", "!=", "="], answer: "=" },
+  { question: "Which of these is a logical operator?", options: ["&&", "||", "!", "All of the above"], answer: "All of the above" },
+  { question: "Which function returns the length of a string?", options: ["strlen()", "sizeof()", "length()", "strlength()"], answer: "strlen()" },
+  { question: "The keyword auto in C is used for:", options: ["Global variable", "Local variable", "Static variable", "Register variable"], answer: "Local variable" },
+  { question: "Which function is used to clear the screen in C (Turbo C)?", options: ["clrscr()", "clear()", "reset()", "refresh()"], answer: "clrscr()" },
+  { question: "Which function terminates a program in C?", options: ["exit()", "quit()", "end()", "stop()"], answer: "exit()" },
+  { question: "Which operator is used to access array elements?", options: ["*", "[]", "->", "."], answer: "[]" },
+  { question: "What is the output of printf('%c', 'A'+1);?", options: ["A", "B", "65", "66"], answer: "B" },
+
+  // ---------------- INTERMEDIATE (15 MCQs) ----------------
+  { question: "Which function is used to compare two strings?", options: ["strcmp()", "compare()", "strcomp()", "stringcmp()"], answer: "strcmp()" },
+  { question: "Which operator is used to access structure members?", options: ["*", "->", ".", "&"], answer: "." },
+  { question: "Which operator is used to access structure members through pointer?", options: ["*", "->", ".", "&"], answer: "->" },
+  { question: "Which keyword is used to declare constants?", options: ["const", "static", "define", "final"], answer: "const" },
+  { question: "Which storage class gives global visibility to a variable?", options: ["static", "extern", "auto", "register"], answer: "extern" },
+  { question: "Which of the following cannot be used as lvalue?", options: ["variable", "array element", "function call", "pointer dereference"], answer: "function call" },
+  { question: "Which of the following is not a valid pointer operation?", options: ["p1 + p2", "p1 - p2", "p1 + 1", "p1++"], answer: "p1 + p2" },
+  { question: "Which header file is required for dynamic memory allocation functions?", options: ["string.h", "stdlib.h", "memory.h", "malloc.h"], answer: "stdlib.h" },
+  { question: "Which of the following is not true about arrays?", options: ["Contiguous memory", "Index starts at 0", "Different data types allowed", "Same type elements"], answer: "Different data types allowed" },
+  { question: "Which loop is most suitable when number of iterations is known?", options: ["for", "while", "do-while", "goto"], answer: "for" },
+  { question: "Which function copies one string into another?", options: ["strcpy()", "strncpy()", "strcopy()", "strcp()"], answer: "strcpy()" },
+  { question: "Which function reallocates previously allocated memory?", options: ["calloc()", "malloc()", "realloc()", "free()"], answer: "realloc()" },
+  { question: "Which operator is used to get size of a data type?", options: ["lengthof", "sizeof", "countof", "measure"], answer: "sizeof" },
+  { question: "Which of the following is NOT a file mode in C?", options: ["\"r\"", "\"w\"", "\"rw\"", "\"a\""], answer: "\"rw\"" },
+  { question: "Which of the following keywords is used to jump to a label?", options: ["goto", "jump", "label", "break"], answer: "goto" },
+
+  // ---------------- ADVANCED (5 MCQs) ----------------
+  { question: "What will happen if you modify a string literal in C?", options: ["Allowed", "Undefined behavior", "Compile-time error", "Runtime error only"], answer: "Undefined behavior" },
+  { question: "Which keyword prevents variable optimization by compiler?", options: ["const", "static", "volatile", "extern"], answer: "volatile" },
+  { question: "What is the output?\n\nint x = 5;\nprintf(\"%d %d %d\", x, x++, ++x);", options: ["5 5 6", "5 6 7", "Undefined behavior", "7 6 6"], answer: "Undefined behavior" },
+  { question: "Which feature allows different functions to be called using same name via pointers?", options: ["Macros", "Function Pointers", "Structures", "Recursion"], answer: "Function Pointers" },
+  { question: "Which function moves file pointer to beginning of a file?", options: ["reset()", "rewind()", "fseek(0)", "start()"], answer: "rewind()" }
   ];
 
   // ====== State ======
@@ -391,8 +427,8 @@
     // UI
     document.querySelector(".quiz-box").style.display = "none";
     document.querySelector(".result-box").style.display = "flex";
-    document.getElementById("score").innerText =
-      `Your Score: ${score}/${quizData.length}`;
+    //document.getElementById("score").innerText =
+      //`Your Score: ${score}/${quizData.length}`;
 
     // Data for server
     const regId = localStorage.getItem("regId");

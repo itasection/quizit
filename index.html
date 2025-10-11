@@ -197,438 +197,67 @@
   const quizData = [
     // ---------------- CODE-BASED OUTPUT QUESTIONS (35) ----------------
 
-  // 🟢 EASY (10)
-  { question: `What is the output of the following code?
+  { question: "What will be the output?\n\nint a = 5;\nprintf(\"%d\", a++ + ++a);", options: ["11", "12", "Undefined behavior", "10"], answer: "Undefined behavior" },
 
-#include <stdio.h>
+  { question: "What is the output of the code?\n\nint i = 0;\nif(i = 5)\nprintf(\"True\");\nelse printf(\"False\");", options: ["True", "False", "Error", "Garbage"], answer: "True" },
 
-int main() {
-    int a = 5;
-    int b = 2;
-    printf("%d", a + b);
-    return 0;
-}`,
-    options: ["7", "52", "Error", "Undefined"], answer: "7" },
+  { question: "What will be the output?\n\nint a = 2;\nfloat b = 3.5;\nprintf(\"%d\", a + b);", options: ["5", "5.5", "Compile-time error", "Undefined behavior"], answer: "5" },
 
-  { question: `What is the output of the following code?
+  { question: "Which of the following correctly declares a pointer to a function returning float?", options: ["float f();", "float (*f)();", "float *f(void);", "float f()();"], answer: "float (*f)();" },
 
-#include <stdio.h>
+  { question: "What will this code output?\n\nint x = 5;\nint y = x++ * ++x;\nprintf(\"%d\", y);", options: ["30", "25", "Undefined behavior", "26"], answer: "Undefined behavior" },
 
-int main() {
-    char c = 'A';
-    printf("%c", c);
-    return 0;
-}`,
-    options: ["A", "65", "B", "Error"], answer: "A" },
+  { question: "What is printed by the following?\n\nchar s[] = \"abcd\";\nprintf(\"%c\", ++*s);", options: ["b", "a", "Error", "Undefined"], answer: "b" },
 
-  { question: `What is the output of the following code?
+  { question: "What is the size of the expression sizeof('A') in C?", options: ["1", "2", "4", "Implementation dependent"], answer: "4" },
 
-#include <stdio.h>
+  { question: "What will happen?\n\nint a = 10, b = 0;\nprintf(\"%d\", a && b++); printf(\"%d\", b);", options: ["10 1", "1 0", "1 1", "1 0"], answer: "1 0" },
 
-int main() {
-    int i;
-    for(i=0; i<3; i++)
-        printf("%d", i);
-    return 0;
-}`,
-    options: ["012", "123", "321", "Error"], answer: "012" },
+  { question: "Which of these is TRUE about volatile keyword in C?", options: ["It prevents compiler optimization on that variable", "It makes variable read-only", "It ensures thread safety", "It forces static storage"], answer: "It prevents compiler optimization on that variable" },
 
-  { question: `Output of:
+  { question: "What is the output?\n\nint x = 5;\nprintf(\"%d\", printf(\"%d\", x));", options: ["55", "5", "Error", "Runtime error"], answer: "55" },
 
-#include <stdio.h>
+  { question: "Which statement about union is TRUE?", options: ["All members share the same memory location", "Each member has its own space", "It can’t contain arrays", "Union size equals sum of members"], answer: "All members share the same memory location" },
 
-int main() {
-    int x = 10;
-    x++;
-    printf("%d", x);
-    return 0;
-}`,
-    options: ["10", "11", "9", "Error"], answer: "11" },
+  { question: "What will be printed?\n\nint arr[] = {1,2,3,4,5};\nint *p = arr;\nprintf(\"%d\", *(p+3));", options: ["2", "3", "4", "5"], answer: "4" },
 
-  { question: `Output:
+  { question: "Which of the following correctly defines a constant pointer to a constant integer?", options: ["const int const ptr;", "int const *ptr;", "int *const ptr;", "const int ptr;"], answer: "const int *const ptr;" },
 
-#include <stdio.h>
+  { question: "What will happen?\n\nint a = 5;\nprintf(\"%d\", a = a == 5);", options: ["5", "1", "0", "Error"], answer: "1" },
 
-int main() {
-    int a = 5, b = 10;
-    printf("%d", a>b);
-    return 0;
-}`,
-    options: ["0", "1", "5", "10"], answer: "0" },
+  { question: "What will be the result of this code?\n\nint x = 10;\nint y = x+++x++;\nprintf(\"%d\", y);", options: ["21", "20", "Undefined behavior", "22"], answer: "Undefined behavior" },
 
-  { question: `Output:
+  // ---------- Advanced Python ----------
+  { question: "What is the output?\n\nx = [[0]*3]*3\nx[0][0] = 1\nprint(x)", options: ["[[1,0,0],[0,0,0],[0,0,0]]", "[[1,0,0],[1,0,0],[1,0,0]]", "Error", "None"], answer: "[[1,0,0],[1,0,0],[1,0,0]]" },
 
-#include <stdio.h>
+  { question: "What is the output?\n\ndef func(x=[]):\n    x.append(1)\n    print(x)\nfunc()\nfunc()", options: ["[1] [1]", "[1] [1,1]", "[1,1] [1,1]", "Error"], answer: "[1] [1,1]" },
 
-int main() {
-    printf("%d", 2*3+4);
-    return 0;
-}`,
-    options: ["10", "14", "8", "Error"], answer: "10" },
+  { question: "Which of the following statements about Python generators is TRUE?", options: ["They return a list", "They use 'yield' instead of 'return'", "They execute fully at once", "They cannot maintain state"], answer: "They use 'yield' instead of 'return'" },
 
-  { question: `Output:
+  { question: "What will be the output?\n\nx = [i for i in range(3)]\ny = (i for i in range(3))\nprint(sum(x), sum(y))", options: ["3 3", "3 0", "Error", "0 3"], answer: "3 3" },
 
-#include <stdio.h>
+  { question: "What is the result?\n\nprint(''.join(sorted('badc')))", options: ["abcd", "dcba", "badc", "Error"], answer: "abcd" },
 
-int main() {
-    int x = 5;
-    printf("%d", x--);
-    return 0;
-}`,
-    options: ["5", "4", "6", "Error"], answer: "5" },
+  { question: "What is printed?\n\ndef f(a, b, /, c, d, *, e, f):\n    print(a,b,c,d,e,f)\nf(1,2,3,4,e=5,f=6)", options: ["1 2 3 4 5 6", "Error", "Invalid syntax", "1 2 3 4"], answer: "1 2 3 4 5 6" },
 
-  { question: `Output:
+  { question: "What is the output?\n\nx = (i for i in range(5))\nprint(next(x), next(x))", options: ["0 1", "1 2", "Error", "0 0"], answer: "0 1" },
 
-#include <stdio.h>
+  { question: "What will be printed?\n\ndef f():\n    try:\n        return 1\n    finally:\n        return 2\nprint(f())", options: ["1", "2", "Error", "None"], answer: "2" },
 
-int main() {
-    printf("%d", 10/3);
-    return 0;
-}`,
-    options: ["3", "3.33", "4", "Error"], answer: "3" },
+  { question: "What does this print?\n\na = [1,2,3]\nprint(id(a))\na += [4]\nprint(id(a))", options: ["Same ID both times", "Different IDs", "Error", "None"], answer: "Same ID both times" },
 
-  { question: `Output:
+  { question: "What is the output?\n\ndef f(x, y=[]):\n    y.append(x)\n    return y\nprint(f(1))\nprint(f(2,[]))\nprint(f(3))", options: ["[1] [2] [3]", "[1] [2] [1,3]", "[1,3] [2] [1,3]", "Error"], answer: "[1] [2] [1,3]" },
 
-#include <stdio.h>
+  { question: "Which of the following best describes Python closures?", options: ["Functions that remember values from enclosing scopes", "Functions without names", "Functions that return classes", "Static methods"], answer: "Functions that remember values from enclosing scopes" },
 
-int main() {
-    int a = 2;
-    int b = 3;
-    printf("%d", a*b);
-    return 0;
-}`,
-    options: ["6", "5", "23", "Error"], answer: "6" },
+  { question: "What will this code print?\n\nx = {i: i*i for i in range(3)}\nprint(x[1] + x[2])", options: ["1", "5", "4", "Error"], answer: "5" },
 
-  { question: `Output:
+  { question: "What is printed?\n\nprint(bool('False'), bool(''))", options: ["True False", "False True", "False False", "True True"], answer: "True False" },
 
-#include <stdio.h>
+  { question: "What is the output of the following lambda expression?\n\nprint((lambda x: x*2)(5))", options: ["10", "25", "5", "Error"], answer: "10" },
 
-int main() {
-    int a = 1;
-    int b = 0;
-    printf("%d", a && b);
-    return 0;
-}`,
-    options: ["0", "1", "Error", "Undefined"], answer: "0" },
+  { question: "What will be printed?\n\ndef f(n):\n    if n == 0: return 0\n    else: return n + f(n-1)\nprint(f(4))", options: ["10", "4", "5", "Error"], answer: "10" }
 
-  // 🟡 INTERMEDIATE (10)
-  { question: `Output:
-
-#include <stdio.h>
-
-int main() {
-    int arr[3] = {1,2,3};
-    printf("%d", arr[1]);
-    return 0;
-}`,
-    options: ["2", "1", "3", "Error"], answer: "2" },
-
-  { question: `Output:
-
-#include <stdio.h>
-
-int main() {
-    int a = 5;
-    int *p = &a;
-    printf("%d", *p);
-    return 0;
-}`,
-    options: ["5", "Address of a", "0", "Error"], answer: "5" },
-
-  { question: `Output:
-
-#include <stdio.h>
-
-int square(int x) {
-    return x*x;
-}
-
-int main() {
-    printf("%d", square(3));
-    return 0;
-}`,
-    options: ["9", "6", "3", "Error"], answer: "9" },
-
-  { question: `Output:
-
-#include <stdio.h>
-
-int main() {
-    char str[] = "C";
-    printf("%c", str[0]);
-    return 0;
-}`,
-    options: ["C", "0", "Error", "Null"], answer: "C" },
-
-  { question: `Output:
-
-#include <stdio.h>
-
-int main() {
-    int x = 5, y = 10;
-    if(x > y)
-        printf("Yes");
-    else
-        printf("No");
-    return 0;
-}`,
-    options: ["Yes", "No", "Error", "Undefined"], answer: "No" },
-
-  { question: `Output:
-
-#include <stdio.h>
-
-int main() {
-    int i=0;
-    while(i<3) { 
-      printf("%d", i); i++; }
-      return 0;
-}`,
-    options: ["012", "123", "321", "Error"], answer: "012" },
-
-  { question: `Output:
-
-#include <stdio.h>
-
-int main() {
-    int x=5;
-    printf("%d", ++x);
-    return 0;
-}`,
-    options: ["5", "6", "4", "Error"], answer: "6" },
-
-  { question: `Output:
-
-#include <stdio.h>
-
-int main() {
-    int a=1, b=2, c=3;
-    printf("%d", a>b ? b : c);
-    return 0;
-}`,
-    options: ["1", "2", "3", "Error"], answer: "3" },
-
-  { question: `Output:
-
-#include <stdio.h>
-
-int main() {
-    int a=2, b=3;
-    a += b;
-    printf("%d", a);
-    return 0;
-}`,
-    options: ["5", "2", "3", "6"], answer: "5" },
-
-  { question: `Output:
-
-#include <stdio.h>
-
-int main() {
-    int arr[2][2] = {{1,2},{3,4}};
-    printf("%d", arr[1][0]);
-    return 0;
-}`,
-    options: ["3", "2", "1", "4"], answer: "3" },
-
-  // 🔴 ADVANCED (15)
-  { question: `Output:
-
-#include <stdio.h>
-
-int main() {
-    int x = 1;
-    printf("%d %d", x++, ++x);
-    return 0;
-}`,
-    options: ["1 3", "2 2", "Undefined behavior", "1 2"], answer: "Undefined behavior" },
-
-  { question: `Output:
-
-#include <stdio.h>
-
-int main() {
-    int a = 5;
-    int *p = &a;
-    *p = 10;
-    printf("%d", a);
-    return 0;
-}`,
-    options: ["5", "10", "Address", "Error"], answer: "10" },
-
-  { question: `Output:
-
-#include <stdio.h>
-
-int main() {
-    int x[3] = {1,2,3};
-    printf("%d", *(x+2));
-    return 0;
-}`,
-    options: ["3", "2", "1", "Error"], answer: "3" },
-
-  { question: `Output:
-
-#include <stdio.h>
-
-int main() {
-    int x=5;
-    int y=0;
-    printf("%d", x && y);
-    return 0;
-}`,
-    options: ["0", "1", "5", "Error"], answer: "0" },
-
-  { question: `Output:
-
-#include <stdio.h>
-
-void fun(int *a) { *a = 10; }
-
-int main() {
-    int x=5;
-    fun(&x);
-    printf("%d", x);
-    return 0;
-}`,
-    options: ["5", "10", "Address", "Error"], answer: "10" },
-
-  { question: `Output:
-
-#include <stdio.h>
-
-int main() {
-    int a = 10;
-    printf("%d", a >> 1);
-    return 0;
-}`,
-    options: ["5", "20", "1", "Error"], answer: "5" },
-
-  { question: `Output:
-
-#include <stdio.h>
-
-int main() {
-    char c = 'A';
-    printf("%d", c);
-    return 0;
-}`,
-    options: ["65", "A", "66", "Error"], answer: "65" },
-
-  { question: `Output:
-
-#include <stdio.h>
-
-int main() {
-    int a=5, b=3;
-    printf("%d", a|b);
-    return 0;
-}`,
-    options: ["7", "1", "15", "8"], answer: "7" },
-
-  { question: `Output:
-
-#include <stdio.h>
-
-int main() {
-    int x=1;
-    printf("%d", x<<2);
-    return 0;
-}`,
-    options: ["4", "8", "2", "1"], answer: "4" },
-
-  { question: `Output:
-
-#include <stdio.h>
-
-int main() {
-    int x=5, y=3;
-    printf("%d", x^y);
-    return 0;
-}`,
-    options: ["6", "7", "8", "5"], answer: "6" },
-
-  { question: `Output:
-
-#include <stdio.h>
-
-int main() {
-    int x=0;
-    printf("%d", !x);
-    return 0;
-}`,
-    options: ["0", "1", "-1", "Error"], answer: "1" },
-
-  { question: `Output:
-
-#include <stdio.h>
-
-int main() {
-    int a=5, b=2;
-    printf("%d", a%b);
-    return 0;
-}`,
-    options: ["1", "2", "0", "Error"], answer: "1" },
-
-  { question: `Output:
-
-#include <stdio.h>
-
-int main() {
-    int a=1;
-    if(a=0) 
-      printf("Yes");
-    else 
-      printf("No");
-    return 0;
-}`,
-    options: ["Yes", "No", "Error", "Undefined"], answer: "No" },
-
-  { question: `Output:
-
-#include <stdio.h>
-
-int main() {
-    int a=2, b=3;
-    printf("%d", a*b++);
-    return 0;
-}`,
-    options: ["6", "9", "5", "Error"], answer: "6" },
-
-  { question: `Output:
-
-#include <stdio.h>
-
-int main() {
-    int a=1, b=2, c;
-    c = a++ + ++b;
-    printf("%d", c);
-    return 0;
-}`,
-    options: ["4", "5", "3", "6"], answer: "5" },
-
-  // ---------------- NORMAL MCQs (15) ----------------
-
-  // 🟢 EASY (5)
-  { question: "Which of these is a valid identifier in C?", options: ["1var", "_var", "var-name", "#var"], answer: "_var" },
-  { question: "Which of these is the correct syntax to declare an integer?", options: ["int a;", "integer a;", "int a()", "a int;"], answer: "int a;" },
-  { question: "Which function is used to read a single character?", options: ["scanf()", "getchar()", "gets()", "printf()"], answer: "getchar()" },
-  { question: "Which header file is used for standard input/output?", options: ["stdio.h", "conio.h", "stdlib.h", "string.h"], answer: "stdio.h" },
-  { question: "Which operator is used to assign a value?", options: ["=", "==", "!", "+="], answer: "=" },
-
-  // 🟡 INTERMEDIATE (5)
-  { question: "Which function returns length of a string?", options: ["strlen()", "size()", "length()", "count()"], answer: "strlen()" },
-  { question: "Which keyword is used to declare a constant?", options: ["const", "final", "static", "define"], answer: "const" },
-  { question: "Which operator is used for logical AND?", options: ["&&", "||", "!", "&"], answer: "&&" },
-  { question: "Which function copies one string to another?", options: ["strcpy()", "strcat()", "strdup()", "copy()"], answer: "strcpy()" },
-  { question: "Which storage class preserves value between function calls?", options: ["auto", "static", "extern", "register"], answer: "static" },
-
-  // 🔴 ADVANCED (5)
-  { question: "Which keyword prevents compiler optimization?", options: ["const", "volatile", "static", "extern"], answer: "volatile" },
-  { question: "Which operator cannot be overloaded in C?", options: ["sizeof", "=", "+", "-"], answer: "sizeof" },
-  { question: "Which function deallocates dynamic memory?", options: ["malloc()", "free()", "calloc()", "realloc()"], answer: "free()" },
-  { question: "Which operator shifts bits to the right?", options: ["<<", ">>", "&", "|"], answer: ">>" },
-  { question: "Which function returns file pointer position?", options: ["ftell()", "fseek()", "fpos()", "rewind()"], answer: "ftell()" }
 
   ];
 
@@ -793,3 +422,4 @@ int main() {
 </script>
 </body>
 </html>
+

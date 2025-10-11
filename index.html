@@ -10,13 +10,14 @@
     body {
       font-family: Arial, sans-serif;
       margin:0; padding:0;
-     background:linear-gradient(135deg,#162b34,#35819b,#2c5364); color:white; flex-direction:column; text-align:center; 
+      background:linear-gradient(135deg,#162b34,#35819b,#2c5364);
+      color:white; flex-direction:column; text-align:center; 
       display:flex;
       height:100vh;
       flex-direction: row;
     }
       
-  section { display:none; height:100vh; display:flex; justify-content:center; align-items:center; }
+    section { display:none; height:100vh; display:flex; justify-content:center; align-items:center; }
 
     /* Sidebar */
     .sidebar {
@@ -42,7 +43,7 @@
       font-size:14px;
       color:#0d0d0d;
       word-wrap: break-word;
-      word-break: break-word; /* ✅ prevent overflow */
+      word-break: break-word;
       text-align: left;
     }
 
@@ -57,8 +58,6 @@
       box-sizing:border-box;
     }
     .login-box { background:rgba(255,255,255,0.1); padding:30px; border-radius:12px; width:400px; text-align:center; box-shadow:0 0 20px rgba(0,0,0,0.4); }
-
-    
 
     input {
       width:90%; padding:10px;
@@ -78,8 +77,7 @@
       font-size:16px;
     }
     button:hover {background:#357ab7;}
-    #error {color:rgb(192, 41, 41); margin-top:10px;
-            }
+    #error {color:rgb(192, 41, 41); margin-top:10px;}
 
     .quiz-box, .result-box, .start-box {display:none;}
     .question {font-size:18px; margin:20px 0;}
@@ -101,10 +99,8 @@
       font-size:20px;
       margin:10px;
     }
-    .timer-green {color:green;
-                  background-color: #dcd5d5;}
-    .red-blink {color:red; animation: blink 1s infinite;
-                background-color: #dcd5d5;}
+    .timer-green {color:green; background-color: #dcd5d5;}
+    .red-blink {color:red; animation: blink 1s infinite; background-color: #dcd5d5;}
     @keyframes blink {50% {opacity:0;}}
 
     /* Loading spinner */
@@ -120,31 +116,16 @@
     }
     @keyframes spin { 0% { transform: rotate(0deg);} 100% { transform: rotate(360deg);} }
 
-    /* ========== RESPONSIVE DESIGN ========== */
+    /* RESPONSIVE DESIGN */
     @media (max-width: 900px) {
-      body { flex-direction: column; } /* Sidebar becomes top bar */
-      .sidebar {
-        
-        width:100%;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: space-around;
-        padding:15px;
-        text-align:center;
-        box-shadow: 0 2px 8px rgba(10, 10, 10, 0.1);
-      }
+      body { flex-direction: column; }
+      .sidebar { width:100%; flex-direction: row; flex-wrap: wrap; justify-content: space-around; padding:15px; text-align:center; box-shadow: 0 2px 8px rgba(10, 10, 10, 0.1); }
       .sidebar h3 { display:none; }
-      .sidebar p {
-        margin:10px;
-        font-size:13px;
-        flex: 1 1 30%;
-        text-align: center;
-      }
+      .sidebar p { margin:10px; font-size:13px; flex: 1 1 30%; text-align: center; }
       .main { padding:10px; width:100%; }
       .card { width:100%; max-width:100%; padding:20px; margin:auto; }
       .options button { width:100%; margin:8px 0; }
     }
-
     @media (max-width: 480px) {
       .question { font-size:16px; }
       #timer { font-size:18px; }
@@ -160,7 +141,7 @@
   <h3>Student Info</h3>
   <p><b>Reg ID:</b> <span id="sideReg"></span></p>
   <p><b>Name:</b> <span id="sideName"></span></p>
-  <p><b>College:</b> <span id="sideDept"></span></p>
+  <p><b>Dept:</b> <span id="sideDept"></span></p>
 </div>
 
 <!-- MAIN CONTENT -->
@@ -168,8 +149,8 @@
   <!-- LOGIN PAGE -->
   <div class="center-box login-box">
     <div class="card">
-      <h2>Welcome to  <strong>BRAIN BUZZ.</strong></h2>
-      <h3>ROUND 1</h3>
+      <h2>Welcome to <strong>BRAIN BUZZ</strong></h2>
+      <h3>ROUND 2</h3>
       <input type="text" id="regId" placeholder="Register Number" required>
       <input type="password" id="password" placeholder="Password" required>
       <button id="loginBtn" onclick="login()">Login</button>
@@ -200,7 +181,7 @@
   </div>
 
   <!-- RESULT PAGE -->
-   <div class="center-box result-box">
+  <div class="center-box result-box">
     <div class="card">
       <h2>Quiz Completed</h2>
       <p id="score"></p> <!-- Removed visible score text -->
@@ -210,74 +191,453 @@
 </div>
 
 <script>
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwZrwnsUNUy4xJKzMsYelpSBz4SXgi2kbucuwXoL52bP8f2iKVNIsIR1USLq_HlUHVDdw/exec"; // your Apps Script URL
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxsQ_XX7DBOPKjvmDpLqIRQwMeg5CJhF2jUSk48ASGFH_69F2BqWliAfCDe1aK6Dv2P/exec"; 
 
   // ====== Quiz Questions ======
   const quizData = [
-     // ---------------- EASY (30 MCQs) ----------------
-  { question: "Which is the correct extension of a C program file?", options: [".cpp", ".c", ".java", ".py"], answer: ".c" },
-  { question: "C language was developed by:", options: ["Dennis Ritchie", "James Gosling", "Bjarne Stroustrup", "Guido van Rossum"], answer: "Dennis Ritchie" },
-  { question: "Which of the following is not a keyword in C?", options: ["int", "void", "main", "static"], answer: "main" },
-  { question: "Which function is used to print output in C?", options: ["output()", "print()", "printf()", "echo()"], answer: "printf()" },
-  { question: "Which symbol is used for address-of operator?", options: ["*", "&", "%", "#"], answer: "&" },
-  { question: "Which header file is required for scanf() function?", options: ["conio.h", "stdio.h", "stdlib.h", "string.h"], answer: "stdio.h" },
-  { question: "Which data type is used to store characters?", options: ["int", "char", "float", "double"], answer: "char" },
-  { question: "Which of the following denotes a constant value?", options: ["25", "a", "var", "printf"], answer: "25" },
-  { question: "What is the size of char in C (most compilers)?", options: ["2 bytes", "1 byte", "4 bytes", "Depends on OS"], answer: "1 byte" },
-  { question: "Which operator is used to find remainder?", options: ["/", "%", "*", "//"], answer: "%" },
-  { question: "Which loop is guaranteed to run at least once?", options: ["for", "while", "do-while", "none"], answer: "do-while" },
-  { question: "Which symbol is used to end a statement in C?", options: [".", ",", ";", ":"], answer: ";" },
-  { question: "The process of repeating statements is called:", options: ["Recursion", "Looping", "Jumping", "Iteration"], answer: "Looping" },
-  { question: "Which escape sequence is used for tab space?", options: ["\\n", "\\t", "\\r", "\\0"], answer: "\\t" },
-  { question: "The operator == is used for:", options: ["Assignment", "Comparison", "Address", "Increment"], answer: "Comparison" },
-  { question: "Which of these is a valid comment in C?", options: ["/* comment */", "// comment", "both A and B", "# comment"], answer: "both A and B" },
-  { question: "What is the output of printf('%d', 3+2*2);?", options: ["10", "7", "8", "9"], answer: "7" },
-  { question: "Which keyword is used to exit from a loop?", options: ["stop", "break", "exit", "continue"], answer: "break" },
-  { question: "Which operator increases value by 1?", options: ["++", "--", "+=", "**"], answer: "++" },
-  { question: "Which function reads a string from user?", options: ["gets()", "input()", "getchar()", "scanf()"], answer: "gets()" },
-  { question: "What will be the output of printf('%d', 5%2);?", options: ["2", "1", "0", "5"], answer: "1" },
-  { question: "Which function is used to find square root?", options: ["sqrt()", "sqr()", "pow()", "root()"], answer: "sqrt()" },
-  { question: "Which of these is not a relational operator?", options: ["<", ">", "!=", "="], answer: "=" },
-  { question: "Which of these is a logical operator?", options: ["&&", "||", "!", "All of the above"], answer: "All of the above" },
-  { question: "Which function returns the length of a string?", options: ["strlen()", "sizeof()", "length()", "strlength()"], answer: "strlen()" },
-  { question: "The keyword auto in C is used for:", options: ["Global variable", "Local variable", "Static variable", "Register variable"], answer: "Local variable" },
-  { question: "Which function is used to clear the screen in C (Turbo C)?", options: ["clrscr()", "clear()", "reset()", "refresh()"], answer: "clrscr()" },
-  { question: "Which function terminates a program in C?", options: ["exit()", "quit()", "end()", "stop()"], answer: "exit()" },
-  { question: "Which operator is used to access array elements?", options: ["*", "[]", "->", "."], answer: "[]" },
-  { question: "What is the output of printf('%c', 'A'+1);?", options: ["A", "B", "65", "66"], answer: "B" },
+    // ---------------- CODE-BASED OUTPUT QUESTIONS (35) ----------------
 
-  // ---------------- INTERMEDIATE (15 MCQs) ----------------
-  { question: "Which function is used to compare two strings?", options: ["strcmp()", "compare()", "strcomp()", "stringcmp()"], answer: "strcmp()" },
-  { question: "Which operator is used to access structure members?", options: ["*", "->", ".", "&"], answer: "." },
-  { question: "Which operator is used to access structure members through pointer?", options: ["*", "->", ".", "&"], answer: "->" },
-  { question: "Which keyword is used to declare constants?", options: ["const", "static", "define", "final"], answer: "const" },
-  { question: "Which storage class gives global visibility to a variable?", options: ["static", "extern", "auto", "register"], answer: "extern" },
-  { question: "Which of the following cannot be used as lvalue?", options: ["variable", "array element", "function call", "pointer dereference"], answer: "function call" },
-  { question: "Which of the following is not a valid pointer operation?", options: ["p1 + p2", "p1 - p2", "p1 + 1", "p1++"], answer: "p1 + p2" },
-  { question: "Which header file is required for dynamic memory allocation functions?", options: ["string.h", "stdlib.h", "memory.h", "malloc.h"], answer: "stdlib.h" },
-  { question: "Which of the following is not true about arrays?", options: ["Contiguous memory", "Index starts at 0", "Different data types allowed", "Same type elements"], answer: "Different data types allowed" },
-  { question: "Which loop is most suitable when number of iterations is known?", options: ["for", "while", "do-while", "goto"], answer: "for" },
-  { question: "Which function copies one string into another?", options: ["strcpy()", "strncpy()", "strcopy()", "strcp()"], answer: "strcpy()" },
-  { question: "Which function reallocates previously allocated memory?", options: ["calloc()", "malloc()", "realloc()", "free()"], answer: "realloc()" },
-  { question: "Which operator is used to get size of a data type?", options: ["lengthof", "sizeof", "countof", "measure"], answer: "sizeof" },
-  { question: "Which of the following is NOT a file mode in C?", options: ["\"r\"", "\"w\"", "\"rw\"", "\"a\""], answer: "\"rw\"" },
-  { question: "Which of the following keywords is used to jump to a label?", options: ["goto", "jump", "label", "break"], answer: "goto" },
+  // 🟢 EASY (10)
+  { question: `What is the output of the following code?
 
-  // ---------------- ADVANCED (5 MCQs) ----------------
-  { question: "What will happen if you modify a string literal in C?", options: ["Allowed", "Undefined behavior", "Compile-time error", "Runtime error only"], answer: "Undefined behavior" },
-  { question: "Which keyword prevents variable optimization by compiler?", options: ["const", "static", "volatile", "extern"], answer: "volatile" },
-  { question: "What is the output?\n\nint x = 5;\nprintf(\"%d %d %d\", x, x++, ++x);", options: ["5 5 6", "5 6 7", "Undefined behavior", "7 6 6"], answer: "Undefined behavior" },
-  { question: "Which feature allows different functions to be called using same name via pointers?", options: ["Macros", "Function Pointers", "Structures", "Recursion"], answer: "Function Pointers" },
-  { question: "Which function moves file pointer to beginning of a file?", options: ["reset()", "rewind()", "fseek(0)", "start()"], answer: "rewind()" }
+#include <stdio.h>
+
+int main() {
+    int a = 5;
+    int b = 2;
+    printf("%d", a + b);
+    return 0;
+}`,
+    options: ["7", "52", "Error", "Undefined"], answer: "7" },
+
+  { question: `What is the output of the following code?
+
+#include <stdio.h>
+
+int main() {
+    char c = 'A';
+    printf("%c", c);
+    return 0;
+}`,
+    options: ["A", "65", "B", "Error"], answer: "A" },
+
+  { question: `What is the output of the following code?
+
+#include <stdio.h>
+
+int main() {
+    int i;
+    for(i=0; i<3; i++)
+        printf("%d", i);
+    return 0;
+}`,
+    options: ["012", "123", "321", "Error"], answer: "012" },
+
+  { question: `Output of:
+
+#include <stdio.h>
+
+int main() {
+    int x = 10;
+    x++;
+    printf("%d", x);
+    return 0;
+}`,
+    options: ["10", "11", "9", "Error"], answer: "11" },
+
+  { question: `Output:
+
+#include <stdio.h>
+
+int main() {
+    int a = 5, b = 10;
+    printf("%d", a>b);
+    return 0;
+}`,
+    options: ["0", "1", "5", "10"], answer: "0" },
+
+  { question: `Output:
+
+#include <stdio.h>
+
+int main() {
+    printf("%d", 2*3+4);
+    return 0;
+}`,
+    options: ["10", "14", "8", "Error"], answer: "10" },
+
+  { question: `Output:
+
+#include <stdio.h>
+
+int main() {
+    int x = 5;
+    printf("%d", x--);
+    return 0;
+}`,
+    options: ["5", "4", "6", "Error"], answer: "5" },
+
+  { question: `Output:
+
+#include <stdio.h>
+
+int main() {
+    printf("%d", 10/3);
+    return 0;
+}`,
+    options: ["3", "3.33", "4", "Error"], answer: "3" },
+
+  { question: `Output:
+
+#include <stdio.h>
+
+int main() {
+    int a = 2;
+    int b = 3;
+    printf("%d", a*b);
+    return 0;
+}`,
+    options: ["6", "5", "23", "Error"], answer: "6" },
+
+  { question: `Output:
+
+#include <stdio.h>
+
+int main() {
+    int a = 1;
+    int b = 0;
+    printf("%d", a && b);
+    return 0;
+}`,
+    options: ["0", "1", "Error", "Undefined"], answer: "0" },
+
+  // 🟡 INTERMEDIATE (10)
+  { question: `Output:
+
+#include <stdio.h>
+
+int main() {
+    int arr[3] = {1,2,3};
+    printf("%d", arr[1]);
+    return 0;
+}`,
+    options: ["2", "1", "3", "Error"], answer: "2" },
+
+  { question: `Output:
+
+#include <stdio.h>
+
+int main() {
+    int a = 5;
+    int *p = &a;
+    printf("%d", *p);
+    return 0;
+}`,
+    options: ["5", "Address of a", "0", "Error"], answer: "5" },
+
+  { question: `Output:
+
+#include <stdio.h>
+
+int square(int x) {
+    return x*x;
+}
+
+int main() {
+    printf("%d", square(3));
+    return 0;
+}`,
+    options: ["9", "6", "3", "Error"], answer: "9" },
+
+  { question: `Output:
+
+#include <stdio.h>
+
+int main() {
+    char str[] = "C";
+    printf("%c", str[0]);
+    return 0;
+}`,
+    options: ["C", "0", "Error", "Null"], answer: "C" },
+
+  { question: `Output:
+
+#include <stdio.h>
+
+int main() {
+    int x = 5, y = 10;
+    if(x > y)
+        printf("Yes");
+    else
+        printf("No");
+    return 0;
+}`,
+    options: ["Yes", "No", "Error", "Undefined"], answer: "No" },
+
+  { question: `Output:
+
+#include <stdio.h>
+
+int main() {
+    int i=0;
+    while(i<3) { 
+      printf("%d", i); i++; }
+      return 0;
+}`,
+    options: ["012", "123", "321", "Error"], answer: "012" },
+
+  { question: `Output:
+
+#include <stdio.h>
+
+int main() {
+    int x=5;
+    printf("%d", ++x);
+    return 0;
+}`,
+    options: ["5", "6", "4", "Error"], answer: "6" },
+
+  { question: `Output:
+
+#include <stdio.h>
+
+int main() {
+    int a=1, b=2, c=3;
+    printf("%d", a>b ? b : c);
+    return 0;
+}`,
+    options: ["1", "2", "3", "Error"], answer: "3" },
+
+  { question: `Output:
+
+#include <stdio.h>
+
+int main() {
+    int a=2, b=3;
+    a += b;
+    printf("%d", a);
+    return 0;
+}`,
+    options: ["5", "2", "3", "6"], answer: "5" },
+
+  { question: `Output:
+
+#include <stdio.h>
+
+int main() {
+    int arr[2][2] = {{1,2},{3,4}};
+    printf("%d", arr[1][0]);
+    return 0;
+}`,
+    options: ["3", "2", "1", "4"], answer: "3" },
+
+  // 🔴 ADVANCED (15)
+  { question: `Output:
+
+#include <stdio.h>
+
+int main() {
+    int x = 1;
+    printf("%d %d", x++, ++x);
+    return 0;
+}`,
+    options: ["1 3", "2 2", "Undefined behavior", "1 2"], answer: "Undefined behavior" },
+
+  { question: `Output:
+
+#include <stdio.h>
+
+int main() {
+    int a = 5;
+    int *p = &a;
+    *p = 10;
+    printf("%d", a);
+    return 0;
+}`,
+    options: ["5", "10", "Address", "Error"], answer: "10" },
+
+  { question: `Output:
+
+#include <stdio.h>
+
+int main() {
+    int x[3] = {1,2,3};
+    printf("%d", *(x+2));
+    return 0;
+}`,
+    options: ["3", "2", "1", "Error"], answer: "3" },
+
+  { question: `Output:
+
+#include <stdio.h>
+
+int main() {
+    int x=5;
+    int y=0;
+    printf("%d", x && y);
+    return 0;
+}`,
+    options: ["0", "1", "5", "Error"], answer: "0" },
+
+  { question: `Output:
+
+#include <stdio.h>
+
+void fun(int *a) { *a = 10; }
+
+int main() {
+    int x=5;
+    fun(&x);
+    printf("%d", x);
+    return 0;
+}`,
+    options: ["5", "10", "Address", "Error"], answer: "10" },
+
+  { question: `Output:
+
+#include <stdio.h>
+
+int main() {
+    int a = 10;
+    printf("%d", a >> 1);
+    return 0;
+}`,
+    options: ["5", "20", "1", "Error"], answer: "5" },
+
+  { question: `Output:
+
+#include <stdio.h>
+
+int main() {
+    char c = 'A';
+    printf("%d", c);
+    return 0;
+}`,
+    options: ["65", "A", "66", "Error"], answer: "65" },
+
+  { question: `Output:
+
+#include <stdio.h>
+
+int main() {
+    int a=5, b=3;
+    printf("%d", a|b);
+    return 0;
+}`,
+    options: ["7", "1", "15", "8"], answer: "7" },
+
+  { question: `Output:
+
+#include <stdio.h>
+
+int main() {
+    int x=1;
+    printf("%d", x<<2);
+    return 0;
+}`,
+    options: ["4", "8", "2", "1"], answer: "4" },
+
+  { question: `Output:
+
+#include <stdio.h>
+
+int main() {
+    int x=5, y=3;
+    printf("%d", x^y);
+    return 0;
+}`,
+    options: ["6", "7", "8", "5"], answer: "6" },
+
+  { question: `Output:
+
+#include <stdio.h>
+
+int main() {
+    int x=0;
+    printf("%d", !x);
+    return 0;
+}`,
+    options: ["0", "1", "-1", "Error"], answer: "1" },
+
+  { question: `Output:
+
+#include <stdio.h>
+
+int main() {
+    int a=5, b=2;
+    printf("%d", a%b);
+    return 0;
+}`,
+    options: ["1", "2", "0", "Error"], answer: "1" },
+
+  { question: `Output:
+
+#include <stdio.h>
+
+int main() {
+    int a=1;
+    if(a=0) 
+      printf("Yes");
+    else 
+      printf("No");
+    return 0;
+}`,
+    options: ["Yes", "No", "Error", "Undefined"], answer: "No" },
+
+  { question: `Output:
+
+#include <stdio.h>
+
+int main() {
+    int a=2, b=3;
+    printf("%d", a*b++);
+    return 0;
+}`,
+    options: ["6", "9", "5", "Error"], answer: "6" },
+
+  { question: `Output:
+
+#include <stdio.h>
+
+int main() {
+    int a=1, b=2, c;
+    c = a++ + ++b;
+    printf("%d", c);
+    return 0;
+}`,
+    options: ["4", "5", "3", "6"], answer: "5" },
+
+  // ---------------- NORMAL MCQs (15) ----------------
+
+  // 🟢 EASY (5)
+  { question: "Which of these is a valid identifier in C?", options: ["1var", "_var", "var-name", "#var"], answer: "_var" },
+  { question: "Which of these is the correct syntax to declare an integer?", options: ["int a;", "integer a;", "int a()", "a int;"], answer: "int a;" },
+  { question: "Which function is used to read a single character?", options: ["scanf()", "getchar()", "gets()", "printf()"], answer: "getchar()" },
+  { question: "Which header file is used for standard input/output?", options: ["stdio.h", "conio.h", "stdlib.h", "string.h"], answer: "stdio.h" },
+  { question: "Which operator is used to assign a value?", options: ["=", "==", "!", "+="], answer: "=" },
+
+  // 🟡 INTERMEDIATE (5)
+  { question: "Which function returns length of a string?", options: ["strlen()", "size()", "length()", "count()"], answer: "strlen()" },
+  { question: "Which keyword is used to declare a constant?", options: ["const", "final", "static", "define"], answer: "const" },
+  { question: "Which operator is used for logical AND?", options: ["&&", "||", "!", "&"], answer: "&&" },
+  { question: "Which function copies one string to another?", options: ["strcpy()", "strcat()", "strdup()", "copy()"], answer: "strcpy()" },
+  { question: "Which storage class preserves value between function calls?", options: ["auto", "static", "extern", "register"], answer: "static" },
+
+  // 🔴 ADVANCED (5)
+  { question: "Which keyword prevents compiler optimization?", options: ["const", "volatile", "static", "extern"], answer: "volatile" },
+  { question: "Which operator cannot be overloaded in C?", options: ["sizeof", "=", "+", "-"], answer: "sizeof" },
+  { question: "Which function deallocates dynamic memory?", options: ["malloc()", "free()", "calloc()", "realloc()"], answer: "free()" },
+  { question: "Which operator shifts bits to the right?", options: ["<<", ">>", "&", "|"], answer: ">>" },
+  { question: "Which function returns file pointer position?", options: ["ftell()", "fseek()", "fpos()", "rewind()"], answer: "ftell()" }
+
   ];
 
   // ====== State ======
-  let currentQ = 0, score = 0, timer, timeLeft = 20;
+  let currentQ = 0, score = 0, timer, timeLeft = 30;
   let quizActive = false;
-  let hasSubmitted = false; // prevent duplicate submits
-  let sessionToken = null;  // from server at login
+  let hasSubmitted = false; 
+  let sessionToken = null;  
 
-  // ====== Helpers: Fullscreen ======
   function enterFullscreen() {
     const el = document.documentElement;
     if (el.requestFullscreen) el.requestFullscreen();
@@ -289,7 +649,6 @@
     return document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement;
   }
 
-  // ====== Login ======
   function login() {
     const regId = document.getElementById("regId").value.trim();
     const password = document.getElementById("password").value.trim();
@@ -309,66 +668,48 @@
       document.getElementById("loginBtn").disabled = false;
 
       if (data.status === "success") {
-        sessionToken = data.token; // ✅ token from server
+        sessionToken = data.token; 
         localStorage.setItem("regId", regId);
         localStorage.setItem("name", data.name);
         localStorage.setItem("dept", data.dept);
         localStorage.setItem("token", sessionToken);
 
-        // Show start screen
         document.querySelector(".login-box").style.display = "none";
         document.getElementById("studentName").innerText = `${data.name} (${regId})`;
         document.querySelector(".start-box").style.display = "flex";
 
-        // Show sidebar
         document.getElementById("sidebar").style.display = "flex";
         document.getElementById("sideReg").innerText = regId;
         document.getElementById("sideName").innerText = data.name;
         document.getElementById("sideDept").innerText = data.dept;
 
       } else if (data.status === "already") {
-        // Already attempted → Block re-login
         document.querySelector(".login-box .card").innerHTML =
           `<h2>Attempt Recorded</h2><p>You have already completed this quiz.</p>`;
       } else {
         err.innerText = "Invalid Register No or Password!";
       }
     })
-    .catch(() => {
-      spinner.style.display = "none";
-      document.getElementById("loginBtn").disabled = false;
-      err.innerText = "Server Error!";
-    });
+    .catch(() => { spinner.style.display = "none"; document.getElementById("loginBtn").disabled = false; err.innerText = "Server Error!"; });
   }
 
-  // ====== Start Quiz ======
   function startQuiz() {
-    // Move to quiz UI
     document.querySelector(".start-box").style.display = "none";
     document.querySelector(".quiz-box").style.display = "flex";
     quizActive = true;
     hasSubmitted = false;
     score = 0;
     currentQ = 0;
-
-    // Enter fullscreen (cannot hide OS buttons, but we enforce fail if exit)
     enterFullscreen();
-
     loadQuestion();
   }
 
-  document.addEventListener("keydown", (e) => { if (e.key === "Enter") document.getElementById("loginBtn").click(); });
-  
-  // ====== Load Question ======
   function loadQuestion() {
     if (currentQ >= quizData.length) {
       showResult(false);
       return;
     }
-
-    document.getElementById("question").innerText =
-      `Question ${currentQ+1}: ${quizData[currentQ].question}`;
-
+    document.getElementById("question").innerText = `Question ${currentQ+1}: ${quizData[currentQ].question}`;
     const optionsDiv = document.getElementById("options");
     optionsDiv.innerHTML = "";
     quizData[currentQ].options.forEach(opt => {
@@ -377,16 +718,13 @@
       btn.onclick = () => checkAnswer(opt);
       optionsDiv.appendChild(btn);
     });
-
     resetTimer();
   }
 
-  // ====== Timer ======
   function resetTimer() {
     clearInterval(timer);
-    timeLeft = 20;
+    timeLeft = 30;
     updateTimerDisplay();
-
     timer = setInterval(() => {
       timeLeft--;
       updateTimerDisplay();
@@ -406,37 +744,27 @@
     else timerEl.classList.add("timer-green");
   }
 
-  // ====== Answer Check ======
+  // ====== Answer Check: +2 correct, -1 wrong ======
   function checkAnswer(answer) {
-    if (answer === quizData[currentQ].answer) score++;
+    if (answer === quizData[currentQ].answer) score += 2;
+    else score -= 1;
+    if(score<0) score=0;
     currentQ++;
     clearInterval(timer);
     loadQuestion();
   }
 
-  // ====== Show Result & Submit ======
   function showResult(forcedEnd = false) {
-    if (hasSubmitted) return; // prevent duplicate calls
+    if (hasSubmitted) return;
     hasSubmitted = true;
-
-    // Stop everything
     clearInterval(timer);
     quizActive = false;
-
-    // If forced end (cheating), override score to 0
     if (forcedEnd) score = 0;
-
-    // UI
     document.querySelector(".quiz-box").style.display = "none";
     document.querySelector(".result-box").style.display = "flex";
-    //document.getElementById("score").innerText =
-      //`Your Score: ${score}/${quizData.length}`;
 
-    // Data for server
     const regId = localStorage.getItem("regId");
     const token = localStorage.getItem("token") || sessionToken;
-
-    // Submit score with token
     fetch(SCRIPT_URL, {
       method: "POST",
       body: JSON.stringify({
@@ -446,64 +774,22 @@
         token,
         forced: !!forcedEnd
       })
-    }).catch(()=>{ /* swallow network errors for UI */ });
-
-    // Attempt to exit fullscreen if still in it
-    if (isFullscreen()) {
-      if (document.exitFullscreen) document.exitFullscreen();
-      else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
-      else if (document.mozCancelFullScreen) document.mozCancelFullScreen();
-      else if (document.msExitFullscreen) document.msExitFullscreen();
-    }
+    }).catch(()=>{});
+    if (isFullscreen()) { if(document.exitFullscreen) document.exitFullscreen(); }
   }
 
-  // ====== Force Fail (security triggers) ======
-  function forceFail() {
-    if (!quizActive) return;
-    showResult(true); // will set score = 0 and submit
-  }
+  function forceFail() { if (!quizActive) return; showResult(true); }
 
-  // ====== Security Event Listeners ======
-  // 1) Leaving fullscreen
-  document.addEventListener("fullscreenchange", () => {
-    if (quizActive && !isFullscreen()) forceFail();
-  });
-  document.addEventListener("webkitfullscreenchange", () => {
-    if (quizActive && !isFullscreen()) forceFail();
-  });
-  document.addEventListener("mozfullscreenchange", () => {
-    if (quizActive && !isFullscreen()) forceFail();
-  });
-  document.addEventListener("MSFullscreenChange", () => {
-    if (quizActive && !isFullscreen()) forceFail();
-  });
+  document.addEventListener("fullscreenchange", () => { if (quizActive && !isFullscreen()) forceFail(); });
+  document.addEventListener("webkitfullscreenchange", () => { if (quizActive && !isFullscreen()) forceFail(); });
+  document.addEventListener("mozfullscreenchange", () => { if (quizActive && !isFullscreen()) forceFail(); });
+  document.addEventListener("MSFullscreenChange", () => { if (quizActive && !isFullscreen()) forceFail(); });
 
-  // 2) Tab change / minimize
-  document.addEventListener("visibilitychange", () => {
-    if (quizActive && document.hidden) forceFail();
-  });
-
-  // 3) Window blur (focus lost – often indicates app switch)
-  window.addEventListener("blur", () => {
-    if (quizActive) forceFail();
-  });
-
-  // 4) Close/refresh attempt during quiz
-  window.addEventListener("beforeunload", (e) => {
-    if (quizActive) {
-      // Modern browsers ignore custom text, but this prevents silent refresh.
-      e.preventDefault();
-      e.returnValue = '';
-      forceFail();
-    }
-  });
-//Mouse disable button
+  document.addEventListener("visibilitychange", () => { if (quizActive && document.hidden) forceFail(); });
+  window.addEventListener("blur", () => { if (quizActive) forceFail(); });
+  window.addEventListener("beforeunload", (e) => { if (quizActive) { e.preventDefault(); e.returnValue = ''; forceFail(); } });
   document.addEventListener("contextmenu", (e) => e.preventDefault());
-
+  document.addEventListener("keydown", (e) => { if (e.key === "Enter") document.getElementById("loginBtn").click(); });
 </script>
-
 </body>
 </html>
-
-
-

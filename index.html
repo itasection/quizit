@@ -4,20 +4,17 @@
   <meta charset="UTF-8" />
   <title>Quiz Portal</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="icon" href="brainbuzz.png" type="image/png" />
-  <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     body {
       font-family: Arial, sans-serif;
       margin:0; padding:0;
-      background:linear-gradient(135deg,#162b34,#35819b,#2c5364);
-      color:white; flex-direction:column; text-align:center; 
+     background:linear-gradient(135deg,#162b34,#35819b,#2c5364); color:white; flex-direction:column; text-align:center; 
       display:flex;
       height:100vh;
       flex-direction: row;
     }
       
-    section { display:none; height:100vh; display:flex; justify-content:center; align-items:center; }
+  section { display:none; height:100vh; display:flex; justify-content:center; align-items:center; }
 
     /* Sidebar */
     .sidebar {
@@ -43,7 +40,7 @@
       font-size:14px;
       color:#0d0d0d;
       word-wrap: break-word;
-      word-break: break-word;
+      word-break: break-word; /* ✅ prevent overflow */
       text-align: left;
     }
 
@@ -58,6 +55,8 @@
       box-sizing:border-box;
     }
     .login-box { background:rgba(255,255,255,0.1); padding:30px; border-radius:12px; width:400px; text-align:center; box-shadow:0 0 20px rgba(0,0,0,0.4); }
+
+    
 
     input {
       width:90%; padding:10px;
@@ -77,7 +76,8 @@
       font-size:16px;
     }
     button:hover {background:#357ab7;}
-    #error {color:rgb(192, 41, 41); margin-top:10px;}
+    #error {color:rgb(192, 41, 41); margin-top:10px;
+            }
 
     .quiz-box, .result-box, .start-box {display:none;}
     .question {font-size:18px; margin:20px 0;}
@@ -99,8 +99,10 @@
       font-size:20px;
       margin:10px;
     }
-    .timer-green {color:green; background-color: #dcd5d5;}
-    .red-blink {color:red; animation: blink 1s infinite; background-color: #dcd5d5;}
+    .timer-green {color:green;
+                  background-color: #dcd5d5;}
+    .red-blink {color:red; animation: blink 1s infinite;
+                background-color: #dcd5d5;}
     @keyframes blink {50% {opacity:0;}}
 
     /* Loading spinner */
@@ -116,16 +118,31 @@
     }
     @keyframes spin { 0% { transform: rotate(0deg);} 100% { transform: rotate(360deg);} }
 
-    /* RESPONSIVE DESIGN */
+    /* ========== RESPONSIVE DESIGN ========== */
     @media (max-width: 900px) {
-      body { flex-direction: column; }
-      .sidebar { width:100%; flex-direction: row; flex-wrap: wrap; justify-content: space-around; padding:15px; text-align:center; box-shadow: 0 2px 8px rgba(10, 10, 10, 0.1); }
+      body { flex-direction: column; } /* Sidebar becomes top bar */
+      .sidebar {
+        
+        width:100%;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        padding:15px;
+        text-align:center;
+        box-shadow: 0 2px 8px rgba(10, 10, 10, 0.1);
+      }
       .sidebar h3 { display:none; }
-      .sidebar p { margin:10px; font-size:13px; flex: 1 1 30%; text-align: center; }
+      .sidebar p {
+        margin:10px;
+        font-size:13px;
+        flex: 1 1 30%;
+        text-align: center;
+      }
       .main { padding:10px; width:100%; }
       .card { width:100%; max-width:100%; padding:20px; margin:auto; }
       .options button { width:100%; margin:8px 0; }
     }
+
     @media (max-width: 480px) {
       .question { font-size:16px; }
       #timer { font-size:18px; }
@@ -141,7 +158,7 @@
   <h3>Student Info</h3>
   <p><b>Reg ID:</b> <span id="sideReg"></span></p>
   <p><b>Name:</b> <span id="sideName"></span></p>
-  <p><b>Dept:</b> <span id="sideDept"></span></p>
+  <p><b>College:</b> <span id="sideDept"></span></p>
 </div>
 
 <!-- MAIN CONTENT -->
@@ -149,8 +166,8 @@
   <!-- LOGIN PAGE -->
   <div class="center-box login-box">
     <div class="card">
-      <h2>Welcome to <strong>BRAIN BUZZ</strong></h2>
-      <h3>ROUND 2</h3>
+      <h2>Welcome to  <strong> QUIZ PORTAL.</strong></h2>
+      <h3>ROUND 1</h3>
       <input type="text" id="regId" placeholder="Register Number" required>
       <input type="password" id="password" placeholder="Password" required>
       <button id="loginBtn" onclick="login()">Login</button>
@@ -181,92 +198,81 @@
   </div>
 
   <!-- RESULT PAGE -->
-  <div class="center-box result-box">
+   <div class="center-box result-box">
     <div class="card">
       <h2>Quiz Completed</h2>
       <p id="score"></p> <!-- Removed visible score text -->
       <p style="color: yellow;">Your attempt has been submitted successfully.</p>
     </div>
   </div>
+  
 </div>
 
 <script>
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxsQ_XX7DBOPKjvmDpLqIRQwMeg5CJhF2jUSk48ASGFH_69F2BqWliAfCDe1aK6Dv2P/exec"; 
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwkrA56PhdU-OeE2pYxkdburlJ8-nXbLLwuZXqUSe4GfDh-yKt5NbYJrbdyCZVTA736/exec"; // your Apps Script URL
 
   // ====== Quiz Questions ======
   const quizData = [
-    // ---------------- CODE-BASED OUTPUT QUESTIONS (35) ----------------
-
-  { question: "What will be the output?\n\nint a = 5;\nprintf(\"%d\", a++ + ++a);", options: ["11", "12", "Undefined behavior", "10"], answer: "Undefined behavior" },
-
-  { question: "What is the output of the code?\n\nint i = 0;\nif(i = 5)\nprintf(\"True\");\nelse printf(\"False\");", options: ["True", "False", "Error", "Garbage"], answer: "True" },
-
-  { question: "What will be the output?\n\nint a = 2;\nfloat b = 3.5;\nprintf(\"%d\", a + b);", options: ["5", "5.5", "Compile-time error", "Undefined behavior"], answer: "5" },
-
-  { question: "Which of the following correctly declares a pointer to a function returning float?", options: ["float f();", "float (*f)();", "float *f(void);", "float f()();"], answer: "float (*f)();" },
-
-  { question: "What will this code output?\n\nint x = 5;\nint y = x++ * ++x;\nprintf(\"%d\", y);", options: ["30", "25", "Undefined behavior", "26"], answer: "Undefined behavior" },
-
-  { question: "What is printed by the following?\n\nchar s[] = \"abcd\";\nprintf(\"%c\", ++*s);", options: ["b", "a", "Error", "Undefined"], answer: "b" },
-
-  { question: "What is the size of the expression sizeof('A') in C?", options: ["1", "2", "4", "Implementation dependent"], answer: "4" },
-
-  { question: "What will happen?\n\nint a = 10, b = 0;\nprintf(\"%d\", a && b++); printf(\"%d\", b);", options: ["10 1", "1 0", "1 1", "1 0"], answer: "1 0" },
-
-  { question: "Which of these is TRUE about volatile keyword in C?", options: ["It prevents compiler optimization on that variable", "It makes variable read-only", "It ensures thread safety", "It forces static storage"], answer: "It prevents compiler optimization on that variable" },
-
-  { question: "What is the output?\n\nint x = 5;\nprintf(\"%d\", printf(\"%d\", x));", options: ["55", "5", "Error", "Runtime error"], answer: "55" },
-
-  { question: "Which statement about union is TRUE?", options: ["All members share the same memory location", "Each member has its own space", "It can’t contain arrays", "Union size equals sum of members"], answer: "All members share the same memory location" },
-
-  { question: "What will be printed?\n\nint arr[] = {1,2,3,4,5};\nint *p = arr;\nprintf(\"%d\", *(p+3));", options: ["2", "3", "4", "5"], answer: "4" },
-
-  { question: "Which of the following correctly defines a constant pointer to a constant integer?", options: ["const int const ptr;", "int const *ptr;", "int *const ptr;", "const int ptr;"], answer: "const int *const ptr;" },
-
-  { question: "What will happen?\n\nint a = 5;\nprintf(\"%d\", a = a == 5);", options: ["5", "1", "0", "Error"], answer: "1" },
-
-  { question: "What will be the result of this code?\n\nint x = 10;\nint y = x+++x++;\nprintf(\"%d\", y);", options: ["21", "20", "Undefined behavior", "22"], answer: "Undefined behavior" },
-
-  // ---------- Advanced Python ----------
-  { question: "What is the output?\n\nx = [[0]*3]*3\nx[0][0] = 1\nprint(x)", options: ["[[1,0,0],[0,0,0],[0,0,0]]", "[[1,0,0],[1,0,0],[1,0,0]]", "Error", "None"], answer: "[[1,0,0],[1,0,0],[1,0,0]]" },
-
-  { question: "What is the output?\n\ndef func(x=[]):\n    x.append(1)\n    print(x)\nfunc()\nfunc()", options: ["[1] [1]", "[1] [1,1]", "[1,1] [1,1]", "Error"], answer: "[1] [1,1]" },
-
-  { question: "Which of the following statements about Python generators is TRUE?", options: ["They return a list", "They use 'yield' instead of 'return'", "They execute fully at once", "They cannot maintain state"], answer: "They use 'yield' instead of 'return'" },
-
-  { question: "What will be the output?\n\nx = [i for i in range(3)]\ny = (i for i in range(3))\nprint(sum(x), sum(y))", options: ["3 3", "3 0", "Error", "0 3"], answer: "3 3" },
-
-  { question: "What is the result?\n\nprint(''.join(sorted('badc')))", options: ["abcd", "dcba", "badc", "Error"], answer: "abcd" },
-
-  { question: "What is printed?\n\ndef f(a, b, /, c, d, *, e, f):\n    print(a,b,c,d,e,f)\nf(1,2,3,4,e=5,f=6)", options: ["1 2 3 4 5 6", "Error", "Invalid syntax", "1 2 3 4"], answer: "1 2 3 4 5 6" },
-
-  { question: "What is the output?\n\nx = (i for i in range(5))\nprint(next(x), next(x))", options: ["0 1", "1 2", "Error", "0 0"], answer: "0 1" },
-
-  { question: "What will be printed?\n\ndef f():\n    try:\n        return 1\n    finally:\n        return 2\nprint(f())", options: ["1", "2", "Error", "None"], answer: "2" },
-
-  { question: "What does this print?\n\na = [1,2,3]\nprint(id(a))\na += [4]\nprint(id(a))", options: ["Same ID both times", "Different IDs", "Error", "None"], answer: "Same ID both times" },
-
-  { question: "What is the output?\n\ndef f(x, y=[]):\n    y.append(x)\n    return y\nprint(f(1))\nprint(f(2,[]))\nprint(f(3))", options: ["[1] [2] [3]", "[1] [2] [1,3]", "[1,3] [2] [1,3]", "Error"], answer: "[1] [2] [1,3]" },
-
-  { question: "Which of the following best describes Python closures?", options: ["Functions that remember values from enclosing scopes", "Functions without names", "Functions that return classes", "Static methods"], answer: "Functions that remember values from enclosing scopes" },
-
-  { question: "What will this code print?\n\nx = {i: i*i for i in range(3)}\nprint(x[1] + x[2])", options: ["1", "5", "4", "Error"], answer: "5" },
-
-  { question: "What is printed?\n\nprint(bool('False'), bool(''))", options: ["True False", "False True", "False False", "True True"], answer: "True False" },
-
-  { question: "What is the output of the following lambda expression?\n\nprint((lambda x: x*2)(5))", options: ["10", "25", "5", "Error"], answer: "10" },
-
-  { question: "What will be printed?\n\ndef f(n):\n    if n == 0: return 0\n    else: return n + f(n-1)\nprint(f(4))", options: ["10", "4", "5", "Error"], answer: "10" }
-
-
+    { question: "What does 'Data Science' mainly deal with?", options: ["Numbers only", "Collecting and analyzing data", "Making websites", "Drawing pictures"], answer: "Collecting and analyzing data" },
+  { question: "Which programming language is most used in Data Science?", options: ["Python", "HTML", "CSS", "C"], answer: "Python" },
+  { question: "Which of these is used to store data in tables?", options: ["Pandas", "Matplotlib", "Flask", "Django"], answer: "Pandas" },
+  { question: "Which library is used for graphs and charts?", options: ["Matplotlib", "NumPy", "Flask", "JSON"], answer: "Matplotlib" },
+  { question: "What is data?", options: ["Facts and figures", "Only text", "Only images", "Only code"], answer: "Facts and figures" },
+  { question: "Which term refers to removing unwanted information?", options: ["Data cleaning", "Data storing", "Data mining", "Data saving"], answer: "Data cleaning" },
+  { question: "Which file format is commonly used to store tabular data?", options: ["CSV", "TXT", "MP3", "PDF"], answer: "CSV" },
+  { question: "What does a bar chart show?", options: ["Comparison between categories", "Trends over time", "Relationships", "Errors"], answer: "Comparison between categories" },
+  { question: "What does a line graph show?", options: ["Changes over time", "Single value", "Differences in text", "Errors"], answer: "Changes over time" },
+  { question: "Which function in Python shows the first few rows of data?", options: ["head()", "tail()", "top()", "show()"], answer: "head()" },
+  { question: "Which function in Pandas shows the last few rows?", options: ["tail()", "bottom()", "last()", "show()"], answer: "tail()" },
+  { question: "Which of the following is numerical data?", options: ["Age", "Name", "City", "Gender"], answer: "Age" },
+  { question: "Which of the following is categorical data?", options: ["Gender", "Height", "Weight", "Age"], answer: "Gender" },
+  { question: "What is the full form of CSV?", options: ["Comma Separated Values", "Common Separated Values", "Computer Stored Values", "Comma Storage Values"], answer: "Comma Separated Values" },
+  { question: "Which of these is a Python library for arrays?", options: ["NumPy", "Tkinter", "Django", "Flask"], answer: "NumPy" },
+  { question: "Which of these is an example of structured data?", options: ["Excel sheet", "Paragraph", "Video", "Audio"], answer: "Excel sheet" },
+  { question: "What is unstructured data?", options: ["Images and videos", "Numbers only", "Tables", "Databases"], answer: "Images and videos" },
+  { question: "Which of the following shows average value?", options: ["Mean", "Mode", "Range", "Frequency"], answer: "Mean" },
+  { question: "Which value appears most often in data?", options: ["Mode", "Mean", "Median", "Range"], answer: "Mode" },
+  { question: "Which value is the middle value when data is arranged?", options: ["Median", "Mean", "Mode", "Range"], answer: "Median" },
+  { question: "Which graph shows distribution of data?", options: ["Histogram", "Bar chart", "Pie chart", "Line graph"], answer: "Histogram" },
+  { question: "Which graph is used to show percentages?", options: ["Pie chart", "Histogram", "Box plot", "Scatter plot"], answer: "Pie chart" },
+  { question: "Which operation joins two datasets?", options: ["Merge", "Split", "Delete", "Copy"], answer: "Merge" },
+  { question: "Which Python function is used to find average?", options: ["mean()", "sum()", "avg()", "total()"], answer: "mean()" },
+  { question: "Which of these is a data visualization library?", options: ["Seaborn", "Requests", "Flask", "Django"], answer: "Seaborn" },
+  { question: "Which of these is NOT a Python data type?", options: ["int", "float", "string", "table"], answer: "table" },
+  { question: "What does EDA stand for?", options: ["Exploratory Data Analysis", "Easy Data Access", "External Data Arrangement", "Extra Data Assignment"], answer: "Exploratory Data Analysis" },
+  { question: "What is the use of EDA?", options: ["To understand the data", "To delete data", "To design websites", "To write code"], answer: "To understand the data" },
+  { question: "Which of these describes data in words?", options: ["Qualitative data", "Quantitative data", "Numeric data", "None"], answer: "Qualitative data" },
+  { question: "Which of these is numeric data?", options: ["Marks", "Color", "Gender", "Name"], answer: "Marks" },
+  { question: "What is used to remove duplicate rows in Pandas?", options: ["drop_duplicates()", "remove()", "delete()", "unique()"], answer: "drop_duplicates()" },
+  { question: "Which command in Python shows data information?", options: ["info()", "show()", "data()", "details()"], answer: "info()" },
+  { question: "Which function gives basic statistics in Pandas?", options: ["describe()", "mean()", "sum()", "info()"], answer: "describe()" },
+  { question: "Which keyword is used to define a function in Python?", options: ["def", "func", "function", "define"], answer: "def" },
+  { question: "Which symbol is used for comments in Python?", options: ["#", "//", "/*", "<!--"], answer: "#" },
+  { question: "What is the full form of AI?", options: ["Artificial Intelligence", "Applied Information", "Automatic Integration", "Analytical Input"], answer: "Artificial Intelligence" },
+  { question: "Which field combines statistics, programming, and domain knowledge?", options: ["Data Science", "Web Design", "Networking", "Graphics"], answer: "Data Science" },
+  { question: "Which data type stores true or false values?", options: ["Boolean", "Integer", "Float", "String"], answer: "Boolean" },
+  { question: "Which of these shows the spread of data?", options: ["Range", "Mean", "Mode", "Median"], answer: "Range" },
+  { question: "What does ML stand for?", options: ["Machine Learning", "Main Logic", "Math Learning", "Model Language"], answer: "Machine Learning" },
+  { question: "What does BI stand for?", options: ["Business Intelligence", "Binary Input", "Basic Info", "Big Integration"], answer: "Business Intelligence" },
+  { question: "What is the purpose of visualization?", options: ["To see data clearly", "To delete data", "To create loops", "To write code"], answer: "To see data clearly" },
+  { question: "Which function in Python reads a CSV file?", options: ["read_csv()", "open_csv()", "load_csv()", "import_csv()"], answer: "read_csv()" },
+  { question: "Which function saves data to a CSV file?", options: ["to_csv()", "save()", "store_csv()", "export_csv()"], answer: "to_csv()" },
+  { question: "What is the use of correlation?", options: ["To find relationship between variables", "To clean data", "To draw graphs", "To merge files"], answer: "To find relationship between variables" },
+  { question: "Which operator is used for checking equality?", options: ["==", "=", "===", "<>"], answer: "==" },
+  { question: "What is the main goal of predictive analytics?", options: ["To predict future outcomes", "To clean data", "To store data", "To visualize data"], answer: "To predict future outcomes" },
+  { question: "Which of these is an open-source data tool?", options: ["Jupyter Notebook", "MS Word", "Excel", "PowerPoint"], answer: "Jupyter Notebook" },
+  { question: "Which Python function gives the number of rows and columns?", options: ["shape", "size", "count", "index"], answer: "shape" },
+  { question: "Which function removes missing data?", options: ["dropna()", "delete()", "clear()", "remove()"], answer: "dropna()" }
+  
   ];
 
   // ====== State ======
-  let currentQ = 0, score = 0, timer, timeLeft = 30;
+  let currentQ = 0, score = 0, timer, timeLeft = 20;
   let quizActive = false;
-  let hasSubmitted = false; 
-  let sessionToken = null;  
+  let hasSubmitted = false; // prevent duplicate submits
+  let sessionToken = null;  // from server at login
 
+  // ====== Helpers: Fullscreen ======
   function enterFullscreen() {
     const el = document.documentElement;
     if (el.requestFullscreen) el.requestFullscreen();
@@ -278,6 +284,7 @@
     return document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement;
   }
 
+  // ====== Login ======
   function login() {
     const regId = document.getElementById("regId").value.trim();
     const password = document.getElementById("password").value.trim();
@@ -297,48 +304,66 @@
       document.getElementById("loginBtn").disabled = false;
 
       if (data.status === "success") {
-        sessionToken = data.token; 
+        sessionToken = data.token; // ✅ token from server
         localStorage.setItem("regId", regId);
         localStorage.setItem("name", data.name);
         localStorage.setItem("dept", data.dept);
         localStorage.setItem("token", sessionToken);
 
+        // Show start screen
         document.querySelector(".login-box").style.display = "none";
         document.getElementById("studentName").innerText = `${data.name} (${regId})`;
         document.querySelector(".start-box").style.display = "flex";
 
+        // Show sidebar
         document.getElementById("sidebar").style.display = "flex";
         document.getElementById("sideReg").innerText = regId;
         document.getElementById("sideName").innerText = data.name;
         document.getElementById("sideDept").innerText = data.dept;
 
       } else if (data.status === "already") {
+        // Already attempted → Block re-login
         document.querySelector(".login-box .card").innerHTML =
           `<h2>Attempt Recorded</h2><p>You have already completed this quiz.</p>`;
       } else {
         err.innerText = "Invalid Register No or Password!";
       }
     })
-    .catch(() => { spinner.style.display = "none"; document.getElementById("loginBtn").disabled = false; err.innerText = "Server Error!"; });
+    .catch(() => {
+      spinner.style.display = "none";
+      document.getElementById("loginBtn").disabled = false;
+      err.innerText = "Server Error!";
+    });
   }
 
+  // ====== Start Quiz ======
   function startQuiz() {
+    // Move to quiz UI
     document.querySelector(".start-box").style.display = "none";
     document.querySelector(".quiz-box").style.display = "flex";
     quizActive = true;
     hasSubmitted = false;
     score = 0;
     currentQ = 0;
+
+    // Enter fullscreen (cannot hide OS buttons, but we enforce fail if exit)
     enterFullscreen();
+
     loadQuestion();
   }
 
+  document.addEventListener("keydown", (e) => { if (e.key === "Enter") document.getElementById("loginBtn").click(); });
+  
+  // ====== Load Question ======
   function loadQuestion() {
     if (currentQ >= quizData.length) {
       showResult(false);
       return;
     }
-    document.getElementById("question").innerText = `Question ${currentQ+1}: ${quizData[currentQ].question}`;
+
+    document.getElementById("question").innerText =
+      `Question ${currentQ+1}: ${quizData[currentQ].question}`;
+
     const optionsDiv = document.getElementById("options");
     optionsDiv.innerHTML = "";
     quizData[currentQ].options.forEach(opt => {
@@ -347,13 +372,16 @@
       btn.onclick = () => checkAnswer(opt);
       optionsDiv.appendChild(btn);
     });
+
     resetTimer();
   }
 
+  // ====== Timer ======
   function resetTimer() {
     clearInterval(timer);
-    timeLeft = 30;
+    timeLeft = 20;
     updateTimerDisplay();
+
     timer = setInterval(() => {
       timeLeft--;
       updateTimerDisplay();
@@ -373,27 +401,37 @@
     else timerEl.classList.add("timer-green");
   }
 
-  // ====== Answer Check: +2 correct, -1 wrong ======
+  // ====== Answer Check ======
   function checkAnswer(answer) {
-    if (answer === quizData[currentQ].answer) score += 2;
-    else score -= 1;
-    if(score<0) score=0;
+    if (answer === quizData[currentQ].answer) score++;
     currentQ++;
     clearInterval(timer);
     loadQuestion();
   }
 
+  // ====== Show Result & Submit ======
   function showResult(forcedEnd = false) {
-    if (hasSubmitted) return;
+    if (hasSubmitted) return; // prevent duplicate calls
     hasSubmitted = true;
+
+    // Stop everything
     clearInterval(timer);
     quizActive = false;
+
+    // If forced end (cheating), override score to 0
     if (forcedEnd) score = 0;
+
+    // UI
     document.querySelector(".quiz-box").style.display = "none";
     document.querySelector(".result-box").style.display = "flex";
+    //document.getElementById("score").innerText =
+      //`Your Score: ${score}/${quizData.length}`;
 
+    // Data for server
     const regId = localStorage.getItem("regId");
     const token = localStorage.getItem("token") || sessionToken;
+
+    // Submit score with token
     fetch(SCRIPT_URL, {
       method: "POST",
       body: JSON.stringify({
@@ -403,23 +441,62 @@
         token,
         forced: !!forcedEnd
       })
-    }).catch(()=>{});
-    if (isFullscreen()) { if(document.exitFullscreen) document.exitFullscreen(); }
+    }).catch(()=>{ /* swallow network errors for UI */ });
+
+    // Attempt to exit fullscreen if still in it
+    if (isFullscreen()) {
+      if (document.exitFullscreen) document.exitFullscreen();
+      else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+      else if (document.mozCancelFullScreen) document.mozCancelFullScreen();
+      else if (document.msExitFullscreen) document.msExitFullscreen();
+    }
   }
 
-  function forceFail() { if (!quizActive) return; showResult(true); }
+  // ====== Force Fail (security triggers) ======
+  function forceFail() {
+    if (!quizActive) return;
+    showResult(true); // will set score = 0 and submit
+  }
 
-  document.addEventListener("fullscreenchange", () => { if (quizActive && !isFullscreen()) forceFail(); });
-  document.addEventListener("webkitfullscreenchange", () => { if (quizActive && !isFullscreen()) forceFail(); });
-  document.addEventListener("mozfullscreenchange", () => { if (quizActive && !isFullscreen()) forceFail(); });
-  document.addEventListener("MSFullscreenChange", () => { if (quizActive && !isFullscreen()) forceFail(); });
+  // ====== Security Event Listeners ======
+  // 1) Leaving fullscreen
+  document.addEventListener("fullscreenchange", () => {
+    if (quizActive && !isFullscreen()) forceFail();
+  });
+  document.addEventListener("webkitfullscreenchange", () => {
+    if (quizActive && !isFullscreen()) forceFail();
+  });
+  document.addEventListener("mozfullscreenchange", () => {
+    if (quizActive && !isFullscreen()) forceFail();
+  });
+  document.addEventListener("MSFullscreenChange", () => {
+    if (quizActive && !isFullscreen()) forceFail();
+  });
 
-  document.addEventListener("visibilitychange", () => { if (quizActive && document.hidden) forceFail(); });
-  window.addEventListener("blur", () => { if (quizActive) forceFail(); });
-  window.addEventListener("beforeunload", (e) => { if (quizActive) { e.preventDefault(); e.returnValue = ''; forceFail(); } });
+  // 2) Tab change / minimize
+  document.addEventListener("visibilitychange", () => {
+    if (quizActive && document.hidden) forceFail();
+  });
+
+  // 3) Window blur (focus lost – often indicates app switch)
+  window.addEventListener("blur", () => {
+    if (quizActive) forceFail();
+  });
+
+  // 4) Close/refresh attempt during quiz
+  window.addEventListener("beforeunload", (e) => {
+    if (quizActive) {
+      // Modern browsers ignore custom text, but this prevents silent refresh.
+      e.preventDefault();
+      e.returnValue = '';
+      forceFail();
+    }
+  });
+//Mouse disable button
   document.addEventListener("contextmenu", (e) => e.preventDefault());
-  document.addEventListener("keydown", (e) => { if (e.key === "Enter") document.getElementById("loginBtn").click(); });
+
 </script>
+
 </body>
 </html>
 

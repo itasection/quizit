@@ -167,7 +167,7 @@
   <div class="center-box login-box">
     <div class="card">
       <h2>Welcome to  <strong> QUIZ PORTAL.</strong></h2>
-      <h3>ROUND 2</h3>
+      <h3>ROUND 1</h3>
       <input type="text" id="regId" placeholder="Register Number" required>
       <input type="password" id="password" placeholder="Password" required>
       <button id="loginBtn" onclick="login()">Login</button>
@@ -209,45 +209,62 @@
 </div>
 
 <script>
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyhR9lZJk53p0WPKE7pzfSyDKYQ4FZ1Rud4Dzh83KZcXhs6i6LNQn55X1BOjjDp6MolAg/exec"; // your Apps Script URL
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwtyDnNLDzDRcLHsUB7jo18tQWoZOdv46XTsIfpQs-D5ARX4N11yxhEOu6pHFs22QyaKA/exec"; // your Apps Script URL
 
   // ====== Quiz Questions ======
-  
   const quizData = [
-    { question: "What is the main purpose of normalization in data preprocessing?", options: ["To scale data into a specific range", "To delete missing data", "To remove duplicates", "To convert data into text"], answer: "To scale data into a specific range" },
-  { question: "Which Python function is used to find correlation between columns?", options: ["corr()", "relation()", "connect()", "pair()"], answer: "corr()" },
-  { question: "What is outlier detection used for?", options: ["To find unusual data points", "To find mean value", "To find missing data", "To delete duplicates"], answer: "To find unusual data points" },
-  { question: "Which algorithm is used for classification problems?", options: ["Logistic Regression", "Linear Regression", "K-Means", "PCA"], answer: "Logistic Regression" },
-  { question: "What is the purpose of a confusion matrix?", options: ["To measure classification accuracy", "To clean data", "To visualize missing values", "To normalize data"], answer: "To measure classification accuracy" },
-  { question: "Which metric is used to measure model accuracy?", options: ["Accuracy Score", "Mean", "Sum", "Variance"], answer: "Accuracy Score" },
-  { question: "What does overfitting mean?", options: ["Model performs well on training data but poorly on new data", "Model performs well on all data", "Model never trains", "Model ignores outliers"], answer: "Model performs well on training data but poorly on new data" },
-  { question: "What does underfitting mean?", options: ["Model is too simple to capture the pattern", "Model fits perfectly", "Model memorizes data", "Model over-trains"], answer: "Model is too simple to capture the pattern" },
-  { question: "Which method is used to split data into training and testing sets in Python?", options: ["train_test_split()", "split_data()", "divide()", "partition()"], answer: "train_test_split()" },
-  { question: "What is feature selection?", options: ["Choosing important variables for model", "Deleting missing data", "Creating random variables", "Normalizing data"], answer: "Choosing important variables for model" },
-  { question: "Which metric is used for regression model performance?", options: ["Mean Squared Error", "Accuracy", "Recall", "Precision"], answer: "Mean Squared Error" },
-  { question: "Which visualization is best for correlation between two continuous variables?", options: ["Scatter Plot", "Pie Chart", "Bar Graph", "Box Plot"], answer: "Scatter Plot" },
-  { question: "Which technique reduces the number of variables while keeping important information?", options: ["PCA (Principal Component Analysis)", "Linear Regression", "Decision Tree", "KNN"], answer: "PCA (Principal Component Analysis)" },
-  { question: "Which algorithm divides data into clusters?", options: ["K-Means", "Logistic Regression", "SVM", "Decision Tree"], answer: "K-Means" },
-  { question: "What is the purpose of the elbow method?", options: ["To find optimal number of clusters", "To find missing data", "To normalize data", "To build regression model"], answer: "To find optimal number of clusters" },
-   { question: "What is the formula for variance in a sample?", options: ["Σ(x−x̄)² / (n−1)", "Σ(x−x̄) / n", "Σx / n", "(Σx²) / n"], answer: "Σ(x−x̄)² / (n−1)" },
-  { question: "What is p-value in hypothesis testing?", options: ["Probability of obtaining the observed results assuming H₀ is true", "The mean of data", "The variance of data", "The correlation value"], answer: "Probability of obtaining the observed results assuming H₀ is true" },
-  { question: "What does a low p-value (< 0.05) indicate?", options: ["Reject the null hypothesis", "Accept the null hypothesis", "No conclusion", "Model is overfitted"], answer: "Reject the null hypothesis" },
-  { question: "Which algorithm works by minimizing the cost function?", options: ["Linear Regression", "Apriori", "Naive Bayes", "Decision Tree"], answer: "Linear Regression" },
-  { question: "What is the main assumption in Naive Bayes algorithm?", options: ["All features are independent", "All data is correlated", "Data is always numeric", "No missing values exist"], answer: "All features are independent" },
-  { question: "Which kernel is commonly used in SVM?", options: ["RBF (Radial Basis Function)", "Polynomial", "Linear", "All of the above"], answer: "All of the above" },
-  { question: "What is the function of activation function in neural networks?", options: ["To introduce non-linearity", "To normalize output", "To remove errors", "To adjust input size"], answer: "To introduce non-linearity" },
-  { question: "Which algorithm is used for dimensionality reduction?", options: ["PCA", "Naive Bayes", "SVM", "Decision Tree"], answer: "PCA" },
-  { question: "What does gradient descent do?", options: ["Minimizes cost function iteratively", "Finds correlation", "Splits dataset", "Normalizes data"], answer: "Minimizes cost function iteratively" },
-  { question: "In k-fold cross validation, what does 'k' represent?", options: ["Number of folds to split data", "Number of classes", "Number of columns", "Number of epochs"], answer: "Number of folds to split data" },
-  { question: "Which distance metric is used in KNN algorithm?", options: ["Euclidean distance", "Manhattan distance", "Cosine distance", "All of the above"], answer: "All of the above" },
-  { question: "What is the main difference between bagging and boosting?", options: ["Boosting focuses on errors, bagging focuses on variance", "Bagging focuses on bias, boosting ignores bias", "Both are same", "Bagging is unsupervised"], answer: "Boosting focuses on errors, bagging focuses on variance" },
-  { question: "What is entropy in Decision Trees?", options: ["Measure of impurity or randomness", "Measure of accuracy", "Measure of correlation", "Measure of probability"], answer: "Measure of impurity or randomness" },
-  { question: "What is the Gini Index used for?", options: ["Splitting decision tree nodes", "Finding regression slope", "Calculating p-value", "Measuring central tendency"], answer: "Splitting decision tree nodes" },
-  { question: "Which algorithm is used for association rule mining?", options: ["Apriori", "K-Means", "SVM", "Regression"], answer: "Apriori" }
+    { "question": "What does MVC stand for in web development?", "options": ["Model-View-Controller", "Model-View-Creator", "Master-View-Controller", "Model-Variable-Controller"], "answer": "Model-View-Controller" },
+  { "question": "Which of the following is a NoSQL database?", "options": ["MySQL", "MongoDB", "PostgreSQL", "Oracle"], "answer": "MongoDB" },
+  { "question": "In the MERN stack, what does 'M' represent?", "options": ["MongoDB", "MySQL", "MariaDB", "Microsoft SQL Server"], "answer": "MongoDB" },
+  { "question": "Which technology is used for server-side scripting in the MERN stack?", "options": ["MongoDB", "Express.js", "React.js", "Node.js"], "answer": "Node.js" },
+  { "question": "What is the primary function of Express.js?", "options": ["Database management", "Handling HTTP requests", "User interface design", "Data visualization"], "answer": "Handling HTTP requests" },
+  { "question": "Which of the following is a feature of React.js?", "options": ["Two-way data binding", "One-way data binding", "Direct DOM manipulation", "Template-based rendering"], "answer": "One-way data binding" },
+  { "question": "What is the purpose of the 'npm' command in Node.js?", "options": ["Network management", "Package management", "Process management", "Performance monitoring"], "answer": "Package management" },
+  { "question": "In web development, what does API stand for?", "options": ["Application Programming Interface", "Automated Programming Interface", "Application Process Interface", "Automated Process Interface"], "answer": "Application Programming Interface" },
+  { "question": "Which of the following is a templating engine used with Express.js?", "options": ["EJS", "Handlebars", "Pug", "All of the above"], "answer": "All of the above" },
+  { "question": "Which command is used to start the MongoDB server?", "options": ["mongod", "mongo", "start-mongo", "run-mongo"], "answer": "mongod" },
+  { "question": "What is the default port number for MongoDB?", "options": ["27017", "8080", "3306", "5432"], "answer": "27017" },
+  { "question": "Which of the following is a valid MongoDB data type?", "options": ["Integer", "String", "ObjectId", "All of the above"], "answer": "All of the above" },
+  { "question": "What command is used to display all databases in MongoDB?", "options": ["show databases", "list databases", "display databases", "show dbs"], "answer": "show databases" },
+  { "question": "Which method is used to insert a document into a MongoDB collection?", "options": ["insert()", "add()", "put()", "insertOne()"], "answer": "insertOne()" },
+  { "question": "What is the purpose of the ObjectId in MongoDB?", "options": ["To uniquely identify documents", "To store user passwords", "To index collections", "To store session data"], "answer": "To uniquely identify documents" },
+  { "question": "Which operator is used to compare values in MongoDB queries?", "options": ["$eq", "$gt", "$lt", "All of the above"], "answer": "All of the above" },
+  { "question": "What does the $set operator do in MongoDB?", "options": ["Updates the value of a field", "Deletes a field", "Adds a new field", "None of the above"], "answer": "Updates the value of a field" },
+  { "question": "Which of the following is a valid MongoDB query?", "options": ["db.collection.find()", "db.collection.insert()", "db.collection.update()", "All of the above"], "answer": "All of the above" },
+  { "question": "What is the purpose of MongoDB Atlas?", "options": ["To host MongoDB databases in the cloud", "To provide MongoDB drivers", "To manage MongoDB backups", "To monitor MongoDB performance"], "answer": "To host MongoDB databases in the cloud" },
+  { "question": "Which of the following is a core module in Node.js?", "options": ["fs", "http", "path", "All of the above"], "answer": "All of the above" },
+  { "question": "What is the purpose of the 'require' function in Node.js?", "options": ["To import modules", "To create modules", "To execute scripts", "To handle errors"], "answer": "To import modules" },
+  { "question": "Which method is used to read a file asynchronously in Node.js?", "options": ["fs.readFile()", "fs.readFileSync()", "fs.open()", "fs.close()"], "answer": "fs.readFile()" },
+  { "question": "Which event is emitted when a Node.js server receives a request?", "options": ["data", "request", "connection", "error"], "answer": "request" },
+  { "question": "What is the purpose of the 'process' object in Node.js?", "options": ["To manage environment variables", "To handle command-line arguments", "To interact with the operating system", "All of the above"], "answer": "All of the above" },
+  { "question": "Which method is used to create a new HTTP server in Node.js?", "options": ["http.createServer()", "http.newServer()", "http.startServer()", "http.listen()"], "answer": "http.createServer()" },
+  { "question": "What does the 'npm init' command do?", "options": ["Initializes a new Node.js project", "Installs project dependencies", "Starts the Node.js server", "None of the above"], "answer": "Initializes a new Node.js project" },
+  { "question": "Which of the following is a valid Node.js callback function signature?", "options": ["function(err, data)", "function(data, err)", "function(error, result)", "function(result, error)"], "answer": "function(err, data)" },
+  { "question": "Which of the following is a package manager for Node.js?", "options": ["npm", "yarn", "pnpm", "All of the above"], "answer": "All of the above" },
+  { "question": "What is the purpose of the 'exports' object in Node.js?", "options": ["To define module exports", "To import modules", "To handle errors", "To manage file systems"], "answer": "To define module exports" },
+  { "question": "Which of the following is a feature of Express.js?", "options": ["Middleware support", "Routing capabilities", "Template rendering", "All of the above"], "answer": "All of the above" },
+  { "question": "Which HTTP method is used to submit data to a server?", "options": ["GET", "POST", "PUT", "DELETE"], "answer": "POST" },
+  { "question": "Which of the following is a valid Angular component decorator?", "options": ["@Component", "@Directive", "@Injectable", "@NgModule"], "answer": "@Component" },
+  { "question": "Which directive is used to display an element conditionally in Angular?", "options": ["*ngIf", "*ngFor", "*ngSwitch", "*ngModel"], "answer": "*ngIf" },
+  { "question": "What is the purpose of Angular services?", "options": ["To manage data and logic", "To handle HTTP requests", "To share data between components", "All of the above"], "answer": "All of the above" },
+  { "question": "Which of the following is a valid Angular pipe?", "options": ["date", "currency", "uppercase", "All of the above"], "answer": "All of the above" },
+  { "question": "Which command is used to create a new Angular component?", "options": ["ng generate component", "ng new component", "ng create component", "ng add component"], "answer": "ng generate component" },
+  { "question": "Which of the following is a valid Angular lifecycle hook?", "options": ["ngOnInit", "ngAfterViewInit", "ngOnDestroy", "All of the above"], "answer": "All of the above" },
+  { "question": "What is the purpose of Angular routing?", "options": ["To navigate between views", "To handle HTTP requests", "To manage application state", "To define application modules"], "answer": "To navigate between views" },
+  { "question": "Which of the following is a valid Angular form module?", "options": ["FormsModule", "HttpClientModule", "RouterModule", "CommonModule"], "answer": "FormsModule" },
+  { "question": "Which of the following is used to perform two-way data binding in Angular?", "options": ["[(ngModel)]", "[ngModel]", "(ngModel)", "*ngModel"], "answer": "[(ngModel)]" },
+  { "question": "What does HTML stand for?", "options": ["Hyper Text Markup Language", "Hyperlinks and Text Markup Language", "Home Tool Markup Language", "Hyper Tool Multi Language"], "answer": "Hyper Text Markup Language" },
+  { "question": "Which HTML tag is used to create a paragraph?", "options": ["<p>", "<h1>", "<div>", "<span>"], "answer": "<p>" },
+  { "question": "Which attribute is used to set an image source in HTML?", "options": ["src", "href", "link", "img"], "answer": "src" },
+  { "question": "Which HTML tag is used for creating a link?", "options": ["<a>", "<link>", "<href>", "<url>"], "answer": "<a>" },
+  { "question": "Which HTML tag is used to create a table?", "options": ["<table>", "<tr>", "<td>", "<tab>"], "answer": "<table>" },
+  { "question": "Which CSS property is used to change text color?", "options": ["color", "font-color", "text-color", "background-color"], "answer": "color" },
+  { "question": "Which CSS property is used to change the background color?", "options": ["background-color", "color", "bgcolor", "background"], "answer": "background-color" },
+  { "question": "Which HTML tag is used for the largest heading?", "options": ["<h1>", "<h6>", "<h3>", "<heading>"], "answer": "<h1>" },
+  { "question": "Which CSS property is used to set the font size?", "options": ["font-size", "text-size", "font-style", "text-style"], "answer": "font-size" },
+  { "question": "Which HTML tag is used to create an ordered list?", "options": ["<ol>", "<ul>", "<li>", "<list>"], "answer": "<ol>" }
   
-
   ];
-
 
   // ====== State ======
   let currentQ = 0, score = 0, timer, timeLeft = 20;
@@ -482,6 +499,5 @@
 
 </body>
 </html>
-
 
 

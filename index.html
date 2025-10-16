@@ -209,62 +209,45 @@
 </div>
 
 <script>
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwkrA56PhdU-OeE2pYxkdburlJ8-nXbLLwuZXqUSe4GfDh-yKt5NbYJrbdyCZVTA736/exec"; // your Apps Script URL
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyhR9lZJk53p0WPKE7pzfSyDKYQ4FZ1Rud4Dzh83KZcXhs6i6LNQn55X1BOjjDp6MolAg/exec"; // your Apps Script URL
 
   // ====== Quiz Questions ======
-  const quizData = [
-    { question: "What does 'Data Science' mainly deal with?", options: ["Numbers only", "Collecting and analyzing data", "Making websites", "Drawing pictures"], answer: "Collecting and analyzing data" },
-  { question: "Which programming language is most used in Data Science?", options: ["Python", "HTML", "CSS", "C"], answer: "Python" },
-  { question: "Which of these is used to store data in tables?", options: ["Pandas", "Matplotlib", "Flask", "Django"], answer: "Pandas" },
-  { question: "Which library is used for graphs and charts?", options: ["Matplotlib", "NumPy", "Flask", "JSON"], answer: "Matplotlib" },
-  { question: "What is data?", options: ["Facts and figures", "Only text", "Only images", "Only code"], answer: "Facts and figures" },
-  { question: "Which term refers to removing unwanted information?", options: ["Data cleaning", "Data storing", "Data mining", "Data saving"], answer: "Data cleaning" },
-  { question: "Which file format is commonly used to store tabular data?", options: ["CSV", "TXT", "MP3", "PDF"], answer: "CSV" },
-  { question: "What does a bar chart show?", options: ["Comparison between categories", "Trends over time", "Relationships", "Errors"], answer: "Comparison between categories" },
-  { question: "What does a line graph show?", options: ["Changes over time", "Single value", "Differences in text", "Errors"], answer: "Changes over time" },
-  { question: "Which function in Python shows the first few rows of data?", options: ["head()", "tail()", "top()", "show()"], answer: "head()" },
-  { question: "Which function in Pandas shows the last few rows?", options: ["tail()", "bottom()", "last()", "show()"], answer: "tail()" },
-  { question: "Which of the following is numerical data?", options: ["Age", "Name", "City", "Gender"], answer: "Age" },
-  { question: "Which of the following is categorical data?", options: ["Gender", "Height", "Weight", "Age"], answer: "Gender" },
-  { question: "What is the full form of CSV?", options: ["Comma Separated Values", "Common Separated Values", "Computer Stored Values", "Comma Storage Values"], answer: "Comma Separated Values" },
-  { question: "Which of these is a Python library for arrays?", options: ["NumPy", "Tkinter", "Django", "Flask"], answer: "NumPy" },
-  { question: "Which of these is an example of structured data?", options: ["Excel sheet", "Paragraph", "Video", "Audio"], answer: "Excel sheet" },
-  { question: "What is unstructured data?", options: ["Images and videos", "Numbers only", "Tables", "Databases"], answer: "Images and videos" },
-  { question: "Which of the following shows average value?", options: ["Mean", "Mode", "Range", "Frequency"], answer: "Mean" },
-  { question: "Which value appears most often in data?", options: ["Mode", "Mean", "Median", "Range"], answer: "Mode" },
-  { question: "Which value is the middle value when data is arranged?", options: ["Median", "Mean", "Mode", "Range"], answer: "Median" },
-  { question: "Which graph shows distribution of data?", options: ["Histogram", "Bar chart", "Pie chart", "Line graph"], answer: "Histogram" },
-  { question: "Which graph is used to show percentages?", options: ["Pie chart", "Histogram", "Box plot", "Scatter plot"], answer: "Pie chart" },
-  { question: "Which operation joins two datasets?", options: ["Merge", "Split", "Delete", "Copy"], answer: "Merge" },
-  { question: "Which Python function is used to find average?", options: ["mean()", "sum()", "avg()", "total()"], answer: "mean()" },
-  { question: "Which of these is a data visualization library?", options: ["Seaborn", "Requests", "Flask", "Django"], answer: "Seaborn" },
-  { question: "Which of these is NOT a Python data type?", options: ["int", "float", "string", "table"], answer: "table" },
-  { question: "What does EDA stand for?", options: ["Exploratory Data Analysis", "Easy Data Access", "External Data Arrangement", "Extra Data Assignment"], answer: "Exploratory Data Analysis" },
-  { question: "What is the use of EDA?", options: ["To understand the data", "To delete data", "To design websites", "To write code"], answer: "To understand the data" },
-  { question: "Which of these describes data in words?", options: ["Qualitative data", "Quantitative data", "Numeric data", "None"], answer: "Qualitative data" },
-  { question: "Which of these is numeric data?", options: ["Marks", "Color", "Gender", "Name"], answer: "Marks" },
-  { question: "What is used to remove duplicate rows in Pandas?", options: ["drop_duplicates()", "remove()", "delete()", "unique()"], answer: "drop_duplicates()" },
-  { question: "Which command in Python shows data information?", options: ["info()", "show()", "data()", "details()"], answer: "info()" },
-  { question: "Which function gives basic statistics in Pandas?", options: ["describe()", "mean()", "sum()", "info()"], answer: "describe()" },
-  { question: "Which keyword is used to define a function in Python?", options: ["def", "func", "function", "define"], answer: "def" },
-  { question: "Which symbol is used for comments in Python?", options: ["#", "//", "/*", "<!--"], answer: "#" },
-  { question: "What is the full form of AI?", options: ["Artificial Intelligence", "Applied Information", "Automatic Integration", "Analytical Input"], answer: "Artificial Intelligence" },
-  { question: "Which field combines statistics, programming, and domain knowledge?", options: ["Data Science", "Web Design", "Networking", "Graphics"], answer: "Data Science" },
-  { question: "Which data type stores true or false values?", options: ["Boolean", "Integer", "Float", "String"], answer: "Boolean" },
-  { question: "Which of these shows the spread of data?", options: ["Range", "Mean", "Mode", "Median"], answer: "Range" },
-  { question: "What does ML stand for?", options: ["Machine Learning", "Main Logic", "Math Learning", "Model Language"], answer: "Machine Learning" },
-  { question: "What does BI stand for?", options: ["Business Intelligence", "Binary Input", "Basic Info", "Big Integration"], answer: "Business Intelligence" },
-  { question: "What is the purpose of visualization?", options: ["To see data clearly", "To delete data", "To create loops", "To write code"], answer: "To see data clearly" },
-  { question: "Which function in Python reads a CSV file?", options: ["read_csv()", "open_csv()", "load_csv()", "import_csv()"], answer: "read_csv()" },
-  { question: "Which function saves data to a CSV file?", options: ["to_csv()", "save()", "store_csv()", "export_csv()"], answer: "to_csv()" },
-  { question: "What is the use of correlation?", options: ["To find relationship between variables", "To clean data", "To draw graphs", "To merge files"], answer: "To find relationship between variables" },
-  { question: "Which operator is used for checking equality?", options: ["==", "=", "===", "<>"], answer: "==" },
-  { question: "What is the main goal of predictive analytics?", options: ["To predict future outcomes", "To clean data", "To store data", "To visualize data"], answer: "To predict future outcomes" },
-  { question: "Which of these is an open-source data tool?", options: ["Jupyter Notebook", "MS Word", "Excel", "PowerPoint"], answer: "Jupyter Notebook" },
-  { question: "Which Python function gives the number of rows and columns?", options: ["shape", "size", "count", "index"], answer: "shape" },
-  { question: "Which function removes missing data?", options: ["dropna()", "delete()", "clear()", "remove()"], answer: "dropna()" }
   
+  const quizData = [
+    { question: "What is the main purpose of normalization in data preprocessing?", options: ["To scale data into a specific range", "To delete missing data", "To remove duplicates", "To convert data into text"], answer: "To scale data into a specific range" },
+  { question: "Which Python function is used to find correlation between columns?", options: ["corr()", "relation()", "connect()", "pair()"], answer: "corr()" },
+  { question: "What is outlier detection used for?", options: ["To find unusual data points", "To find mean value", "To find missing data", "To delete duplicates"], answer: "To find unusual data points" },
+  { question: "Which algorithm is used for classification problems?", options: ["Logistic Regression", "Linear Regression", "K-Means", "PCA"], answer: "Logistic Regression" },
+  { question: "What is the purpose of a confusion matrix?", options: ["To measure classification accuracy", "To clean data", "To visualize missing values", "To normalize data"], answer: "To measure classification accuracy" },
+  { question: "Which metric is used to measure model accuracy?", options: ["Accuracy Score", "Mean", "Sum", "Variance"], answer: "Accuracy Score" },
+  { question: "What does overfitting mean?", options: ["Model performs well on training data but poorly on new data", "Model performs well on all data", "Model never trains", "Model ignores outliers"], answer: "Model performs well on training data but poorly on new data" },
+  { question: "What does underfitting mean?", options: ["Model is too simple to capture the pattern", "Model fits perfectly", "Model memorizes data", "Model over-trains"], answer: "Model is too simple to capture the pattern" },
+  { question: "Which method is used to split data into training and testing sets in Python?", options: ["train_test_split()", "split_data()", "divide()", "partition()"], answer: "train_test_split()" },
+  { question: "What is feature selection?", options: ["Choosing important variables for model", "Deleting missing data", "Creating random variables", "Normalizing data"], answer: "Choosing important variables for model" },
+  { question: "Which metric is used for regression model performance?", options: ["Mean Squared Error", "Accuracy", "Recall", "Precision"], answer: "Mean Squared Error" },
+  { question: "Which visualization is best for correlation between two continuous variables?", options: ["Scatter Plot", "Pie Chart", "Bar Graph", "Box Plot"], answer: "Scatter Plot" },
+  { question: "Which technique reduces the number of variables while keeping important information?", options: ["PCA (Principal Component Analysis)", "Linear Regression", "Decision Tree", "KNN"], answer: "PCA (Principal Component Analysis)" },
+  { question: "Which algorithm divides data into clusters?", options: ["K-Means", "Logistic Regression", "SVM", "Decision Tree"], answer: "K-Means" },
+  { question: "What is the purpose of the elbow method?", options: ["To find optimal number of clusters", "To find missing data", "To normalize data", "To build regression model"], answer: "To find optimal number of clusters" },
+   { question: "What is the formula for variance in a sample?", options: ["Σ(x−x̄)² / (n−1)", "Σ(x−x̄) / n", "Σx / n", "(Σx²) / n"], answer: "Σ(x−x̄)² / (n−1)" },
+  { question: "What is p-value in hypothesis testing?", options: ["Probability of obtaining the observed results assuming H₀ is true", "The mean of data", "The variance of data", "The correlation value"], answer: "Probability of obtaining the observed results assuming H₀ is true" },
+  { question: "What does a low p-value (< 0.05) indicate?", options: ["Reject the null hypothesis", "Accept the null hypothesis", "No conclusion", "Model is overfitted"], answer: "Reject the null hypothesis" },
+  { question: "Which algorithm works by minimizing the cost function?", options: ["Linear Regression", "Apriori", "Naive Bayes", "Decision Tree"], answer: "Linear Regression" },
+  { question: "What is the main assumption in Naive Bayes algorithm?", options: ["All features are independent", "All data is correlated", "Data is always numeric", "No missing values exist"], answer: "All features are independent" },
+  { question: "Which kernel is commonly used in SVM?", options: ["RBF (Radial Basis Function)", "Polynomial", "Linear", "All of the above"], answer: "All of the above" },
+  { question: "What is the function of activation function in neural networks?", options: ["To introduce non-linearity", "To normalize output", "To remove errors", "To adjust input size"], answer: "To introduce non-linearity" },
+  { question: "Which algorithm is used for dimensionality reduction?", options: ["PCA", "Naive Bayes", "SVM", "Decision Tree"], answer: "PCA" },
+  { question: "What does gradient descent do?", options: ["Minimizes cost function iteratively", "Finds correlation", "Splits dataset", "Normalizes data"], answer: "Minimizes cost function iteratively" },
+  { question: "In k-fold cross validation, what does 'k' represent?", options: ["Number of folds to split data", "Number of classes", "Number of columns", "Number of epochs"], answer: "Number of folds to split data" },
+  { question: "Which distance metric is used in KNN algorithm?", options: ["Euclidean distance", "Manhattan distance", "Cosine distance", "All of the above"], answer: "All of the above" },
+  { question: "What is the main difference between bagging and boosting?", options: ["Boosting focuses on errors, bagging focuses on variance", "Bagging focuses on bias, boosting ignores bias", "Both are same", "Bagging is unsupervised"], answer: "Boosting focuses on errors, bagging focuses on variance" },
+  { question: "What is entropy in Decision Trees?", options: ["Measure of impurity or randomness", "Measure of accuracy", "Measure of correlation", "Measure of probability"], answer: "Measure of impurity or randomness" },
+  { question: "What is the Gini Index used for?", options: ["Splitting decision tree nodes", "Finding regression slope", "Calculating p-value", "Measuring central tendency"], answer: "Splitting decision tree nodes" },
+  { question: "Which algorithm is used for association rule mining?", options: ["Apriori", "K-Means", "SVM", "Regression"], answer: "Apriori" }
+  
+
   ];
+
 
   // ====== State ======
   let currentQ = 0, score = 0, timer, timeLeft = 20;

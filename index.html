@@ -8,13 +8,14 @@
     body {
       font-family: Arial, sans-serif;
       margin:0; padding:0;
-     background:linear-gradient(135deg,#162b34,#35819b,#2c5364); color:white; flex-direction:column; text-align:center; 
+      background:linear-gradient(135deg,#162b34,#35819b,#2c5364);
+      color:white; flex-direction:column; text-align:center; 
       display:flex;
       height:100vh;
       flex-direction: row;
     }
       
-  section { display:none; height:100vh; display:flex; justify-content:center; align-items:center; }
+    section { display:none; height:100vh; display:flex; justify-content:center; align-items:center; }
 
     /* Sidebar */
     .sidebar {
@@ -40,7 +41,7 @@
       font-size:14px;
       color:#0d0d0d;
       word-wrap: break-word;
-      word-break: break-word; /* ✅ prevent overflow */
+      word-break: break-word;
       text-align: left;
     }
 
@@ -55,8 +56,6 @@
       box-sizing:border-box;
     }
     .login-box { background:rgba(255,255,255,0.1); padding:30px; border-radius:12px; width:400px; text-align:center; box-shadow:0 0 20px rgba(0,0,0,0.4); }
-
-    
 
     input {
       width:90%; padding:10px;
@@ -76,8 +75,7 @@
       font-size:16px;
     }
     button:hover {background:#357ab7;}
-    #error {color:rgb(192, 41, 41); margin-top:10px;
-            }
+    #error {color:rgb(192, 41, 41); margin-top:10px;}
 
     .quiz-box, .result-box, .start-box {display:none;}
     .question {font-size:18px; margin:20px 0;}
@@ -99,10 +97,8 @@
       font-size:20px;
       margin:10px;
     }
-    .timer-green {color:green;
-                  background-color: #dcd5d5;}
-    .red-blink {color:red; animation: blink 1s infinite;
-                background-color: #dcd5d5;}
+    .timer-green {color:green; background-color: #dcd5d5;}
+    .red-blink {color:red; animation: blink 1s infinite; background-color: #dcd5d5;}
     @keyframes blink {50% {opacity:0;}}
 
     /* Loading spinner */
@@ -118,31 +114,16 @@
     }
     @keyframes spin { 0% { transform: rotate(0deg);} 100% { transform: rotate(360deg);} }
 
-    /* ========== RESPONSIVE DESIGN ========== */
+    /* RESPONSIVE DESIGN */
     @media (max-width: 900px) {
-      body { flex-direction: column; } /* Sidebar becomes top bar */
-      .sidebar {
-        
-        width:100%;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: space-around;
-        padding:15px;
-        text-align:center;
-        box-shadow: 0 2px 8px rgba(10, 10, 10, 0.1);
-      }
+      body { flex-direction: column; }
+      .sidebar { width:100%; flex-direction: row; flex-wrap: wrap; justify-content: space-around; padding:15px; text-align:center; box-shadow: 0 2px 8px rgba(10, 10, 10, 0.1); }
       .sidebar h3 { display:none; }
-      .sidebar p {
-        margin:10px;
-        font-size:13px;
-        flex: 1 1 30%;
-        text-align: center;
-      }
+      .sidebar p { margin:10px; font-size:13px; flex: 1 1 30%; text-align: center; }
       .main { padding:10px; width:100%; }
       .card { width:100%; max-width:100%; padding:20px; margin:auto; }
       .options button { width:100%; margin:8px 0; }
     }
-
     @media (max-width: 480px) {
       .question { font-size:16px; }
       #timer { font-size:18px; }
@@ -158,7 +139,7 @@
   <h3>Student Info</h3>
   <p><b>Reg ID:</b> <span id="sideReg"></span></p>
   <p><b>Name:</b> <span id="sideName"></span></p>
-  <p><b>College:</b> <span id="sideDept"></span></p>
+  <p><b>Dept:</b> <span id="sideDept"></span></p>
 </div>
 
 <!-- MAIN CONTENT -->
@@ -166,8 +147,8 @@
   <!-- LOGIN PAGE -->
   <div class="center-box login-box">
     <div class="card">
-      <h2>Welcome to  <strong> QUIZ PORTAL.</strong></h2>
-      <h3>ROUND 1</h3>
+      <h2>Welcome to <strong>QUIZ</strong></h2>
+      <h3>ROUND 2</h3>
       <input type="text" id="regId" placeholder="Register Number" required>
       <input type="password" id="password" placeholder="Password" required>
       <button id="loginBtn" onclick="login()">Login</button>
@@ -198,81 +179,62 @@
   </div>
 
   <!-- RESULT PAGE -->
-   <div class="center-box result-box">
+  <div class="center-box result-box">
     <div class="card">
       <h2>Quiz Completed</h2>
       <p id="score"></p> <!-- Removed visible score text -->
       <p style="color: yellow;">Your attempt has been submitted successfully.</p>
     </div>
   </div>
-  
 </div>
 
 <script>
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwtyDnNLDzDRcLHsUB7jo18tQWoZOdv46XTsIfpQs-D5ARX4N11yxhEOu6pHFs22QyaKA/exec"; // your Apps Script URL
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwpoHtmYWW-EA5xpFPNOYVHtLeMQz-Dz8dlEprOnT-CZV5ZX_f5ePmj5AedTzhMbd5-Pg/exec"; 
 
   // ====== Quiz Questions ======
   const quizData = [
-    { "question": "What does MVC stand for in web development?", "options": ["Model-View-Controller", "Model-View-Creator", "Master-View-Controller", "Model-Variable-Controller"], "answer": "Model-View-Controller" },
-  { "question": "Which of the following is a NoSQL database?", "options": ["MySQL", "MongoDB", "PostgreSQL", "Oracle"], "answer": "MongoDB" },
-  { "question": "In the MERN stack, what does 'M' represent?", "options": ["MongoDB", "MySQL", "MariaDB", "Microsoft SQL Server"], "answer": "MongoDB" },
-  { "question": "Which technology is used for server-side scripting in the MERN stack?", "options": ["MongoDB", "Express.js", "React.js", "Node.js"], "answer": "Node.js" },
-  { "question": "What is the primary function of Express.js?", "options": ["Database management", "Handling HTTP requests", "User interface design", "Data visualization"], "answer": "Handling HTTP requests" },
-  { "question": "Which of the following is a feature of React.js?", "options": ["Two-way data binding", "One-way data binding", "Direct DOM manipulation", "Template-based rendering"], "answer": "One-way data binding" },
-  { "question": "What is the purpose of the 'npm' command in Node.js?", "options": ["Network management", "Package management", "Process management", "Performance monitoring"], "answer": "Package management" },
-  { "question": "In web development, what does API stand for?", "options": ["Application Programming Interface", "Automated Programming Interface", "Application Process Interface", "Automated Process Interface"], "answer": "Application Programming Interface" },
-  { "question": "Which of the following is a templating engine used with Express.js?", "options": ["EJS", "Handlebars", "Pug", "All of the above"], "answer": "All of the above" },
-  { "question": "Which command is used to start the MongoDB server?", "options": ["mongod", "mongo", "start-mongo", "run-mongo"], "answer": "mongod" },
-  { "question": "What is the default port number for MongoDB?", "options": ["27017", "8080", "3306", "5432"], "answer": "27017" },
-  { "question": "Which of the following is a valid MongoDB data type?", "options": ["Integer", "String", "ObjectId", "All of the above"], "answer": "All of the above" },
-  { "question": "What command is used to display all databases in MongoDB?", "options": ["show databases", "list databases", "display databases", "show dbs"], "answer": "show databases" },
-  { "question": "Which method is used to insert a document into a MongoDB collection?", "options": ["insert()", "add()", "put()", "insertOne()"], "answer": "insertOne()" },
-  { "question": "What is the purpose of the ObjectId in MongoDB?", "options": ["To uniquely identify documents", "To store user passwords", "To index collections", "To store session data"], "answer": "To uniquely identify documents" },
-  { "question": "Which operator is used to compare values in MongoDB queries?", "options": ["$eq", "$gt", "$lt", "All of the above"], "answer": "All of the above" },
-  { "question": "What does the $set operator do in MongoDB?", "options": ["Updates the value of a field", "Deletes a field", "Adds a new field", "None of the above"], "answer": "Updates the value of a field" },
-  { "question": "Which of the following is a valid MongoDB query?", "options": ["db.collection.find()", "db.collection.insert()", "db.collection.update()", "All of the above"], "answer": "All of the above" },
-  { "question": "What is the purpose of MongoDB Atlas?", "options": ["To host MongoDB databases in the cloud", "To provide MongoDB drivers", "To manage MongoDB backups", "To monitor MongoDB performance"], "answer": "To host MongoDB databases in the cloud" },
-  { "question": "Which of the following is a core module in Node.js?", "options": ["fs", "http", "path", "All of the above"], "answer": "All of the above" },
-  { "question": "What is the purpose of the 'require' function in Node.js?", "options": ["To import modules", "To create modules", "To execute scripts", "To handle errors"], "answer": "To import modules" },
-  { "question": "Which method is used to read a file asynchronously in Node.js?", "options": ["fs.readFile()", "fs.readFileSync()", "fs.open()", "fs.close()"], "answer": "fs.readFile()" },
-  { "question": "Which event is emitted when a Node.js server receives a request?", "options": ["data", "request", "connection", "error"], "answer": "request" },
-  { "question": "What is the purpose of the 'process' object in Node.js?", "options": ["To manage environment variables", "To handle command-line arguments", "To interact with the operating system", "All of the above"], "answer": "All of the above" },
-  { "question": "Which method is used to create a new HTTP server in Node.js?", "options": ["http.createServer()", "http.newServer()", "http.startServer()", "http.listen()"], "answer": "http.createServer()" },
-  { "question": "What does the 'npm init' command do?", "options": ["Initializes a new Node.js project", "Installs project dependencies", "Starts the Node.js server", "None of the above"], "answer": "Initializes a new Node.js project" },
-  { "question": "Which of the following is a valid Node.js callback function signature?", "options": ["function(err, data)", "function(data, err)", "function(error, result)", "function(result, error)"], "answer": "function(err, data)" },
-  { "question": "Which of the following is a package manager for Node.js?", "options": ["npm", "yarn", "pnpm", "All of the above"], "answer": "All of the above" },
-  { "question": "What is the purpose of the 'exports' object in Node.js?", "options": ["To define module exports", "To import modules", "To handle errors", "To manage file systems"], "answer": "To define module exports" },
-  { "question": "Which of the following is a feature of Express.js?", "options": ["Middleware support", "Routing capabilities", "Template rendering", "All of the above"], "answer": "All of the above" },
-  { "question": "Which HTTP method is used to submit data to a server?", "options": ["GET", "POST", "PUT", "DELETE"], "answer": "POST" },
-  { "question": "Which of the following is a valid Angular component decorator?", "options": ["@Component", "@Directive", "@Injectable", "@NgModule"], "answer": "@Component" },
-  { "question": "Which directive is used to display an element conditionally in Angular?", "options": ["*ngIf", "*ngFor", "*ngSwitch", "*ngModel"], "answer": "*ngIf" },
-  { "question": "What is the purpose of Angular services?", "options": ["To manage data and logic", "To handle HTTP requests", "To share data between components", "All of the above"], "answer": "All of the above" },
-  { "question": "Which of the following is a valid Angular pipe?", "options": ["date", "currency", "uppercase", "All of the above"], "answer": "All of the above" },
-  { "question": "Which command is used to create a new Angular component?", "options": ["ng generate component", "ng new component", "ng create component", "ng add component"], "answer": "ng generate component" },
-  { "question": "Which of the following is a valid Angular lifecycle hook?", "options": ["ngOnInit", "ngAfterViewInit", "ngOnDestroy", "All of the above"], "answer": "All of the above" },
-  { "question": "What is the purpose of Angular routing?", "options": ["To navigate between views", "To handle HTTP requests", "To manage application state", "To define application modules"], "answer": "To navigate between views" },
-  { "question": "Which of the following is a valid Angular form module?", "options": ["FormsModule", "HttpClientModule", "RouterModule", "CommonModule"], "answer": "FormsModule" },
-  { "question": "Which of the following is used to perform two-way data binding in Angular?", "options": ["[(ngModel)]", "[ngModel]", "(ngModel)", "*ngModel"], "answer": "[(ngModel)]" },
-  { "question": "What does HTML stand for?", "options": ["Hyper Text Markup Language", "Hyperlinks and Text Markup Language", "Home Tool Markup Language", "Hyper Tool Multi Language"], "answer": "Hyper Text Markup Language" },
-  { "question": "Which HTML tag is used to create a paragraph?", "options": ["<p>", "<h1>", "<div>", "<span>"], "answer": "<p>" },
-  { "question": "Which attribute is used to set an image source in HTML?", "options": ["src", "href", "link", "img"], "answer": "src" },
-  { "question": "Which HTML tag is used for creating a link?", "options": ["<a>", "<link>", "<href>", "<url>"], "answer": "<a>" },
-  { "question": "Which HTML tag is used to create a table?", "options": ["<table>", "<tr>", "<td>", "<tab>"], "answer": "<table>" },
-  { "question": "Which CSS property is used to change text color?", "options": ["color", "font-color", "text-color", "background-color"], "answer": "color" },
-  { "question": "Which CSS property is used to change the background color?", "options": ["background-color", "color", "bgcolor", "background"], "answer": "background-color" },
-  { "question": "Which HTML tag is used for the largest heading?", "options": ["<h1>", "<h6>", "<h3>", "<heading>"], "answer": "<h1>" },
-  { "question": "Which CSS property is used to set the font size?", "options": ["font-size", "text-size", "font-style", "text-style"], "answer": "font-size" },
-  { "question": "Which HTML tag is used to create an ordered list?", "options": ["<ol>", "<ul>", "<li>", "<list>"], "answer": "<ol>" }
+    { "question": "Which of the following is NOT a feature of Node.js?", "options": ["Event-driven architecture", "Non-blocking I/O", "Single-threaded", "Multi-threaded CPU-bound execution"], "answer": "Multi-threaded CPU-bound execution" },
+  { "question": "In Express.js, which method is used to define middleware?", "options": ["app.use()", "app.middleware()", "app.set()", "app.route()"], "answer": "app.use()" },
+  { "question": "Which of the following is true about MongoDB schema?", "options": ["MongoDB requires a fixed schema", "MongoDB is schema-less", "MongoDB supports only relational data", "MongoDB does not store documents"], "answer": "MongoDB is schema-less" },
+  { "question": "In React, which hook is used to manage state in functional components?", "options": ["useState", "useEffect", "useContext", "useReducer"], "answer": "useState" },
+  { "question": "What is the difference between var, let, and const in JavaScript?", "options": ["Scope and reassignment rules", "Only naming conventions", "Only memory usage", "No difference"], "answer": "Scope and reassignment rules" },
+  { "question": "Which of the following commands installs a specific package version using npm?", "options": ["npm install package@version", "npm add package:version", "npm get package@version", "npm update package:version"], "answer": "npm install package@version" },
+  { "question": "In Angular, which decorator is used to inject a service into a component?", "options": ["@Injectable", "@Component", "@NgModule", "@Directive"], "answer": "@Injectable" },
+  { "question": "Which HTTP status code represents a successful POST request?", "options": ["200", "201", "400", "404"], "answer": "201" },
+  { "question": "What is the main difference between localStorage and sessionStorage in JavaScript?", "options": ["Lifetime of data", "Data type supported", "Size limit", "None"], "answer": "Lifetime of data" },
+  { "question": "Which MongoDB method is used to update multiple documents?", "options": ["updateMany()", "updateOne()", "save()", "modify()"], "answer": "updateMany()" },
+  { "question": "In React, what is a key prop used for?", "options": ["To uniquely identify list items", "To store state values", "To handle events", "To define CSS classes"], "answer": "To uniquely identify list items" },
+  { "question": "What is middleware in Express.js?", "options": ["A function that executes before request handler", "A type of database", "A frontend template", "A React component"], "answer": "A function that executes before request handler" },
+  { "question": "Which of the following is true about REST API design?", "options": ["Uses HTTP methods for operations", "Should be stateless", "Can return JSON or XML", "All of the above"], "answer": "All of the above" },
+  { "question": "Which operator in MongoDB is used for pattern matching?", "options": ["$regex", "$like", "$match", "$pattern"], "answer": "$regex" },
+  { "question": "What is the purpose of useEffect in React?", "options": ["To perform side effects like data fetching", "To update state only", "To create components", "To render JSX"], "answer": "To perform side effects like data fetching" },
+
+  // Hard Questions (15)
+  { "question": "Which of the following is a key difference between SQL and NoSQL databases?", "options": ["SQL is relational, NoSQL is non-relational", "SQL cannot scale horizontally", "NoSQL does not support queries", "NoSQL cannot store JSON"], "answer": "SQL is relational, NoSQL is non-relational" },
+  { "question": "In Node.js, which method is used to handle asynchronous errors globally?", "options": ["process.on('uncaughtException')", "try-catch block", "app.use(errorHandler)", "None of the above"], "answer": "process.on('uncaughtException')" },
+  { "question": "Which MongoDB aggregation stage is used to group documents?", "options": ["$group", "$match", "$sort", "$project"], "answer": "$group" },
+  { "question": "In React, what is the difference between controlled and uncontrolled components?", "options": ["Controlled components are bound to state, uncontrolled use refs", "Controlled components use refs, uncontrolled use state", "Both are the same", "Controlled components do not render"], "answer": "Controlled components are bound to state, uncontrolled use refs" },
+  { "question": "Which of the following is true about JWT (JSON Web Tokens)?", "options": ["Used for authentication", "Contains payload and signature", "Can be verified without server session", "All of the above"], "answer": "All of the above" },
+  { "question": "What is the purpose of CORS in web development?", "options": ["To allow or restrict resources from different origins", "To improve performance", "To encrypt data", "To cache requests"], "answer": "To allow or restrict resources from different origins" },
+  { "question": "Which Node.js module is used to create streams?", "options": ["fs", "stream", "buffer", "http"], "answer": "stream" },
+  { "question": "Which Angular lifecycle hook runs before data-bound properties are initialized?", "options": ["ngOnInit", "ngOnChanges", "ngDoCheck", "ngAfterViewInit"], "answer": "ngOnChanges" },
+  { "question": "What is the time complexity of finding a document by _id in MongoDB?", "options": ["O(1)", "O(log n)", "O(n)", "O(n log n)"], "answer": "O(1)" },
+  { "question": "Which of the following is a benefit of server-side rendering (SSR) in React?", "options": ["Improved SEO", "Faster initial page load", "Better social media sharing", "All of the above"], "answer": "All of the above" },
+  { "question": "In Express.js, how can you handle 404 errors?", "options": ["Using app.use() with a callback at the end", "Using try-catch in routes", "Using res.send()", "Express handles automatically"], "answer": "Using app.use() with a callback at the end" },
+  { "question": "What is the main purpose of the $lookup stage in MongoDB aggregation?", "options": ["To perform a left join with another collection", "To filter documents", "To sort documents", "To group documents"], "answer": "To perform a left join with another collection" },
+  { "question": "Which of the following is a valid way to improve Node.js application performance?", "options": ["Using clustering", "Caching with Redis", "Avoiding blocking code", "All of the above"], "answer": "All of the above" },
+  { "question": "What is the difference between Angular's ngOnInit and constructor?", "options": ["ngOnInit runs after bindings are set, constructor runs first", "Constructor runs after ngOnInit", "Both run at the same time", "Constructor is not used in Angular"], "answer": "ngOnInit runs after bindings are set, constructor runs first" },
+  { "question": "Which of the following statements is true about React keys?", "options": ["Keys help identify which items have changed in lists", "Keys should be unique among siblings", "Using indexes as keys is not recommended in dynamic lists", "All of the above"], "answer": "All of the above" }
   
+
   ];
 
   // ====== State ======
-  let currentQ = 0, score = 0, timer, timeLeft = 20;
+  let currentQ = 0, score = 0, timer, timeLeft = 30;
   let quizActive = false;
-  let hasSubmitted = false; // prevent duplicate submits
-  let sessionToken = null;  // from server at login
+  let hasSubmitted = false; 
+  let sessionToken = null;  
 
-  // ====== Helpers: Fullscreen ======
   function enterFullscreen() {
     const el = document.documentElement;
     if (el.requestFullscreen) el.requestFullscreen();
@@ -284,7 +246,6 @@
     return document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement;
   }
 
-  // ====== Login ======
   function login() {
     const regId = document.getElementById("regId").value.trim();
     const password = document.getElementById("password").value.trim();
@@ -304,66 +265,48 @@
       document.getElementById("loginBtn").disabled = false;
 
       if (data.status === "success") {
-        sessionToken = data.token; // ✅ token from server
+        sessionToken = data.token; 
         localStorage.setItem("regId", regId);
         localStorage.setItem("name", data.name);
         localStorage.setItem("dept", data.dept);
         localStorage.setItem("token", sessionToken);
 
-        // Show start screen
         document.querySelector(".login-box").style.display = "none";
         document.getElementById("studentName").innerText = `${data.name} (${regId})`;
         document.querySelector(".start-box").style.display = "flex";
 
-        // Show sidebar
         document.getElementById("sidebar").style.display = "flex";
         document.getElementById("sideReg").innerText = regId;
         document.getElementById("sideName").innerText = data.name;
         document.getElementById("sideDept").innerText = data.dept;
 
       } else if (data.status === "already") {
-        // Already attempted → Block re-login
         document.querySelector(".login-box .card").innerHTML =
           `<h2>Attempt Recorded</h2><p>You have already completed this quiz.</p>`;
       } else {
         err.innerText = "Invalid Register No or Password!";
       }
     })
-    .catch(() => {
-      spinner.style.display = "none";
-      document.getElementById("loginBtn").disabled = false;
-      err.innerText = "Server Error!";
-    });
+    .catch(() => { spinner.style.display = "none"; document.getElementById("loginBtn").disabled = false; err.innerText = "Server Error!"; });
   }
 
-  // ====== Start Quiz ======
   function startQuiz() {
-    // Move to quiz UI
     document.querySelector(".start-box").style.display = "none";
     document.querySelector(".quiz-box").style.display = "flex";
     quizActive = true;
     hasSubmitted = false;
     score = 0;
     currentQ = 0;
-
-    // Enter fullscreen (cannot hide OS buttons, but we enforce fail if exit)
     enterFullscreen();
-
     loadQuestion();
   }
 
-  document.addEventListener("keydown", (e) => { if (e.key === "Enter") document.getElementById("loginBtn").click(); });
-  
-  // ====== Load Question ======
   function loadQuestion() {
     if (currentQ >= quizData.length) {
       showResult(false);
       return;
     }
-
-    document.getElementById("question").innerText =
-      `Question ${currentQ+1}: ${quizData[currentQ].question}`;
-
+    document.getElementById("question").innerText = `Question ${currentQ+1}: ${quizData[currentQ].question}`;
     const optionsDiv = document.getElementById("options");
     optionsDiv.innerHTML = "";
     quizData[currentQ].options.forEach(opt => {
@@ -372,16 +315,13 @@
       btn.onclick = () => checkAnswer(opt);
       optionsDiv.appendChild(btn);
     });
-
     resetTimer();
   }
 
-  // ====== Timer ======
   function resetTimer() {
     clearInterval(timer);
-    timeLeft = 20;
+    timeLeft = 30;
     updateTimerDisplay();
-
     timer = setInterval(() => {
       timeLeft--;
       updateTimerDisplay();
@@ -401,37 +341,27 @@
     else timerEl.classList.add("timer-green");
   }
 
-  // ====== Answer Check ======
+  // ====== Answer Check: +2 correct, -1 wrong ======
   function checkAnswer(answer) {
-    if (answer === quizData[currentQ].answer) score++;
+    if (answer === quizData[currentQ].answer) score += 2;
+    else score -= 1;
+    if(score<0) score=0;
     currentQ++;
     clearInterval(timer);
     loadQuestion();
   }
 
-  // ====== Show Result & Submit ======
   function showResult(forcedEnd = false) {
-    if (hasSubmitted) return; // prevent duplicate calls
+    if (hasSubmitted) return;
     hasSubmitted = true;
-
-    // Stop everything
     clearInterval(timer);
     quizActive = false;
-
-    // If forced end (cheating), override score to 0
     if (forcedEnd) score = 0;
-
-    // UI
     document.querySelector(".quiz-box").style.display = "none";
     document.querySelector(".result-box").style.display = "flex";
-    //document.getElementById("score").innerText =
-      //`Your Score: ${score}/${quizData.length}`;
 
-    // Data for server
     const regId = localStorage.getItem("regId");
     const token = localStorage.getItem("token") || sessionToken;
-
-    // Submit score with token
     fetch(SCRIPT_URL, {
       method: "POST",
       body: JSON.stringify({
@@ -441,62 +371,23 @@
         token,
         forced: !!forcedEnd
       })
-    }).catch(()=>{ /* swallow network errors for UI */ });
-
-    // Attempt to exit fullscreen if still in it
-    if (isFullscreen()) {
-      if (document.exitFullscreen) document.exitFullscreen();
-      else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
-      else if (document.mozCancelFullScreen) document.mozCancelFullScreen();
-      else if (document.msExitFullscreen) document.msExitFullscreen();
-    }
+    }).catch(()=>{});
+    if (isFullscreen()) { if(document.exitFullscreen) document.exitFullscreen(); }
   }
 
-  // ====== Force Fail (security triggers) ======
-  function forceFail() {
-    if (!quizActive) return;
-    showResult(true); // will set score = 0 and submit
-  }
+  function forceFail() { if (!quizActive) return; showResult(true); }
 
-  // ====== Security Event Listeners ======
-  // 1) Leaving fullscreen
-  document.addEventListener("fullscreenchange", () => {
-    if (quizActive && !isFullscreen()) forceFail();
-  });
-  document.addEventListener("webkitfullscreenchange", () => {
-    if (quizActive && !isFullscreen()) forceFail();
-  });
-  document.addEventListener("mozfullscreenchange", () => {
-    if (quizActive && !isFullscreen()) forceFail();
-  });
-  document.addEventListener("MSFullscreenChange", () => {
-    if (quizActive && !isFullscreen()) forceFail();
-  });
+  document.addEventListener("fullscreenchange", () => { if (quizActive && !isFullscreen()) forceFail(); });
+  document.addEventListener("webkitfullscreenchange", () => { if (quizActive && !isFullscreen()) forceFail(); });
+  document.addEventListener("mozfullscreenchange", () => { if (quizActive && !isFullscreen()) forceFail(); });
+  document.addEventListener("MSFullscreenChange", () => { if (quizActive && !isFullscreen()) forceFail(); });
 
-  // 2) Tab change / minimize
-  document.addEventListener("visibilitychange", () => {
-    if (quizActive && document.hidden) forceFail();
-  });
-
-  // 3) Window blur (focus lost – often indicates app switch)
-  window.addEventListener("blur", () => {
-    if (quizActive) forceFail();
-  });
-
-  // 4) Close/refresh attempt during quiz
-  window.addEventListener("beforeunload", (e) => {
-    if (quizActive) {
-      // Modern browsers ignore custom text, but this prevents silent refresh.
-      e.preventDefault();
-      e.returnValue = '';
-      forceFail();
-    }
-  });
-//Mouse disable button
+  document.addEventListener("visibilitychange", () => { if (quizActive && document.hidden) forceFail(); });
+  window.addEventListener("blur", () => { if (quizActive) forceFail(); });
+  window.addEventListener("beforeunload", (e) => { if (quizActive) { e.preventDefault(); e.returnValue = ''; forceFail(); } });
   document.addEventListener("contextmenu", (e) => e.preventDefault());
-
+  document.addEventListener("keydown", (e) => { if (e.key === "Enter") document.getElementById("loginBtn").click(); });
 </script>
-
 </body>
 </html>
 

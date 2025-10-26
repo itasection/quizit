@@ -158,7 +158,7 @@
   <h3>Student Info</h3>
   <p><b>Reg ID:</b> <span id="sideReg"></span></p>
   <p><b>Name:</b> <span id="sideName"></span></p>
-  <p><b>College:</b> <span id="sideDept"></span></p>
+  <p><b>Department:</b> <span id="sideDept"></span></p>
 </div>
 
 <!-- MAIN CONTENT -->
@@ -207,7 +207,6 @@
   </div>
   
 </div>
-
 <!-- FOOTER -->
 <footer style="
   width: 100%;
@@ -222,22 +221,77 @@
   backdrop-filter: blur(5px);
   border-top: 1px solid rgba(255,255,255,0.2);
 ">
-  Developed with ❤️ by <b>BALAJI K</b>
+  Developed with ❤️ by <b>BALAJI </b>
 </footer>
 
-
 <script>
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwtyDnNLDzDRcLHsUB7jo18tQWoZOdv46XTsIfpQs-D5ARX4N11yxhEOu6pHFs22QyaKA/exec"; // your Apps Script URL
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwfO0IdBZLnw-l_WeH6ioFeJ0F9JmijiEgZCH9XJJAgtC6Ncotday8TbCyqnq_vAK38/exec"; // your Apps Script URL
 
   // ====== Quiz Questions ======
+  
   const quizData = [
-    { "question": "What does MVC stand for in web development?", "options": ["Model-View-Controller", "Model-View-Creator", "Master-View-Controller", "Model-Variable-Controller"], "answer": "Model-View-Controller" },
-  { "question": "Which of the following is a NoSQL database?", "options": ["MySQL", "MongoDB", "PostgreSQL", "Oracle"], "answer": "MongoDB" },
-  { "question": "In the MERN stack, what does 'M' represent?", "options": ["MongoDB", "MySQL", "MariaDB", "Microsoft SQL Server"], "answer": "MongoDB" },
-  { "question": "Which technology is used for server-side scripting in the MERN stack?", "options": ["MongoDB", "Express.js", "React.js", "Node.js"], "answer": "Node.js" },
+    
   
+  { question: "Which file holds project dependencies in Node.js?", options: ["package.json", "node.json", "app.js", "index.js"], answer: "package.json" },
+  { question: "Which component is used to display a scrollable list in Android?", options: ["CardView", "RecyclerView", "ImageView", "ConstraintLayout"], answer: "RecyclerView" },
+  { question: "Which programming language is mainly used with Flutter?", options: [ "Python", "Java","Dart", "Swift"], answer: "Dart" },
+  { question: "Which tool is commonly used for UI/UX design?", options: [ "VS Code","Figma", "Xcode", "Eclipse"], answer: "Figma" },
+  { question: "Which tag defines a table row?", options: ["<tr>", "<td>", "<th>", "<table>"], answer: "<tr>" },
+  { question: "What is the main goal of UX design?", options: [ "Making visuals attractive", "Increasing page load speed", "Reducing app size","Improving user satisfaction"], answer: "Improving user satisfaction" },
+  { question: "Which Flutter widget is used for scrolling content?", options: [ "ScrollView", "Recycler","ListView", "ScrollPane"], answer: "ListView" },
+
+  { question: "Which programming language is primarily used for Android app development?", options: ["Swift", "Kotlin", "PHP", "Ruby"], answer: "Kotlin" },
+  { question: "Which keyword is used to import modules in Node.js?", options: [ "import", "use","require", "include"], answer: "require" },
+  { question: "Which HTML tag defines the largest heading?", options: [ "<h6>", "<header>", "<head>","<h1>"], answer: "<h1>" },
+  { question: "Which Visual Studio extension helps with Git integration?", options: ["GitHub Extension", "Docker Tools", "ReSharper", "Azure Tools"], answer: "GitHub Extension" },
+  { question: "Which file defines the layout of an Android activity?", options: [ "layout.json", "activity_main.xml","AndroidManifest.xml", "gradle.build"], answer: "activity_main.xml" },
+  { question: "Hot reload in Flutter allows you to:", options: [ "Reinstall dependencies", "Reset app data", "Update UI without restarting the app","Recompile from scratch"], answer: "Update UI without restarting the app" },
+  { question: "Which company developed Visual Studio?", options: ["Microsoft", "Apple", "Google", "Adobe"], answer: "Microsoft" },
+  { question: "Which command starts a new React Native project?", options: [ "npm start", "expo build", "yarn install","npx react-native init"], answer: "npx react-native init" },
+
   
-  ];
+  { question: "Which Node.js module is used to create a server?", options: [ "fs", "os", "http","url"], answer: "http" },
+  { question: "Which company created React Native?", options: [ "Google","Meta (Facebook)", "Apple", "Microsoft"], answer: "Meta (Facebook)" },
+  { question: "What file holds app dependencies in Flutter?", options: ["pubspec.yaml", "package.json", "build.gradle", "manifest.json"], answer: "pubspec.yaml" },
+  { question: "Which symbol is used to reference an id in CSS?", options: [ "@", ".","#", "!"], answer: "#" },
+  { question: "Which Android Studio tool is used for debugging?", options: [ "Profiler", "ADB", "Emulator","Logcat"], answer: "Logcat" },
+
+  { question: "Which attribute is used to open a link in a new tab?", options: [ "open=\"tab\"","target=\"_blank\"", "newtab", "href=\"new\""], answer: "target=\"_blank\"" },
+  { question: "Which programming language is used to write React Native apps?", options: ["JavaScript", "C++", "Python", "Swift"], answer: "JavaScript" },
+
+  { question: "What does UI stand for in UI/UX?", options: ["User Interface", "Unified Interface", "User Internet", "Universal Interaction"], answer: "User Interface" },
+  { question: "How do you center text in CSS?", options: [ "align: middle;", "position: center;", "margin: auto;","text-align: center;"], answer: "text-align: center;" },
+  { question: "Which property changes the text color in CSS?", options: [ "font-color", "fgcolor","color", "text-color"], answer: "color" },
+  { question: "Which file in React Native stores package dependencies?", options: [ "gradle.build", "app.js","package.json", "manifest.json"], answer: "package.json" },
+  { question: "Which command is used to create a new Flutter project?", options: [ "flutter start", "flutter new", "flutter init","flutter create"], answer: "flutter create" },
+  { question: "Which HTML tag is used to create a hyperlink?", options: ["<a>", "<url>", "<link>", "<href>"], answer: "<a>" },
+  { question: "Wireframes are mainly used to:", options: [ "Create animations", "Plan app layout","Write backend code", "Add color schemes"], answer: "Plan app layout" },
+  { question: "Which Node.js function is used to print to console?", options: [ "print()", "echo()", "console.log()","display()"], answer: "console.log()" },
+  { question: "Which file format is used for Android app installation?", options: ["ZIP", "APK", "EXE", "IPA"], answer: "APK" },
+  { question: "Which principle focuses on ease of navigation?", options: ["Usability", "Aesthetics", "Typography", "Contrast"], answer: "Usability" },
+  { question: "Which Flutter widget is used for layouts?", options: [ "Frame", "RecyclerView", "TableView","Container"], answer: "Container" },
+
+  { question: "Which programming language is primarily used for Android app development?", options: [ "PHP", "Ruby", "Swift","Kotlin"], answer: "Kotlin" },
+  { question: "Which Visual Studio feature helps find and fix code issues automatically?", options: ["Code Analyzer", "Live Share", "Debugger", "IntelliSense"], answer: "Code Analyzer" },
+  { question: "What does HTML stand for?", options: ["HyperText Markup Language", "HighText Machine Language", "Home Tool Markup Language", "Hyper Tool Multi Language"], answer: "HyperText Markup Language" },
+  { question: "Which color model is primarily used for digital UI design?", options: [ "CMYK","RGB", "HSB", "LAB"], answer: "RGB" },
+  { question: "Which command installs all dependencies in Node.js?", options: [ "npm start", "npm build", "node install","npm install"], answer: "npm install" },
+  { question: "Which tag is used to display an image in HTML?", options: [ "<image>", "<picture>","<img>", "<src>"], answer: "<img>" },
+  { question: "Which file format represents a Visual Studio solution?", options: [".sln", ".csproj", ".vsproj", ".dll"], answer: ".sln" },
+  { question: "Which AndroidManifest.xml purpose?", options: [ "To manage Gradle dependencies", "To design layouts", "To store user data","To declare app components"], answer: "To declare app components" },
+  { question: "Which Node.js engine is used?", options: ["V8", "SpiderMonkey", "Chakra", "Nashorn"], answer: "V8" },
+  { question: "Which component is used for text display in React Native?", options: [ "Paragraph","Text", "Typography", "Label"], answer: "Text" },
+
+
+  { question: "Which Android Studio tool is used for debugging?", options: [ "Profiler","Logcat", "ADB", "Emulator"], answer: "Logcat" },
+  { question: "Which company created React Native?", options: ["Meta (Facebook)", "Google", "Apple", "Microsoft"], answer: "Meta (Facebook)" },
+  { question: "Which Flutter file holds dependencies?", options: [ "package.json", "build.gradle", "manifest.json","pubspec.yaml"], answer: "pubspec.yaml" },
+  { question: "Which symbol is used to reference an id in CSS?", options: [ "@", ".","#", "!"], answer: "#" },
+  { question: "Which company developed Visual Studio?", options: [ "Apple", "Microsoft","Google", "Adobe"], answer: "Microsoft" },
+
+  { question: "Which Node.js module is used to create a server?", options: ["http", "fs", "os", "url"], answer: "http" },
+  { question: "Hot reload in Flutter allows you to:", options: [ "Reinstall dependencies", "Reset app data","Update UI without restarting the app","Recompile from scratch"], answer: "Update UI without restarting the app" }
+];
 
   // ====== State ======
   let currentQ = 0, score = 0, timer, timeLeft = 20;

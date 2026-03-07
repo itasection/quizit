@@ -145,6 +145,11 @@ Developed with 🤍 by weBnovA
     const printReport = document.createElement('div');
     printReport.className = 'hidden print:block print-only font-sans text-sm p-4';
     printReport.innerHTML = `
+        <div class="flex flex-col items-center mb-2">
+            <p class="text-[9px] font-bold uppercase text-slate-400 tracking-[0.3em]">DEVELOPED BY</p>
+            <p class="dev-group" style="background: none !important; color: #ea580c !important; font-family: 'Pacifico' !important; font-size: 1.2rem !important; -webkit-print-color-adjust: exact; print-color-adjust: exact;">weBnovA</p>
+        </div>
+
         <div class="border-[6px] border-double border-black p-10 mx-auto w-full h-auto">
             <div class="text-center mb-6 border-b-2 border-black pb-6">
                 <h1 class="text-3xl font-black uppercase tracking-[0.2em] mb-1 font-mono">QUIZIT: ZENITH ACCOMPLISHMENT</h1>
@@ -162,7 +167,7 @@ Developed with 🤍 by weBnovA
                     </div>
                 </div>
                 <div class="space-y-3 text-right">
-                    <p class="text-[9px] font-black uppercase text-slate-500 tracking-[0.4em] border-b border-black pb-1 text-right">M I S S I O N  L O G S</p>
+                    <p class="text-[9px] font-black uppercase text-slate-500 tracking-[0.4em] border-b border-black pb-1 text-right">M I S S I O L O G S</p>
                     <div class="space-y-0.5">
                         <p class="text-lg font-black">OVERALL SCORE: ${totalMarks}/225</p>
                         <p class="font-mono text-[10px]">TIME: ${timeStr}</p>
@@ -201,18 +206,18 @@ Developed with 🤍 by weBnovA
                 </div>
             </div>
 
-            <div class="text-center mt-12 mb-12">
+            <div class="text-center mt-6">
                 <p class="text-[8px] uppercase text-slate-500 tracking-[0.2em] font-bold mb-12 italic">AUTHENTICATION VALID ONLY WITH AUTHORITY SIGNATURE</p>
                 <div class="flex justify-between items-end px-8">
                     <div class="w-48 border-t border-black pt-1 text-center text-[9px] font-black uppercase">CANDIDATE SIGNATURE</div>
                     <div class="w-48 border-t border-black pt-1 text-center text-[9px] font-black uppercase">SUPERVISOR SEAL</div>
                 </div>
             </div>
+        </div>
 
-            <div class="text-center border-t border-slate-200 pt-4">
-                <p class="text-[9px] font-bold uppercase text-slate-400 tracking-[0.3em] mb-1">DEVELOPED WITH 🤍 BY</p>
-                <p class="dev-group" style="background: none !important; -webkit-background-clip: initial !important; color: #000 !important; font-family: 'Pacifico' !important; font-size: 1.6rem !important; text-shadow: none !important;">weBnovA</p>
-            </div>
+        <div class="flex flex-col items-center mt-6">
+            <p class="text-[10px] font-bold uppercase text-slate-400 tracking-[0.3em]">DEVELOPED WITH 🤍 BY</p>
+            <p class="dev-group" style="background: none !important; color: #ea580c !important; font-family: 'Pacifico' !important; font-size: 1.8rem !important; -webkit-print-color-adjust: exact; print-color-adjust: exact;">weBnovA</p>
         </div>
 div>
     `;

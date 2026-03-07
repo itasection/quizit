@@ -1,0 +1,31 @@
+{
+  "name": "subjectorientedclub",
+  "version": "1.0.0",
+  "description": "",
+  "main": "vite.config.js",
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.2.1",
+    "animate.css": "^4.1.1",
+    "canvas-confetti": "^1.9.4",
+    "tailwindcss": "^4.2.1",
+    "vite": "^7.3.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/itasection/quizit.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/itasection/quizit/issues"
+  },
+  "homepage": "https://itasection.github.io/quizit/"
+}

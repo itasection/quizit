@@ -141,12 +141,13 @@ Developed with 🤍 by weBnovA
         a.href = url;
         a.download = `Report_${user.name.replace(/\s+/g, '_')}.txt`;
         a.click();
-    });    // Add explicit printable report text for print media
+    });
+    // Add explicit printable report text for print media
     const printReport = document.createElement('div');
     printReport.className = 'hidden print:block print-only font-sans text-sm p-4';
     printReport.innerHTML = `
         <div class="flex flex-col items-center mb-2">
-            <p class="text-[9px] font-bold uppercase text-slate-400 tracking-[0.3em]">DEVELOPED BY</p>
+            <p class="text-[9px] font-bold uppercase text-slate-400 tracking-[0.3em]"></p>
             <p class="dev-group" style="background: none !important; color: #ea580c !important; font-family: 'Pacifico' !important; font-size: 1.2rem !important; -webkit-print-color-adjust: exact; print-color-adjust: exact;">weBnovA</p>
         </div>
 

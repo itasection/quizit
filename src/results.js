@@ -143,65 +143,79 @@ Developed with 🤍 by weBnovA
         a.click();
     });    // Add explicit printable report text for print media
     const printReport = document.createElement('div');
-    printReport.className = 'hidden print:block print-only font-sans text-xs p-2';
+    printReport.className = 'hidden print:block print-only font-sans text-sm p-4';
     printReport.innerHTML = `
-        <div class="border-[4px] border-double border-black p-6 mx-auto w-full max-w-[700px]">
-            <div class="text-center mb-4 border-b border-black pb-4">
-                <h1 class="text-2xl font-black uppercase tracking-widest mb-1 font-mono">QUIZIT: ZENITH ACCOMPLISHMENT</h1>
-                <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-800">Official Performance Intelligence Report</p>
-            </div>
+        <div class="border-[6px] border-double border-black p-12 mx-auto w-full h-[1000px] flex flex-col justify-between">
+            <div>
+                <div class="text-center mb-10 border-b-2 border-black pb-8">
+                    <h1 class="text-4xl font-black uppercase tracking-[0.2em] mb-2 font-mono">QUIZIT: ZENITH ACCOMPLISHMENT</h1>
+                    <p class="text-xs font-bold uppercase tracking-[0.4em] text-slate-800">Official Performance Intelligence Report</p>
+                </div>
 
-            <div class="grid grid-cols-2 gap-4 mb-4">
-                <div class="space-y-2">
-                    <p class="text-[8px] font-black uppercase text-slate-500 tracking-[0.2em] border-b">CANDIDATE INFORMATION</p>
-                    <div class="space-y-0.5">
-                        <p class="text-lg font-black uppercase tracking-tighter">${user.name}</p>
-                        <p class="font-mono text-[10px]">REG: ${user.regNo} | ENROLL: ${user.enrollNo}</p>
-                        <p class="font-mono text-[10px] uppercase">${user.department} | YR ${user.year} | SEC ${user.section}</p>
-                        <p class="font-mono text-[10px]">${user.email}</p>
+                <div class="grid grid-cols-2 gap-12 mb-10">
+                    <div class="space-y-4">
+                        <p class="text-[10px] font-black uppercase text-slate-500 tracking-[0.5em] border-b-2 border-black pb-1">C A N D I D A T E  I N F O R M A T I O N</p>
+                        <div class="space-y-1">
+                            <p class="text-3xl font-black uppercase tracking-tighter">${user.name}</p>
+                            <p class="font-mono text-sm font-bold">REG: ${user.regNo} | ENROLL: ${user.enrollNo}</p>
+                            <p class="font-mono text-sm uppercase">${user.department} | YEAR ${user.year} | SEC ${user.section}</p>
+                            <p class="font-mono text-sm">${user.email}</p>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <p class="text-[10px] font-black uppercase text-slate-500 tracking-[0.5em] border-b-2 border-black pb-1">M I S S I O N  L O G S</p>
+                        <div class="space-y-1">
+                            <p class="text-xl font-black">OVERALL SCORE: ${totalMarks}/225</p>
+                            <p class="font-mono text-sm">COMPLETION TIME: ${timeStr}</p>
+                            <p class="font-mono text-sm">GEN DATE: ${new Date().toLocaleDateString()}</p>
+                            <p class="font-mono text-sm">STATUS: <span class="font-black">VERIFIED √</span></p>
+                        </div>
                     </div>
                 </div>
-                <div class="space-y-2">
-                    <p class="text-[8px] font-black uppercase text-slate-500 tracking-[0.2em] border-b">MISSION LOGS</p>
-                    <div class="space-y-0.5">
-                        <p class="text-md font-black">Score: ${totalMarks}/225</p>
-                        <p class="font-mono text-[10px]">TIME: ${timeStr}</p>
-                        <p class="font-mono text-[10px]">DATE: ${new Date().toLocaleDateString()}</p>
-                        <p class="font-mono text-[10px]">STATUS: VERIFIED</p>
+
+                <div class="mb-10">
+                    <p class="text-[10px] font-black uppercase text-slate-500 tracking-[0.5em] mb-6 border-b-2 border-black pb-1">P H A S E  B R E A K D O W N</p>
+                    <div class="space-y-4 font-mono text-sm">
+                        <div class="flex justify-between items-center border-b border-slate-100 pb-2">
+                            <span class="font-bold">Level 1: Foundation (SEO & Technical Basics)</span> 
+                            <span class="text-lg font-black">${scores.l1}/35</span>
+                        </div>
+                        <div class="flex justify-between items-center border-b border-slate-100 pb-2">
+                            <span class="font-bold">Level 2: Engagement (Analytics & Connect)</span> 
+                            <span class="text-lg font-black">${scores.l2}/60</span>
+                        </div>
+                        <div class="flex justify-between items-center border-b border-slate-100 pb-2">
+                            <span class="font-bold">Level 3: Zenith (Advanced Strategic Protocol)</span> 
+                            <span class="text-lg font-black">${scores.l3}/130</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-10 pt-8 border-t-2 border-black flex justify-between items-center">
+                    <div class="space-y-1">
+                       <p class="text-[10px] font-black uppercase text-slate-500 tracking-[0.5em] mb-1">C U M U L A T I V E  S C O R E</p>
+                       <p class="text-7xl font-black tracking-tighter">${totalMarks}/225</p>
+                    </div>
+                    <div class="bg-black text-white px-8 py-6 text-center shadow-lg">
+                        <p class="text-[10px] uppercase tracking-[0.4em] font-black mb-1">FINAL RATING</p>
+                        <p class="text-2xl font-black italic">${totalMarks >= 200 ? 'LEGENDARY' : totalMarks >= 150 ? 'EXCEPTIONAL' : 'QUALIFIED'}</p>
                     </div>
                 </div>
             </div>
 
-            <div class="mb-4">
-                <p class="text-[8px] font-black uppercase text-slate-500 tracking-[0.2em] mb-2 border-b">PHASE BREAKDOWN</p>
-                <div class="space-y-1 font-mono text-[10px]">
-                    <div class="flex justify-between"><span>Level 1: Foundation (SEO & Basics)</span> <span>${scores.l1}/35</span></div>
-                    <div class="flex justify-between"><span>Level 2: Engagement (Analysis & Connnect)</span> <span>${scores.l2}/60</span></div>
-                    <div class="flex justify-between"><span>Level 3: Zenith (Advanced Protocol)</span> <span>${scores.l3}/130</span></div>
+            <div>
+                <div class="text-center mb-12">
+                    <p class="text-[10px] uppercase text-slate-500 tracking-[0.3em] font-bold mb-16 italic">AUTHENTICATION VALID ONLY WHEN SIGNED BY MONITORING AUTHORITY</p>
+                    <div class="flex justify-between items-end px-12">
+                        <div class="w-64 border-t-2 border-black pt-2 text-center text-xs font-black uppercase tracking-widest">CANDIDATE SIGNATURE</div>
+                        <div class="w-64 border-t-2 border-black pt-2 text-center text-xs font-black uppercase tracking-widest">SUPERVISOR SEAL</div>
+                    </div>
                 </div>
-            </div>
 
-            <div class="mb-4 pt-2 border-t border-black flex justify-between items-end">
-                <div>
-                   <p class="text-[8px] font-black uppercase text-slate-500 tracking-[0.2em] mb-1">CUMULATIVE SCORE</p>
-                   <p class="text-4xl font-black tracking-tighter">${totalMarks}/225</p>
+                <div class="text-center border-t-2 border-slate-200 pt-8 mt-8">
+                    <p class="text-xs font-bold uppercase text-slate-400 tracking-[0.5em] mb-2">DEVELOPED WITH 🤍 BY</p>
+                    <p class="dev-group" style="background: none !important; -webkit-background-clip: initial !important; color: #000 !important; font-family: 'Pacifico' !important; font-size: 2.2rem !important; text-shadow: none !important;">weBnovA</p>
                 </div>
-                <div class="bg-black text-white px-4 py-2 text-center">
-                    <p class="text-[8px] uppercase tracking-[0.2em] font-bold">RATING: ${totalMarks >= 200 ? 'LEGENDARY' : totalMarks >= 150 ? 'EXCEPTIONAL' : 'QUALIFIED'}</p>
-                </div>
-            </div>
-
-            <div class="mt-6 text-center">
-                <p class="text-[8px] uppercase text-slate-500 tracking-widest mb-8 italic">AUTHENTICATION VALID ONLY WITH AUTHORITY SIGNATURE</p>
-                <div class="flex justify-between items-end px-4">
-                    <div class="w-32 border-t border-black pt-1 text-center text-[8px] font-black uppercase">CANDIDATE</div>
-                    <div class="w-32 border-t border-black pt-1 text-center text-[8px] font-black uppercase">SUPERVISOR SEAL</div>
-                </div>
-            </div>
-
-            <div class="mt-8 text-center border-t border-slate-100 pt-4">
-                <p class="text-[8px] font-bold uppercase text-slate-400 mb-1">DEVELOPED WITH 🤍 BY</p>
-                <p class="dev-group" style="background: none !important; -webkit-background-clip: initial !important; color: #000 !important; font-family: 'Pacifico', cursive !important; font-size: 1.2rem !important;">weBnovA</p>
             </div>
         </div>
 div>

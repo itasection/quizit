@@ -124,11 +124,14 @@ export const renderLevel2 = (container) => {
       "Omnichannel", "Hyperlocal", "Interactivity", "Localization", "Visualization",
       "Blockchain", "Metaverse", "Algorithm", "Bandwidth", "Compliance"
     ];
-    // Randomize mixed case for each term
-    const terms = allTerms.map(t => t.split('').map(c => Math.random() > 0.5 ? c.toUpperCase() : c.toLowerCase()).join(''));
+    // Randomize and pick only 10
+    const terms = allTerms
+      .sort(() => 0.5 - Math.random())
+      .slice(0, 10)
+      .map(t => t.split('').map(c => Math.random() > 0.5 ? c.toUpperCase() : c.toLowerCase()).join(''));
 
     let termIndex = 0;
-    let timer = 120; // 120 seconds
+    let timer = 120; // 120 seconds for the whole task
     let timerId;
 
     levelDiv.innerHTML = `
@@ -154,7 +157,7 @@ export const renderLevel2 = (container) => {
           <div class="flex justify-between items-center px-4">
             <div class="flex items-center gap-2">
                 <span class="w-2 h-2 rounded-full bg-yellow-500 animate-pulse"></span>
-                <span id="captcha-count" class="text-[10px] font-black font-mono text-slate-500 uppercase tracking-widest">PROGRESS: 0/${terms.length}</span>
+                <span id="captcha-count" class="text-[10px] font-black font-mono text-slate-500 uppercase tracking-widest">PROGRESS: 0/10</span>
             </div>
           </div>
         </div>
@@ -171,7 +174,7 @@ export const renderLevel2 = (container) => {
 
     timerId = setInterval(() => {
       timer -= 0.1;
-      timerDisplay.innerText = `${timer.toFixed(2)}s`;
+      if (timerDisplay) timerDisplay.innerText = `${timer.toFixed(2)}s`;
       if (timer <= 0) {
         clearInterval(timerId);
         goToTask2();
@@ -179,6 +182,7 @@ export const renderLevel2 = (container) => {
     }, 100);
 
     const goToTask2 = () => {
+      clearInterval(timerId);
       currentTask = 2;
       animateCSS(levelDiv, 'fadeOutDown').then(renderTask2);
     };
@@ -194,12 +198,12 @@ export const renderLevel2 = (container) => {
       termIndex++;
       input.value = '';
 
-      if (termIndex === terms.length) {
+      if (termIndex === 10) {
         clearInterval(timerId);
         goToTask2();
       } else {
         termDisplay.innerText = terms[termIndex];
-        countDisplay.innerText = `PROGRESS: ${termIndex}/${terms.length}`;
+        countDisplay.innerText = `PROGRESS: ${termIndex}/10`;
         input.focus();
       }
     };
@@ -266,7 +270,7 @@ export const renderLevel2 = (container) => {
       rebusTimerId = setInterval(() => {
         rebusTimer -= 0.1;
         if (headerTimer) headerTimer.innerText = `${rebusTimer.toFixed(1)}s`;
-        progressBar.style.width = `${(rebusTimer / 10) * 100}%`;
+        if (progressBar) progressBar.style.width = `${(rebusTimer / 10) * 100}%`;
         if (rebusTimer <= 0) {
           nextRebus();
         }
@@ -309,22 +313,27 @@ export const renderLevel2 = (container) => {
     ];
 
     let qIdx = 0;
-    let timer = 600; // 10 minutes
+    let qTimer = 60; 
     let timerId;
 
     const renderScenario = () => {
+      if (timerId) clearInterval(timerId);
+      
       if (qIdx === scenarios.length) {
         finishL2();
         return;
       }
+      
       const s = scenarios[qIdx];
+      qTimer = 60; // 1 minute per question
+
       levelDiv.innerHTML = `
-        ${renderHeader('<span id="t3-timer" class="text-2xl font-black font-mono text-white bg-yellow-600 px-3 py-1 rounded-lg">10:00</span>')}
+        ${renderHeader('<span id="t3-timer" class="text-2xl font-black font-mono text-white bg-yellow-600 px-3 py-1 rounded-lg">60s</span>')}
         <div class="card space-y-10 animate__animated animate__fadeInRight">
           <div class="space-y-2">
               <span class="badge bg-yellow-500/10 text-yellow-400 border border-yellow-500/20">Phase 03</span>
               <h3 class="text-3xl font-black">Concept Mastery</h3>
-              <p class="text-slate-400 text-sm">Question ${qIdx + 1} of ${scenarios.length}. Auto-submits on timeout.</p>
+              <p class="text-slate-400 text-sm">Question ${qIdx + 1} of ${scenarios.length}. 60s per question.</p>
           </div>
 
           <div class="space-y-8">
@@ -343,30 +352,25 @@ export const renderLevel2 = (container) => {
             </div>
           </div>
           <div class="flex justify-end">
-            <button id="next-q" class="btn-secondary !bg-yellow-500/10 !text-yellow-500 !border-yellow-500/30">SKIPPED QUESTION</button>
+            <button id="next-q" class="btn-secondary !bg-yellow-500/10 !text-yellow-500 !border-yellow-500/30">SKIP QUESTION</button>
           </div>
         </div>
       `;
 
       const timerDisplay = levelDiv.querySelector('#t3-timer');
-      if (!timerId) {
-        timerId = setInterval(() => {
-          timer--;
-          const mins = Math.floor(timer / 60);
-          const secs = timer % 60;
-          const currentTimerDisplay = levelDiv.querySelector('#t3-timer');
-          if (currentTimerDisplay) {
-            currentTimerDisplay.innerText = `${mins}:${secs.toString().padStart(2, '0')}`;
-          }
-          if (timer <= 0) {
-            clearInterval(timerId);
-            finishL2();
-          }
-        }, 1000);
-      }
+      timerId = setInterval(() => {
+        qTimer--;
+        if (timerDisplay) timerDisplay.innerText = `${qTimer}s`;
+        if (qTimer <= 0) {
+          clearInterval(timerId);
+          qIdx++;
+          renderScenario();
+        }
+      }, 1000);
 
       levelDiv.querySelectorAll('.quiz-opt').forEach(btn => {
         btn.addEventListener('click', () => {
+          clearInterval(timerId);
           if (parseInt(btn.dataset.idx) === s.c) l2Marks += 1;
           qIdx++;
           renderScenario();
@@ -374,6 +378,7 @@ export const renderLevel2 = (container) => {
       });
 
       levelDiv.querySelector('#next-q').addEventListener('click', () => {
+        clearInterval(timerId);
         qIdx++;
         renderScenario();
       });

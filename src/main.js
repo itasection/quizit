@@ -75,5 +75,7 @@ document.addEventListener('fullscreenchange', () => {
   }
 });
 
+document.addEventListener('contextmenu', (e) => e.preventDefault());
+
 setRenderCallback(render);
 render(gameState);

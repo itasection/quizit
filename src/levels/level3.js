@@ -90,7 +90,7 @@ export const renderLevel3 = (container) => {
             <div class="max-w-lg mx-auto p-6 card border-red-900/30 bg-black/40 space-y-4 text-slate-400 text-sm leading-relaxed">
                 <p>AUTHORIZATION GRANTED. Ultimate evaluation initialized:</p>
                 <ul class="text-left space-y-2 list-disc list-inside text-xs font-mono">
-                    <li><span class="text-red-500 font-bold">Dot Neutralizer</span>: 2-minute survival. 100 Marks.</li>
+                    <li><span class="text-red-500 font-bold">Dot Neutralizer</span>: 2-minute survival. 50 Marks.</li>
                     <li><span class="text-red-600 font-bold">Thunder Logic</span>: Case study under pressure.</li>
                     <li><span class="text-red-700 font-bold">Zenith Protocol</span>: 20 technical questions.</li>
                 </ul>
@@ -128,12 +128,12 @@ export const renderLevel3 = (container) => {
         <div class="relative z-10 p-12 text-center h-full flex flex-col justify-between pointer-events-none">
           <div class="space-y-4">
             <h3 class="text-5xl font-black text-red-600 tracking-tighter uppercase italic drop-shadow-[0_0_30px_rgba(220,38,38,0.5)]">Algorithm Neutralizer</h3>
-            <p class="text-slate-500 text-sm font-mono uppercase tracking-[0.2em]">NEUTRALIZE THE PIXEL. [VAL: 100 MARKS]</p>
+            <p class="text-slate-500 text-sm font-mono uppercase tracking-[0.2em]">NEUTRALIZE THE PIXEL. [VAL: 50 MARKS]</p>
           </div>
           
           <div class="bg-red-950/60 p-6 border border-red-500/50 text-red-500 font-mono text-[10px] text-left rounded-2xl backdrop-blur-md max-w-xs">
             <p class="animate-pulse">>> [WARNING] SYSTEM_OVERHEAT</p>
-            <p>>> [CORE] SCORE: 100 MARKS POSSIBLE</p>
+            <p>>> [CORE] SCORE: 50 MARKS POSSIBLE</p>
             <p>>> [TIMER] 120.0s REMAINING</p>
           </div>
         </div>
@@ -202,7 +202,7 @@ export const renderLevel3 = (container) => {
       clearInterval(matrixInterval);
       clearInterval(targetInterval);
       clearInterval(timerId);
-      l3Marks += 100;
+      l3Marks += 50;
       currentTask = 2;
       animateCSS(levelDiv, 'fadeOut').then(renderTask2);
     });

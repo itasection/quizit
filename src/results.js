@@ -60,9 +60,9 @@ export const renderResults = (container) => {
 
             <div class="p-8 rounded-[2.5rem] bg-red-500/5 border border-red-500/10 text-center space-y-2">
                 <p class="text-[10px] font-black text-red-500 uppercase tracking-widest">Zenith</p>
-                <p class="text-5xl font-black text-white">${scores.l3}<span class="text-lg text-slate-600">/130</span></p>
+                <p class="text-5xl font-black text-white">${scores.l3}<span class="text-lg text-slate-600">/80</span></p>
                 <div class="w-full h-1 bg-slate-800 rounded-full mt-4 overflow-hidden">
-                    <div class="h-full bg-red-500" style="width: ${(scores.l3 / 130) * 100}%"></div>
+                    <div class="h-full bg-red-500" style="width: ${(scores.l3 / 80) * 100}%"></div>
                 </div>
             </div>
         </div>
@@ -72,7 +72,7 @@ export const renderResults = (container) => {
             <p class="text-xs font-black text-slate-500 uppercase tracking-[0.5em] mb-4 print:text-slate-700">Cumulative Score</p>
             <div class="relative">
                 <div class="absolute inset-0 bg-white blur-[60px] opacity-10 print:hidden"></div>
-                <p class="text-8xl font-black text-white relative z-10 print:text-black">${totalMarks}<span class="text-3xl text-slate-700 ml-2">/225</span></p>
+                <p class="text-8xl font-black text-white relative z-10 print:text-black">${totalMarks}<span class="text-3xl text-slate-700 ml-2">/175</span></p>
             </div>
         </div>
 
@@ -125,9 +125,9 @@ Email         : ${user.email}
 PERFORMANCE SUMMARY:
 Level 1 (Foundation) : ${scores.l1}/35
 Level 2 (Engagement) : ${scores.l2}/60
-Level 3 (Zenith)     : ${scores.l3}/130
+Level 3 (Zenith)     : ${scores.l3}/80
 ----------------------------------------------
-TOTAL SCORE          : ${totalMarks}/225
+TOTAL SCORE          : ${totalMarks}/175
 ELAPSED TIME         : ${timeStr}
 ----------------------------------------------
 Verification Status  : Synchronized
@@ -169,7 +169,7 @@ Developed with 🤍 by weBnovA
                 <div class="space-y-3 text-right">
                     <p class="text-[9px] font-black uppercase text-slate-500 tracking-[0.4em] border-b border-black pb-1 text-right">M I S S I O L O G S</p>
                     <div class="space-y-0.5">
-                        <p class="text-lg font-black">OVERALL SCORE: ${totalMarks}/225</p>
+                        <p class="text-lg font-black">OVERALL SCORE: ${totalMarks}/175</p>
                         <p class="font-mono text-[10px]">TIME: ${timeStr}</p>
                         <p class="font-mono text-[10px]">DATE: ${new Date().toLocaleDateString()}</p>
                         <p class="font-mono text-[10px]">STATUS: VERIFIED √</p>
@@ -189,8 +189,8 @@ Developed with 🤍 by weBnovA
                         <span class="font-black">${scores.l2}/60</span>
                     </div>
                     <div class="flex justify-between items-center border-b border-slate-100 pb-1">
-                        <span class="font-bold">Level 3: Zenith (Advanced Strategic Protocol)</span> 
-                        <span class="font-black">${scores.l3}/130</span>
+                            <span class="font-bold">Level 3: Zenith (Advanced Strategic Protocol)</span> 
+                            <span class="font-black">${scores.l3}/80</span>
                     </div>
                 </div>
             </div>
@@ -198,11 +198,11 @@ Developed with 🤍 by weBnovA
             <div class="mb-8 pt-4 border-t-2 border-black flex justify-between items-center">
                 <div class="space-y-0.5">
                    <p class="text-[9px] font-black uppercase text-slate-500 tracking-[0.4em] mb-0.5">C U M U L A T I V E  S C O R E</p>
-                   <p class="text-6xl font-black tracking-tighter">${totalMarks}/225</p>
+                   <p class="text-6xl font-black tracking-tighter">${totalMarks}/175</p>
                 </div>
                 <div class="bg-black text-white px-6 py-4 text-center">
                     <p class="text-[9px] uppercase tracking-[0.3em] font-black mb-0.5">FINAL RATING</p>
-                    <p class="text-xl font-black italic">${totalMarks >= 200 ? 'LEGENDARY' : totalMarks >= 150 ? 'EXCEPTIONAL' : 'QUALIFIED'}</p>
+                    <p class="text-xl font-black italic">${totalMarks >= 155 ? 'LEGENDARY' : totalMarks >= 115 ? 'EXCEPTIONAL' : 'QUALIFIED'}</p>
                 </div>
             </div>
 

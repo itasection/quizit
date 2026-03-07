@@ -141,75 +141,70 @@ Developed with 🤍 by weBnovA
         a.href = url;
         a.download = `Report_${user.name.replace(/\s+/g, '_')}.txt`;
         a.click();
-    });
-
-    // Add explicit printable report text for print media
+    });    // Add explicit printable report text for print media
     const printReport = document.createElement('div');
-    printReport.className = 'hidden print:block font-sans text-sm p-4';
+    printReport.className = 'hidden print:block print-only font-sans text-sm p-4';
     printReport.innerHTML = `
-        <div class="border-4 border-double border-black p-8">
-            <div class="text-center mb-8 border-b-2 border-black pb-6">
-                <h1 class="text-4xl font-black uppercase tracking-tighter mb-2">QuizIt: Zenith Accomplishment</h1>
-                <p class="text-sm font-mono uppercase tracking-widest text-slate-600">Official Performance Intelligence Report</p>
+        <div class="border-[6px] border-double border-black p-12">
+            <div class="text-center mb-10 border-b-2 border-black pb-8">
+                <h1 class="text-4xl font-black uppercase tracking-widest mb-2 font-mono">QUIZIT: ZENITH ACCOMPLISHMENT</h1>
+                <p class="text-sm font-bold uppercase tracking-[0.3em] text-slate-800">Official Performance Intelligence Report</p>
             </div>
 
-            <div class="grid grid-cols-2 gap-8 mb-8">
-                <div class="space-y-3">
-                    <p class="text-[10px] font-black uppercase text-slate-500 tracking-[0.2em] mb-1">CANDIDATE INFORMATION</p>
-                    <div class="space-y-1">
-                        <p class="text-2xl font-bold">${user.name}</p>
-                        <p class="font-mono text-xs">REG: ${user.regNo} | ENROLL: ${user.enrollNo}</p>
-                        <p class="font-mono text-xs">${user.department} | YEAR ${user.year} | SEC ${user.section}</p>
-                        <p class="font-mono text-xs">${user.email}</p>
-                    </div>
+            <div class="mb-10">
+                <p class="text-[10px] font-black uppercase text-slate-500 tracking-[0.5em] mb-4 border-b pb-1">C A N D I D A T E  I N F O R M A T I O N</p>
+                <div class="space-y-1">
+                    <p class="text-3xl font-black uppercase tracking-tighter">${user.name}</p>
+                    <p class="font-mono text-sm font-bold">REG: ${user.regNo} | ENROLL: ${user.enrollNo}</p>
+                    <p class="font-mono text-sm uppercase">${user.department} | YEAR ${user.year} | SEC ${user.section}</p>
+                    <p class="font-mono text-sm">${user.email}</p>
                 </div>
-                <div class="text-right space-y-3">
-                    <p class="text-[10px] font-black uppercase text-slate-500 tracking-[0.2em] mb-1">MISSION LOGS</p>
-                    <div class="space-y-1">
-                        <p class="text-2xl font-bold">Total: ${totalMarks}/225</p>
-                        <p class="font-mono text-xs">COMPLETION TIME: ${timeStr}</p>
-                        <p class="font-mono text-xs">DATE: ${new Date().toLocaleDateString()}</p>
-                        <p class="font-mono text-xs">STATUS: <span class="text-green-700 font-bold">VERIFIED</span></p>
+            </div>
+
+            <div class="mb-10">
+                <p class="text-[10px] font-black uppercase text-slate-500 tracking-[0.5em] mb-4 border-b pb-1">M I S S I O N  L O G S</p>
+                <div class="space-y-2">
+                    <p class="text-2xl font-black">Total: ${totalMarks}/225</p>
+                    <div class="font-mono text-sm space-y-1">
+                        <p>COMPLETION TIME: ${timeStr}</p>
+                        <p>DATE: ${new Date().toLocaleDateString()}</p>
+                        <p>STATUS: <span class="font-black">VERIFIED</span></p>
                     </div>
                 </div>
             </div>
 
             <div class="mb-10">
-                <p class="text-[10px] font-black uppercase text-slate-500 tracking-[0.2em] mb-4">PHASE BREAKDOWN</p>
-                <div class="grid grid-cols-1 gap-4">
-                    <div class="flex justify-between items-center bg-slate-50 p-3 border border-slate-200">
-                        <span class="font-bold">Level 1: Foundation (SEO & Basics)</span>
-                        <span class="font-mono">${scores.l1}/35</span>
-                    </div>
-                    <div class="flex justify-between items-center bg-slate-50 p-3 border border-slate-200">
-                        <span class="font-bold">Level 2: Engagement (Analysis & Connnect)</span>
-                        <span class="font-mono">${scores.l2}/60</span>
-                    </div>
-                    <div class="flex justify-between items-center bg-slate-50 p-3 border border-slate-200">
-                        <span class="font-bold">Level 3: Zenith (Advanced Protocol)</span>
-                        <span class="font-mono">${scores.l3}/130</span>
-                    </div>
+                <p class="text-[10px] font-black uppercase text-slate-500 tracking-[0.5em] mb-4 border-b pb-1">P H A S E  B R E A K D O W N</p>
+                <div class="space-y-3 font-mono text-sm">
+                    <div class="flex justify-between"><span>Level 1: Foundation (SEO & Basics)</span> <span>${scores.l1}/35</span></div>
+                    <div class="flex justify-between"><span>Level 2: Engagement (Analysis & Connnect)</span> <span>${scores.l2}/60</span></div>
+                    <div class="flex justify-between"><span>Level 3: Zenith (Advanced Protocol)</span> <span>${scores.l3}/130</span></div>
                 </div>
             </div>
 
-            <div class="bg-black text-white p-6 text-center mb-6">
-                <p class="text-xs uppercase tracking-widest mb-1">Final Performance Rating</p>
-                <p class="text-4xl font-black italic tracking-tighter">${totalMarks >= 200 ? 'LEGENDARY' : totalMarks >= 150 ? 'EXCEPTIONAL' : 'QUALIFIED'}</p>
+            <div class="mb-10 pt-6 border-t-2 border-black">
+                <p class="text-[10px] font-black uppercase text-slate-500 tracking-[0.5em] mb-2">C U M U L A T I V E  S C O R E</p>
+                <p class="text-6xl font-black tracking-tighter">${totalMarks}/225</p>
             </div>
 
-            <div class="mt-8 pt-8 border-t border-dashed border-slate-300 text-center">
-                <p class="text-[9px] uppercase text-slate-400 tracking-widest mb-2 italic">Authentication valid only when signed by monitoring authority</p>
-                <div class="flex justify-between items-end mt-12 px-10">
-                    <div class="w-48 border-t border-black pt-2 text-center text-[10px] font-bold">CANDIDATE SIGNATURE</div>
-                    <div class="w-48 border-t border-black pt-2 text-center text-[10px] font-bold">SUPERVISOR SEAL</div>
+            <div class="bg-black text-white p-6 text-center mb-10">
+                <p class="text-xs uppercase tracking-[0.3em] font-bold">FINAL PERFORMANCE RATING: ${totalMarks >= 200 ? 'LEGENDARY' : totalMarks >= 150 ? 'EXCEPTIONAL' : 'QUALIFIED'}</p>
+            </div>
+
+            <div class="mt-8 text-center">
+                <p class="text-[9px] uppercase text-slate-500 tracking-widest mb-10 italic">AUTHENTICATION VALID ONLY WHEN SIGNED BY MONITORING AUTHORITY</p>
+                <div class="flex justify-between items-end px-4 mt-16">
+                    <div class="w-56 border-t-2 border-black pt-2 text-center text-[10px] font-black uppercase">CANDIDATE SIGNATURE</div>
+                    <div class="w-56 border-t-2 border-black pt-2 text-center text-[10px] font-black uppercase">SUPERVISOR SEAL</div>
                 </div>
             </div>
 
-            <div class="mt-12 text-center flex flex-col items-center">
-                <p class="text-[10px] font-bold uppercase text-slate-500 mb-2">Developed with 🤍 by</p>
-                <p class="dev-group" style="background: none !important; -webkit-background-clip: initial !important; color: #ea580c !important; font-family: 'Pacifico' !important; font-size: 1.5rem !important;">weBnovA</p>
+            <div class="mt-20 text-center">
+                <p class="text-[10px] font-bold uppercase text-slate-500 mb-2">DEVELOPED WITH 🤍 BY</p>
+                <p class="dev-group" style="background: none !important; -webkit-background-clip: initial !important; color: #000 !important; font-family: 'Pacifico', cursive !important; font-size: 2rem !important;">weBnovA</p>
             </div>
         </div>
+div>
     `;
     div.appendChild(printReport);
 

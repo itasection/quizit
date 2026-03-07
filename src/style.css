@@ -442,8 +442,13 @@ body {
   #loading,
   .badge,
   .door-container,
-  .key-box-container {
+  .key-box-container,
+  .card {
     display: none !important;
+  }
+
+  .print-only {
+    display: block !important;
   }
 
   h1,

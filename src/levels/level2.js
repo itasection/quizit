@@ -31,8 +31,9 @@ export const renderLevel2 = (container) => {
 
   const renderKeyCheck = () => {
     levelDiv.innerHTML = `
-      <div class="flex flex-col items-center justify-center min-h-[70vh] space-y-8 animate__animated animate__fadeIn">
-        <div class="door-container">
+      <div class="flex flex-col items-center justify-center min-h-[60vh] space-y-8 animate__animated animate__fadeIn">
+        <div class="door-frame">
+          <div class="absolute inset-0 bg-slate-950 rounded-inner shadow-inner z-0"></div>
           <div id="door-visual" class="royal-door">
               <div class="knob"></div>
           </div>

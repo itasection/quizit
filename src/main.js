@@ -10,7 +10,7 @@ const app = document.querySelector('#app');
 
 const renderFooter = (container) => {
   const footer = document.createElement('footer');
-  footer.className = 'footer mt-20';
+  footer.className = 'footer mt-4';
   footer.innerHTML = `
     <p class="developer-credit">Developed with 🤍 by</p>
     <p class="dev-group">weBnovA</p>
@@ -21,7 +21,7 @@ const renderFooter = (container) => {
 const render = (state) => {
   app.innerHTML = '';
   const contentDiv = document.createElement('div');
-  contentDiv.className = 'min-h-[80vh]';
+  contentDiv.className = 'min-h-[60vh] flex flex-col justify-center';
   app.appendChild(contentDiv);
 
   switch (state.level) {

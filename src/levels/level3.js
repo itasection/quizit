@@ -31,14 +31,9 @@ export const renderLevel3 = (container) => {
 
   const renderKeyCheck = () => {
     levelDiv.innerHTML = `
-      <div class="flex flex-col items-center justify-center min-h-[70vh] space-y-8 animate__animated animate__fadeIn">
-        <div class="key-box-container mb-12">
-          <div id="key-box" class="key-box">
-            <div class="key-box-lid"></div>
-            <div class="key-inside">🔑</div>
-          </div>
-        </div>
-        <div class="door-container">
+      <div class="flex flex-col items-center justify-center min-h-[60vh] space-y-12 animate__animated animate__fadeIn">
+        <div class="door-frame !border-red-900/50 !bg-red-950/20">
+          <div class="absolute inset-0 bg-black rounded-inner z-0"></div>
           <div id="door-visual" class="haunted-door"></div>
         </div>
         <div class="text-center space-y-2">

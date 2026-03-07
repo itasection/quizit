@@ -146,9 +146,8 @@ Developed with 🤍 by weBnovA
     const printReport = document.createElement('div');
     printReport.className = 'hidden print:block print-only font-sans text-sm p-4';
     printReport.innerHTML = `
-        <div class="flex flex-col items-center mb-2">
-            <p class="text-[9px] font-bold uppercase text-slate-400 tracking-[0.3em]"></p>
-            <p class="dev-group" style="background: none !important; color: #ea580c !important; font-family: 'Pacifico' !important; font-size: 1.2rem !important; -webkit-print-color-adjust: exact; print-color-adjust: exact;">weBnovA</p>
+        <div class="flex justify-end p-2">
+            <p class="dev-group" style="background: none !important; color: #ea580c !important; font-family: 'Pacifico' !important; font-size: 1.1rem !important; -webkit-print-color-adjust: exact; print-color-adjust: exact;">weBnovA</p>
         </div>
 
         <div class="border-[6px] border-double border-black p-10 mx-auto w-full h-auto">

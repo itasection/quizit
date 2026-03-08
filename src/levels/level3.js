@@ -256,7 +256,7 @@ export const renderLevel3 = (container) => {
 
           setTimeout(() => {
             overlay.remove();
-          }, 10000); // 10s update screen
+          }, 15000); // 15s update screen
         }, 5000); // 5s black screen
       }
 

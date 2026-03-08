@@ -1,5 +1,5 @@
 import { updateState, gameState } from '../state';
-import { animateCSS, formatTime } from '../utils';
+import { animateCSS, formatTime, shuffleOptions } from '../utils';
 import confetti from 'canvas-confetti';
 import { submitScore } from '../services/backend';
 
@@ -109,7 +109,11 @@ export const renderLevel1 = (container) => {
         </div>
 
         <div id="riddle-list" class="space-y-6">
-          ${riddles.map((r, i) => `
+          ${riddles.map((r_orig, i) => {
+            const { options, correctIdx } = shuffleOptions(r_orig.a, r_orig.c);
+            const r = { ...r_orig, a: options, c: correctIdx };
+            riddles[i] = r; // Update local array to keep track of new correct index
+            return `
             <div class="p-6 bg-slate-800/20 rounded-2xl border border-slate-700/30 space-y-4">
               <div class="flex items-center gap-3">
                 <span class="w-6 h-6 rounded-lg bg-indigo-600/20 flex items-center justify-center text-[10px] font-black text-indigo-400 border border-indigo-500/20">${i + 1}</span>
@@ -123,7 +127,7 @@ export const renderLevel1 = (container) => {
                 `).join('')}
               </div>
             </div>
-          `).join('')}
+          `}).join('')}
         </div>
         
         <button id="submit-riddles" class="btn-primary w-full group py-5">
@@ -292,7 +296,11 @@ export const renderLevel1 = (container) => {
         </div>
 
         <div id="quiz" class="space-y-8">
-          ${questions.map((q, i) => `
+          ${questions.map((q_orig, i) => {
+            const { options, correctIdx } = shuffleOptions(q_orig.a, q_orig.c);
+            const q = { ...q_orig, a: options, c: correctIdx };
+            questions[i] = q; // Update local array
+            return `
             <div class="space-y-4">
               <div class="flex items-start gap-3">
                 <span class="w-6 h-6 rounded-lg bg-slate-800 flex items-center justify-center text-[10px] font-black pointer-events-none">${i + 1}</span>
@@ -306,7 +314,7 @@ export const renderLevel1 = (container) => {
                 `).join('')}
               </div>
             </div>
-          `).join('')}
+          `}).join('')}
         </div>
         
         <button id="finish-l1" class="btn-primary w-full py-6 group">

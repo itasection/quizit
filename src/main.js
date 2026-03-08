@@ -5,6 +5,8 @@ import { renderLevel1 } from './levels/level1';
 import { renderLevel2 } from './levels/level2';
 import { renderLevel3 } from './levels/level3';
 import { renderResults } from './results';
+import { submitScore } from './services/backend';
+import { formatTime } from './utils';
 
 const app = document.querySelector('#app');
 
@@ -71,6 +73,16 @@ const renderTermination = (container) => {
 
 document.addEventListener('fullscreenchange', () => {
   if (!document.fullscreenElement && gameState.level > 0 && gameState.level < 4) {
+    const timeStr = formatTime(Date.now() - gameState.startTime);
+    submitScore({
+      ...gameState.user,
+      l1: gameState.scores.l1,
+      l2: gameState.scores.l2,
+      l3: gameState.scores.l3,
+      totalTime: timeStr,
+      status: 'TERMINATED_BY_FULLSCREEN_EXIT'
+    }).then(() => console.log('Termination data submitted')).catch(err => console.error(err));
+    
     updateState({ level: -1 });
   }
 });

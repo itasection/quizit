@@ -1,5 +1,5 @@
 import { updateState, gameState } from '../state';
-import { animateCSS, formatTime } from '../utils';
+import { animateCSS, formatTime, shuffleOptions } from '../utils';
 import confetti from 'canvas-confetti';
 import { submitScore } from '../services/backend';
 
@@ -188,8 +188,8 @@ export const renderLevel2 = (container) => {
     };
 
     const handleSubmission = () => {
-      if (input.value.trim() === terms[termIndex]) {
-        l2Marks += 2;
+      if (input.value.trim().toLowerCase() === terms[termIndex].toLowerCase()) {
+        l2Marks += 1;
         animateCSS(termDisplay, 'rubberBand');
       } else {
         animateCSS(termDisplay, 'shakeX');
@@ -235,7 +235,9 @@ export const renderLevel2 = (container) => {
 
     const renderCurrentRebus = () => {
       if (rebusTimerId) clearInterval(rebusTimerId);
-      const r = rebuses[currentRebus];
+      const originalRebus = rebuses[currentRebus];
+      const { options, correctIdx } = shuffleOptions(originalRebus.a, originalRebus.c);
+      const r = { ...originalRebus, a: options, c: correctIdx };
       rebusTimer = 10;
 
       levelDiv.innerHTML = `
@@ -278,7 +280,7 @@ export const renderLevel2 = (container) => {
 
       const nextRebus = (correct = false) => {
         clearInterval(rebusTimerId);
-        if (correct) rebusMarks += 2;
+        if (correct) rebusMarks += 1;
         currentRebus++;
         if (currentRebus === rebuses.length) {
           l2Marks += rebusMarks;
@@ -317,14 +319,14 @@ export const renderLevel2 = (container) => {
     let timerId;
 
     const renderScenario = () => {
-      if (timerId) clearInterval(timerId);
-      
       if (qIdx === scenarios.length) {
         finishL2();
         return;
       }
       
-      const s = scenarios[qIdx];
+      const originalScenario = scenarios[qIdx];
+      const { options, correctIdx } = shuffleOptions(originalScenario.a, originalScenario.c);
+      const s = { ...originalScenario, a: options, c: correctIdx };
       qTimer = 60; // 1 minute per question
 
       levelDiv.innerHTML = `

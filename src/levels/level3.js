@@ -1,5 +1,5 @@
 import { updateState, gameState } from '../state';
-import { animateCSS, formatTime } from '../utils';
+import { animateCSS, formatTime, shuffleOptions } from '../utils';
 import confetti from 'canvas-confetti';
 import { submitScore } from '../services/backend';
 
@@ -207,7 +207,7 @@ export const renderLevel3 = (container) => {
       l3Marks += 50;
       currentTask = 2;
       animateCSS(levelDiv, 'fadeOut').then(renderTask2);
-    });
+    }, { once: true });
   };
 
   const renderTask2 = () => {
@@ -233,6 +233,10 @@ export const renderLevel3 = (container) => {
         return;
       }
 
+      const originalPassage = passages[pIdx];
+      const { options, correctIdx } = shuffleOptions(originalPassage.a, originalPassage.c);
+      const passage = { ...originalPassage, a: options, c: correctIdx };
+
       // Prank Logic: On 3rd passage
       if (pIdx === 2 && !prankTriggered) {
         prankTriggered = true;
@@ -256,7 +260,7 @@ export const renderLevel3 = (container) => {
         }, 5000); // 5s black screen
       }
 
-      const passage = passages[pIdx];
+
       levelDiv.innerHTML = `
         ${renderHeader('<span id="t2-timer" class="text-2xl font-black font-mono text-white bg-red-600 px-3 py-1 rounded-lg">5:00</span>')}
         <div class="card space-y-8 animate__animated animate__fadeInUp !bg-black/90 border-red-500/40 thunder-blink">
@@ -369,7 +373,9 @@ export const renderLevel3 = (container) => {
         finishLevel3();
         return;
       }
-      const q = questions[qIdx];
+      const originalQuestion = questions[qIdx];
+      const { options, correctIdx } = shuffleOptions(originalQuestion.a, originalQuestion.c);
+      const q = { ...originalQuestion, a: options, c: correctIdx };
       timer = q.t;
 
       levelDiv.innerHTML = `

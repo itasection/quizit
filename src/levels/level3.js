@@ -35,7 +35,7 @@ export const renderLevel3 = (container) => {
         <div class="door-frame !border-red-900/50 !bg-red-950/20">
           <div class="absolute inset-0 bg-black rounded-inner z-0"></div>
           <div id="door-visual" class="haunted-door flex items-center justify-center">
-            <img src="${import.meta.env.BASE_URL}skull.png" class="w-20 opacity-80 drop-shadow-[0_0_15px_rgba(255,255,255,0.3)] animate-pulse" alt="Skull Emblem">
+            <div class="text-6xl animate-pulse drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">💀</div>
           </div>
         </div>
         <div class="text-center space-y-2">
